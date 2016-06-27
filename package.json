@@ -6,8 +6,8 @@
   "scripts": {
     "dev": "webpack --progress --colors --watch",
     "build": "cross-env NODE_ENV=production webpack -p",
-    "test": "",
-    "lint": "eslint ./src --ignore-path .gitignore"
+    "test": "mocha --compilers js:babel-core/register --colors -w ./test/*.spec.js",
+    "lint": "eslint ./src"
   },
   "keywords": [
     "collections",
@@ -20,11 +20,13 @@
     "babel-loader": "^6.2.4",
     "babel-plugin-add-module-exports": "^0.2.1",
     "babel-preset-es2015": "^6.9.0",
+    "chai": "^3.5.0",
     "cross-env": "^1.0.8",
     "eslint": "^2.13.1",
     "eslint-config-airbnb-base": "^3.0.1",
     "eslint-loader": "^1.3.0",
     "eslint-plugin-import": "^1.9.2",
+    "mocha": "^2.5.3",
     "webpack": "^1.13.1",
     "webpack-validator": "^2.2.0"
   }

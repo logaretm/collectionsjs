@@ -79,9 +79,21 @@ export default class Collection
         return this.map((item) => item[property]);
     }
 
-    sum(property = null) {
+    sum(property = undefined) {
+        if (typeof property === 'string') {
+            return this.reduce((previous, current) =>
+                previous + current[property]
+            , 0);
+        }
+
+        if (typeof property === 'function') {
+            return this.reduce((previous, current) =>
+                previous + property(current)
+            , 0);
+        }
+
         return this.reduce((previous, current) =>
-            previous + ((typeof current === 'object') ? current[property] : current)
+            previous + current
         , 0);
     }
 
@@ -91,7 +103,11 @@ export default class Collection
             return new Collection([]);
         }
 
-        return new Collection(this.items.slice(0, count - 1));
+        if (count < 0) {
+            return new Collection(this.items.reverse()).take(-count);
+        }
+
+        return new Collection(this.items.slice(0, count));
     }
 
     average(property = null) {
@@ -112,5 +128,9 @@ export default class Collection
 
     flatten() {
         return new Collection(this.items.concat.apply([], this.items));
+    }
+
+    reverse() {
+        return new Collection(this.items.reverse());
     }
 }
