@@ -25,24 +25,28 @@ export default class Collection
     }
 
     find(index) {
-        if (typeof index === 'function') {
-            return new Collection(this.items).where(index).first();
-        }
-
         return this.items[index];
     }
 
-    first() {
+    first(callback = null) {
         if (! this.items.length) {
             return null;
+        }
+
+        if (callback && typeof(callback) === 'function') {
+            return this.filter(callback).first();
         }
 
         return this.items[0];
     }
 
-    last() {
+    last(callback = null) {
         if (! this.items.length) {
             return null;
+        }
+
+        if (callback && typeof(callback) === 'function') {
+            return this.filter(callback).last();
         }
 
         return this.items[this.items.length - 1];
@@ -73,11 +77,7 @@ export default class Collection
         if (typeof this.items === 'object') {
             keys = Object.keys(this.items);
         } else {
-            const keysIterator = this.items.keys();
-
-            for (let i = keysIterator.next(); ! i.done; i = keysIterator.next()) {
-                keys.push(i.value);
-            }
+            keys = [...this.items.keys()];
         }
 
         return new Collection(keys);

@@ -42,6 +42,16 @@ describe('Collection', () => {
             const first = new Collection([6, 2, 3, 4, 5]).first();
             assert.equal(6, first);
         });
+
+        it('should return first element that satisifies a predicate/callback', () => {
+            const first = new Collection([
+                { name: "Bran Stark", age: 7 },
+                { name: "Arya Stark", age: 9 },
+                { name: "Jon Snow", age: 14 }
+            ]).first((item) => item.age > 7);
+
+            assert.deepEqual({ name: "Arya Stark", age: 9 }, first);
+        });
     });
 
     describe('#last()', () => {
@@ -54,10 +64,20 @@ describe('Collection', () => {
             const last = new Collection([6, 2, 3, 4, 5]).last();
             assert.equal(5, last);
         });
+
+        it('should return the last element that satisifies a predicate/callback', () => {
+            const last = new Collection([
+                { name: "Arya Stark", age: 9 },
+                { name: "Bran Stark", age: 7 },
+                { name: "Jon Snow", age: 14 }
+            ]).last((item) => item.age <= 10);
+
+            assert.deepEqual({ name: "Bran Stark", age: 7 }, last);
+        });
     });
 
     describe('#keys()', () => {
-        it('should return a new collection with the array keys', () => {
+        it('should return a new collection with the object keys', () => {
             const keys = new Collection({
                 "arya": 10,
                 "john": 20,
@@ -66,6 +86,13 @@ describe('Collection', () => {
 
             assert.instanceOf(keys, Collection);
             assert.deepEqual(["arya", "john", "potato"], keys.all());
+        });
+
+        it('should return a new collection with the array keys', () => {
+            const keys = new Collection(["arya", "john", "potato"]).keys();
+
+            assert.instanceOf(keys, Collection);
+            assert.deepEqual(['0', '1', '2'], keys.all());
         });
     });
 
@@ -211,6 +238,14 @@ describe('Collection', () => {
         it('should stringify the collection contents', () => {
             const collection = new Collection([1, 2, 3]);
             assert.equal(JSON.stringify([1, 2, 3]), collection.toJson());
+        });
+    });
+
+    describe('#find()', () => {
+        it('should return the element in that index', () => {
+            const collection = new Collection(['jon', 'arya', 'martin']);
+
+            assert.equal('arya', collection.find(1));
         });
     });
 
