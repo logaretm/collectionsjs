@@ -68,7 +68,19 @@ export default class Collection
     }
 
     keys() {
-        return new Collection(...this.items.keys());
+        let keys = [];
+
+        if (typeof this.items === 'object') {
+            keys = Object.keys(this.items);
+        } else {
+            const keysIterator = this.items.keys();
+
+            for (let i = keysIterator.next(); ! i.done; i = keysIterator.next()) {
+                keys.push(i.value);
+            }
+        }
+
+        return new Collection(keys);
     }
 
     reduce(callback, initial) {
@@ -126,8 +138,14 @@ export default class Collection
         this.add(item);
     }
 
-    flatten() {
-        return new Collection(this.items.concat.apply([], this.items));
+    flatten(deep = false) {
+        const flattened = new Collection([].concat(...this.items));
+
+        if (deep && flattened.all().some(Array.isArray)) {
+            return flattened.flatten(true);
+        }
+
+        return flattened;
     }
 
     reverse() {
