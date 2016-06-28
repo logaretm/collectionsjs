@@ -1,5 +1,5 @@
 const assert = require('chai').assert;
-const Collection = require('./../dist/collection');
+import Collection from './../src/collection';
 
 describe('Collection', () => {
 

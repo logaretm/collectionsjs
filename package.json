@@ -6,9 +6,9 @@
   "scripts": {
     "dev": "webpack --progress --colors --watch",
     "build": "cross-env NODE_ENV=production webpack -p",
-    "test": "mocha --compilers js:babel-core/register --colors -w",
+    "test": "nyc mocha --compilers js:babel-core/register --colors",
     "lint": "eslint ./src",
-    "cover": "istanbul cover ./node_modules/mocha/bin/_mocha"
+    "cover": "nyc --require babel-core/register mocha"
   },
   "keywords": [
     "collections",
@@ -19,6 +19,7 @@
   "dependencies": {},
   "devDependencies": {
     "babel-loader": "^6.2.4",
+    "babel-plugin-__coverage__": "^11.0.0",
     "babel-plugin-add-module-exports": "^0.2.1",
     "babel-preset-es2015": "^6.9.0",
     "chai": "^3.5.0",
@@ -29,6 +30,7 @@
     "eslint-plugin-import": "^1.9.2",
     "istanbul": "^0.4.4",
     "mocha": "^2.5.3",
+    "nyc": "^6.6.1",
     "webpack": "^1.13.1",
     "webpack-validator": "^2.2.0"
   }
