@@ -4,24 +4,37 @@ export default class Collection
         this.items = items;
     }
 
+    add(item) {
+        this.items.push(item);
+    }
+
     all() {
         return this.getItems();
     }
 
-    getItems() {
-        return this.items;
+    average(property = null) {
+        return this.sum(property) / this.count();
     }
 
-    each(callback) {
-        if (! callback || typeof callback !== 'function') {
-            return;
+    concat(collection) {
+        if (Array.isArray(collection)) {
+            return new Collection(this.items.concat(collection));
         }
 
-        this.items.forEach(callback);
+        return new Collection(this.items.concat(collection.all()));
     }
 
     count() {
         return this.items.length;
+    }
+
+
+    each(callback) {
+        this.items.forEach(callback);
+    }
+
+    filter(callback) {
+        return new Collection(this.items.filter(callback));
     }
 
     find(index) {
@@ -40,6 +53,32 @@ export default class Collection
         return this.items[0];
     }
 
+    flatten(deep = false) {
+        const flattened = new Collection([].concat(...this.items));
+
+        if (deep && flattened.all().some(Array.isArray)) {
+            return flattened.flatten(true);
+        }
+
+        return flattened;
+    }
+
+    getItems() {
+        return this.items;
+    }
+
+    keys() {
+        let keys = [];
+
+        if (typeof this.items === 'object') {
+            keys = Object.keys(this.items);
+        } else {
+            keys = [...this.items.keys()];
+        }
+
+        return new Collection(keys);
+    }
+
     last(callback = null) {
         if (! this.items.length) {
             return null;
@@ -56,8 +95,16 @@ export default class Collection
         return new Collection(this.items.map(callback));
     }
 
-    filter(callback) {
-        return new Collection(this.items.filter(callback));
+    pluck(property) {
+        return this.map((item) => item[property]);
+    }
+
+    push(item) {
+        this.add(item);
+    }
+
+    reduce(callback, initial) {
+        return this.items.reduce(callback, initial);
     }
 
     reject(callback) {
@@ -71,24 +118,8 @@ export default class Collection
         return new Collection(items);
     }
 
-    keys() {
-        let keys = [];
-
-        if (typeof this.items === 'object') {
-            keys = Object.keys(this.items);
-        } else {
-            keys = [...this.items.keys()];
-        }
-
-        return new Collection(keys);
-    }
-
-    reduce(callback, initial) {
-        return this.items.reduce(callback, initial);
-    }
-
-    pluck(property) {
-        return this.map((item) => item[property]);
+    reverse() {
+        return new Collection(this.items.reverse());
     }
 
     sum(property = undefined) {
@@ -109,7 +140,6 @@ export default class Collection
         , 0);
     }
 
-
     take(count) {
         if (! count) {
             return new Collection([]);
@@ -122,33 +152,19 @@ export default class Collection
         return new Collection(this.items.slice(0, count));
     }
 
-    average(property = null) {
-        return this.sum(property) / this.count();
-    }
-
     toJson() {
         return JSON.stringify(this.items);
     }
 
-    add(item) {
-        this.items.push(item);
-    }
-
-    push(item) {
-        this.add(item);
-    }
-
-    flatten(deep = false) {
-        const flattened = new Collection([].concat(...this.items));
-
-        if (deep && flattened.all().some(Array.isArray)) {
-            return flattened.flatten(true);
+    where(callback, value = null) {
+        if (typeof(callback) === 'string') {
+            return this.filter(item => item[callback] === value);
         }
 
-        return flattened;
+        return this.filter(callback);
     }
 
-    reverse() {
-        return new Collection(this.items.reverse());
+    zip(array) {
+        return this.map((item, index) => [item, array[index]]);
     }
 }

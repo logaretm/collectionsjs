@@ -3,6 +3,15 @@ import Collection from './../src/collection';
 
 describe('Collection', () => {
 
+    describe('#add()', () => {
+        it('should add an item to the collection', () => {
+            const collection = new Collection();
+            const item = "Arya";
+            collection.add(item);
+            assert.equal(item, collection.first());
+        });
+    });
+
     describe('#all()', () => {
         it('should return internal array elements', () => {
             let collection = new Collection([1, 2, 3]);
@@ -10,10 +19,52 @@ describe('Collection', () => {
         });
     });
 
-    describe('#getItems()', () => {
-        it('should return internal array elements', () => {
-            let collection = new Collection([1, 2, 3]);
-            assert.deepEqual([1, 2, 3], collection.getItems());
+    describe('#average', () => {
+        it('should calculate the average of the elements directly', () => {
+            let avg = new Collection([1, 2, 3, 4]).average();
+            assert.equal(2.5, avg);
+        });
+
+        it('should calculate the average of a property in the elements', () => {
+            let avg = new Collection([
+                { name: "Arya Stark", age: 9 },
+                { name: "Bran Stark", age: 7 },
+                { name: "Jon Snow", age: 14 }
+            ]).average('age');
+            assert.equal(10, avg);
+        });
+
+
+        it('should calculate the average of a callback called on all elements', () => {
+            let avg = new Collection([
+                { name: "Arya Stark", age: 9 },
+                { name: "Bran Stark", age: 7 },
+                { name: "Jon Snow", age: 14 }
+            ]).average((item) => item.age);
+            assert.equal(10, avg);
+        });
+    });
+
+    describe('#concat()', () => {
+        it('should concat a collection and an array', () => {
+            const collection = new Collection([1, 2, 3]).concat([4, 5]);
+
+            assert.deepEqual([1, 2, 3, 4, 5], collection.all());
+        });
+
+        it('should concat two collections', () => {
+            const collection = new Collection([1, 2, 3]).concat(
+                new Collection([4, 5])
+            );
+
+            assert.deepEqual([1, 2, 3, 4, 5], collection.all());
+        });
+    });
+
+    describe('#count()', () => {
+        it('should return collection count', () => {
+            const count = new Collection([1, 2, 3, 4, 5]).count();
+            assert.equal(5, count);
         });
     });
 
@@ -25,10 +76,19 @@ describe('Collection', () => {
         });
     });
 
-    describe('#count()', () => {
-        it('should return collection count', () => {
-            const count = new Collection([1, 2, 3, 4, 5]).count();
-            assert.equal(5, count);
+    describe('#filter()', () => {
+        it('should return a collection with filtered items', () => {
+            let collection = new Collection([1, 4, 8, 10, 20]).filter((item) => item >= 5);
+            assert.instanceOf(collection, Collection);
+            assert.deepEqual([8, 10, 20], collection.all());
+        });
+    });
+
+    describe('#find()', () => {
+        it('should return the element in that index', () => {
+            const collection = new Collection(['jon', 'arya', 'martin']);
+
+            assert.equal('arya', collection.find(1));
         });
     });
 
@@ -54,25 +114,22 @@ describe('Collection', () => {
         });
     });
 
-    describe('#last()', () => {
-        it('should return null if the collection is empty', () => {
-            const last = new Collection().last();
-            assert.isNull(last);
+    describe('#flatten()', () => {
+        it('should flatten the collection elements by one level', () => {
+            const collection = new Collection([1, [2, [3, [4]], 5]]).flatten(false);
+            assert.deepEqual([1, 2, [3, [4]], 5], collection.all());
         });
 
-        it('should return last element in a collection', () => {
-            const last = new Collection([6, 2, 3, 4, 5]).last();
-            assert.equal(5, last);
+        it('should flatten the collection elements deeply', () => {
+            const collection = new Collection([1, [2, [3, [4]], 5]]).flatten(true);
+            assert.deepEqual([1, 2, 3, 4, 5], collection.all());
         });
+    });
 
-        it('should return the last element that satisifies a predicate/callback', () => {
-            const last = new Collection([
-                { name: "Arya Stark", age: 9 },
-                { name: "Bran Stark", age: 7 },
-                { name: "Jon Snow", age: 14 }
-            ]).last((item) => item.age <= 10);
-
-            assert.deepEqual({ name: "Bran Stark", age: 7 }, last);
+    describe('#getItems()', () => {
+        it('should return internal array elements', () => {
+            let collection = new Collection([1, 2, 3]);
+            assert.deepEqual([1, 2, 3], collection.getItems());
         });
     });
 
@@ -93,6 +150,28 @@ describe('Collection', () => {
 
             assert.instanceOf(keys, Collection);
             assert.deepEqual(['0', '1', '2'], keys.all());
+        });
+    });
+
+    describe('#last()', () => {
+        it('should return null if the collection is empty', () => {
+            const last = new Collection().last();
+            assert.isNull(last);
+        });
+
+        it('should return last element in a collection', () => {
+            const last = new Collection([6, 2, 3, 4, 5]).last();
+            assert.equal(5, last);
+        });
+
+        it('should return the last element that satisifies a predicate/callback', () => {
+            const last = new Collection([
+                { name: "Arya Stark", age: 9 },
+                { name: "Bran Stark", age: 7 },
+                { name: "Jon Snow", age: 14 }
+            ]).last((item) => item.age <= 10);
+
+            assert.deepEqual({ name: "Bran Stark", age: 7 }, last);
         });
     });
 
@@ -117,11 +196,22 @@ describe('Collection', () => {
         });
     });
 
-    describe('#filter()', () => {
-        it('should return a collection with filtered items', () => {
-            let collection = new Collection([1, 4, 8, 10, 20]).filter((item) => item >= 5);
-            assert.instanceOf(collection, Collection);
-            assert.deepEqual([8, 10, 20], collection.all());
+    describe('#push()', () => {
+        it('should add an item to the collection', () => {
+            const collection = new Collection();
+            const item = "Arya";
+            collection.push(item);
+            assert.equal(item, collection.first());
+        });
+    });
+
+    describe('#reduce()', () => {
+        it('should return a single value from the collection', () => {
+            let value = new Collection([1, 2, 3]).reduce(
+                (previous, current) => previous + current,
+                 0
+             );
+            assert.equal(6, value);
         });
     });
 
@@ -130,6 +220,14 @@ describe('Collection', () => {
             let collection = new Collection([1, 5, 10, 15, 20, 25]).reject((item) => item > 5);
             assert.instanceOf(collection, Collection);
             assert.deepEqual([1, 5], collection.all());
+        });
+    });
+
+    describe('#reverse()', () => {
+        it('should return a collection with reversed element order', () => {
+            let collection = new Collection([1, 2, 3]).reverse();
+
+            assert.deepEqual([3, 2, 1], collection.all());
         });
     });
 
@@ -160,42 +258,6 @@ describe('Collection', () => {
         });
     });
 
-    describe('#average', () => {
-        it('should calculate the average of the elements directly', () => {
-            let avg = new Collection([1, 2, 3, 4]).average();
-            assert.equal(2.5, avg);
-        });
-
-        it('should calculate the average of a property in the elements', () => {
-            let avg = new Collection([
-                { name: "Arya Stark", age: 9 },
-                { name: "Bran Stark", age: 7 },
-                { name: "Jon Snow", age: 14 }
-            ]).average('age');
-            assert.equal(10, avg);
-        });
-
-
-        it('should calculate the average of a callback called on all elements', () => {
-            let avg = new Collection([
-                { name: "Arya Stark", age: 9 },
-                { name: "Bran Stark", age: 7 },
-                { name: "Jon Snow", age: 14 }
-            ]).average((item) => item.age);
-            assert.equal(10, avg);
-        });
-    });
-
-    describe('#reduce()', () => {
-        it('should return a single value from the collection', () => {
-            let value = new Collection([1, 2, 3]).reduce(
-                (previous, current) => previous + current,
-                 0
-             );
-            assert.equal(6, value);
-        });
-    });
-
     describe('#take()', () => {
         it('should return empty collection if the count is 0', () => {
             let collection = new Collection([1, 2, 3, 4, 5]).take(0);
@@ -216,24 +278,6 @@ describe('Collection', () => {
         });
     });
 
-    describe('#push()', () => {
-        it('should add an item to the collection', () => {
-            const collection = new Collection();
-            const item = "Arya";
-            collection.push(item);
-            assert.equal(item, collection.first());
-        });
-    });
-
-    describe('#add()', () => {
-        it('should add an item to the collection', () => {
-            const collection = new Collection();
-            const item = "Arya";
-            collection.add(item);
-            assert.equal(item, collection.first());
-        });
-    });
-
     describe('#toJson()', () => {
         it('should stringify the collection contents', () => {
             const collection = new Collection([1, 2, 3]);
@@ -241,23 +285,29 @@ describe('Collection', () => {
         });
     });
 
-    describe('#find()', () => {
-        it('should return the element in that index', () => {
-            const collection = new Collection(['jon', 'arya', 'martin']);
+    describe('#where()', () => {
+        it('should return a filtered collection which elements satisfy the callback', () => {
+            const collection = new Collection([1, 2, 3]).where((item) => item > 2);
 
-            assert.equal('arya', collection.find(1));
+            assert.equal(3, collection.first());
+        });
+
+        it('should return a filtered collection which elements object properties equal the value', () => {
+            const collection =  new Collection([
+                { name: "Arya Stark", age: 9 },
+                { name: "Bran Stark", age: 7 },
+                { name: "Jon Snow", age: 14 }
+            ]).where('age', 14);
+
+            assert.deepEqual({ name: "Jon Snow", age: 14 }, collection.first());
         });
     });
 
-    describe('#flatten()', () => {
-        it('should flatten the collection elements by one level', () => {
-            const collection = new Collection([1, [2, [3, [4]], 5]]).flatten(false);
-            assert.deepEqual([1, 2, [3, [4]], 5], collection.all());
-        });
+    describe('#zip()', () => {
+        it('should return a collection whose elements are pairs of the two arrays', () => {
+            const collection = new Collection([1, 2, 3]).zip(['a', 'b', 'c']);
 
-        it('should flatten the collection elements deeply', () => {
-            const collection = new Collection([1, [2, [3, [4]], 5]]).flatten(true);
-            assert.deepEqual([1, 2, 3, 4, 5], collection.all());
+            assert.deepEqual([[1, 'a'], [2, 'b'], [3, 'c']], collection.all());
         });
     });
 });
