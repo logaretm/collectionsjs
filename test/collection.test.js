@@ -5,7 +5,7 @@ import Collection from './../src/collection';
 test('should add an item to the collection', t => {
     const collection = new Collection();
     const item = "Arya";
-    collection.additem;
+    collection.add(item);
 
     t.is(item, collection.first());
 });
@@ -69,7 +69,7 @@ test('should return collection count', t => {
 // #each
 test('should iterate over all collection elements', t => {
     const items = [];
-    new Collection([1, 2, 3]).each(item => items.pushitem);
+    new Collection([1, 2, 3]).each(item => items.push(item));
 
     t.deepEqual([1, 2, 3], items);
 });
@@ -198,7 +198,7 @@ test('should return a mapped collection containg values from objects', t => {
 test('should add an item to the collection', t => {
     const collection = new Collection();
     const item = "Arya";
-    collection.pushitem;
+    collection.push(item);
 
     t.is(item, collection.first());
 });
