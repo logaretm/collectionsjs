@@ -6,9 +6,14 @@
   "scripts": {
     "dev": "webpack --progress --colors --watch",
     "build": "cross-env NODE_ENV=production webpack -p",
-    "test": "nyc mocha --compilers js:babel-core/register --colors",
-    "lint": "eslint ./src",
-    "cover": "nyc --require babel-core/register mocha"
+    "test": "nyc ava --colors",
+    "test:watch": "ava --watch",
+    "lint": "eslint ./src"
+  },
+  "ava": {
+    "require": [
+      "babel-register"
+    ]
   },
   "keywords": [
     "collections",
@@ -18,18 +23,17 @@
   "license": "MIT",
   "dependencies": {},
   "devDependencies": {
+    "ava": "^0.15.2",
     "babel-loader": "^6.2.4",
     "babel-plugin-__coverage__": "^11.0.0",
     "babel-plugin-add-module-exports": "^0.2.1",
     "babel-preset-es2015": "^6.9.0",
-    "chai": "^3.5.0",
     "cross-env": "^1.0.8",
     "eslint": "^2.13.1",
     "eslint-config-airbnb-base": "^3.0.1",
     "eslint-loader": "^1.3.0",
     "eslint-plugin-import": "^1.9.2",
     "istanbul": "^0.4.4",
-    "mocha": "^2.5.3",
     "nyc": "^6.6.1",
     "webpack": "^1.13.1",
     "webpack-validator": "^2.2.0"

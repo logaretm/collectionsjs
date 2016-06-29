@@ -122,6 +122,10 @@ export default class Collection
         return new Collection(this.items.reverse());
     }
 
+    stringify() {
+        return JSON.stringify(this.items);
+    }
+
     sum(property = undefined) {
         if (typeof property === 'string') {
             return this.reduce((previous, current) =>
@@ -150,10 +154,6 @@ export default class Collection
         }
 
         return new Collection(this.items.slice(0, count));
-    }
-
-    toJson() {
-        return JSON.stringify(this.items);
     }
 
     where(callback, value = null) {
