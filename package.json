@@ -8,7 +8,7 @@
     "build": "webpack && cross-env NODE_ENV=production webpack -p",
     "test": "nyc ava --colors",
     "test:watch": "ava --watch",
-    "lint": "eslint ./src"
+    "lint": "eslint ./src ./test"
   },
   "ava": {
     "require": [
