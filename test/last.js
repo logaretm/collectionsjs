@@ -15,10 +15,10 @@ test('should return last element in a collection', t => {
 
 test('should return the last element that satisifies a predicate/callback', t => {
     const last = new Collection([
-        { name: "Arya Stark", age: 9 },
-        { name: "Bran Stark", age: 7 },
-        { name: "Jon Snow", age: 14 }
+        { name: 'Arya Stark', age: 9 },
+        { name: 'Bran Stark', age: 7 },
+        { name: 'Jon Snow', age: 14 }
     ]).last(item => item.age <= 10);
 
-    t.deepEqual({ name: "Bran Stark", age: 7 }, last);
+    t.deepEqual({ name: 'Bran Stark', age: 7 }, last);
 });

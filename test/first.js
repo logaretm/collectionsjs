@@ -15,10 +15,10 @@ test('should return first element in a collection', t => {
 
 test('should return first element that satisifies a predicate/callback', t => {
     const first = new Collection([
-        { name: "Bran Stark", age: 7 },
-        { name: "Arya Stark", age: 9 },
-        { name: "Jon Snow", age: 14 }
+        { name: 'Bran Stark', age: 7 },
+        { name: 'Arya Stark', age: 9 },
+        { name: 'Jon Snow', age: 14 }
     ]).first(item => item.age > 7);
 
-    t.deepEqual({ name: "Arya Stark", age: 9 }, first);
+    t.deepEqual({ name: 'Arya Stark', age: 9 }, first);
 });
