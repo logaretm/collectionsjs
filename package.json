@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "webpack --progress --colors --watch",
-    "build": "cross-env NODE_ENV=production webpack -p",
+    "build": "webpack && cross-env NODE_ENV=production webpack -p",
     "test": "nyc ava --colors",
     "test:watch": "ava --watch",
     "lint": "eslint ./src"

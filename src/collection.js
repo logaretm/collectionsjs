@@ -16,6 +16,21 @@ export default class Collection
         return this.sum(property) / this.count();
     }
 
+    chunk(size) {
+        if (size <= 0) {
+            return new Collection();
+        }
+
+        const items = [];
+        const length = this.items.length;
+
+        for (let i = 0; i < length; i += size) {
+            items.push(this.items.slice(i, i + size));
+        }
+
+        return new Collection(items);
+    }
+
     concat(collection) {
         if (Array.isArray(collection)) {
             return new Collection(this.items.concat(collection));
