@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="../../">
+  <title data-ice="title">src/collection.js | API Document</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="script/prettify/prettify.js"></script>
+  
+  
+  <script src="script/manual.js"></script>
+</head>
+<body class="layout-container" data-ice="rootContainer">
+
+<header>
+  <a href="./">Home</a>
+  
+  <a href="identifiers.html">Reference</a>
+  <a href="source.html">Source</a>
+  
+  
+  <div class="search-box">
+  <span>
+    <img src="./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+</header>
+
+<nav class="navigation" data-ice="nav"><div>
+  <ul>
+    
+  <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/collection.js~Collection.html">Collection</a></span></span></li>
+</ul>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><h1 data-ice="title">src/collection.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">/**
+ * The Collection object.
+ */
+export default class Collection
+{
+    /**
+     * The collection constructor.
+     *
+     * @param  {Array} items = [] the array to collect.
+     * @return {Collection} A Collection object.
+     */
+    constructor(items = []) {
+        this.items = items;
+    }
+
+    /**
+     * Adds an item to the collection.
+     *
+     * @param {var} item the item to be added.
+     */
+    add(item) {
+        this.items.push(item);
+    }
+
+    /**
+     * Gets the collection elements in an array.
+     *
+     * @return {Array} the internal array.
+     */
+    all() {
+        return this.getItems();
+    }
+
+    /**
+     * Gets the average value of the array or a property or a callback return value.
+     * If no property is provided: it will calculate the average value of the array (Numeric array).
+     * If property is a string: it will calculate the average value of that property for all
+     *  objects in the array.
+     * If Property is a callback: the the averaging will use the value returned instead.
+     *
+     * @param  {function|String} property The property name or the callback function.
+     * defaults to null.
+     * @return {Number} The average value.
+     */
+    average(property = null) {
+        return this.sum(property) / this.count();
+    }
+
+    /**
+     * Chunks the collection into a new collection with equal length arrays as its items.
+     *
+     * @param  {Number} size the size of each chunk.
+     * @return {Collection} the new collection.
+     */
+    chunk(size) {
+        if (size &lt;= 0) {
+            return new Collection();
+        }
+
+        const items = [];
+        const length = this.items.length;
+
+        for (let i = 0; i &lt; length; i += size) {
+            items.push(this.items.slice(i, i + size));
+        }
+
+        return new Collection(items);
+    }
+
+    /**
+     * Concatnates the collection with an array or another collection.
+     *
+     * @param {Array|Collection} collection the array or the collection to be concatenated with.
+     * @return {Collection} concatenated collection.
+     */
+    concat(collection) {
+        if (Array.isArray(collection)) {
+            return new Collection(this.items.concat(collection));
+        }
+
+        return new Collection(this.items.concat(collection.all()));
+    }
+
+    /**
+     * Gets the number of items in the collection.
+     *
+     * @return {Number} Number of items in the collection.
+     */
+    count() {
+        return this.items.length;
+    }
+
+
+    /**
+     * Executes a callback for each element in the collection.
+     *
+     * @param  {Function} callback the callback to be excuted for each item.
+     */
+    each(callback) {
+        this.items.forEach(callback);
+    }
+
+    /**
+     * Filters the collection using a predicate (callback that returns a boolean).
+     *
+     * @param  {Function} callback A function that returns a boolean expression.
+     * @return {Collection} Filtered collection.
+     */
+    filter(callback) {
+        return new Collection(this.items.filter(callback));
+    }
+
+    /**
+     * Gets an element at a specified index.
+     *
+     * @param  {Number} index the index of the item.
+     * @return {var} the item at that index.
+     */
+    find(index) {
+        return this.items[index];
+    }
+
+    /**
+     * Gets the first element satisfying a critera.
+     * @param  {Function|null} callback the predicate (callback) that will be applied on all items.
+     * @return {var} the first item to satisfy the critera.
+     */
+    first(callback = null) {
+        if (! this.items.length) {
+            return null;
+        }
+
+        if (callback &amp;&amp; typeof(callback) === &apos;function&apos;) {
+            for (let i = 0; i &lt; this.count(); i++) {
+                if (callback(this.items[i])) {
+                    return this.items[i];
+                }
+            }
+        }
+
+        return this.items[0];
+    }
+
+    /**
+     * Flattens the collection elements.
+     *
+     * @param  {Boolean} deep recursively flatten the items (multi-level).
+     * @return {Collection} the flattened collection.
+     */
+    flatten(deep = false) {
+        const flattened = new Collection([].concat(...this.items));
+
+        if (deep &amp;&amp; flattened.all().some(Array.isArray)) {
+            return flattened.flatten(true);
+        }
+
+        return flattened;
+    }
+
+    /**
+     * Gets all elements in the collections.
+     *
+     * @return {Array} The elements in the collection.
+     */
+    getItems() {
+        return this.items;
+    }
+
+    /**
+     * Gets the collection elements keys in a new collection.
+     *
+     * @return {Collection} The keys collection.
+     */
+    keys() {
+        let keys = [];
+
+        if (typeof this.items === &apos;object&apos;) {
+            keys = Object.keys(this.items);
+        } else {
+            keys = [...this.items.keys()];
+        }
+
+        return new Collection(keys);
+    }
+
+    /**
+     * Gets the last element to satisfy a callback.
+     *
+     * @param  {Function|null} callback the predicate to be checked on all elements.
+     * @return {var} The last element in the collection that satisfies the predicate.
+     */
+    last(callback = null) {
+        if (! this.items.length) {
+            return null;
+        }
+
+        if (callback &amp;&amp; typeof(callback) === &apos;function&apos;) {
+            return this.filter(callback).last();
+        }
+
+        return this.items[this.items.length - 1];
+    }
+
+    /**
+     * Maps each element using a mapping function and collects the mapped items.
+     * @param  {Function} callback the mapping function.
+     * @return {Collection} collection containing the mapped items.
+     */
+    map(callback) {
+        return new Collection(this.items.map(callback));
+    }
+
+    /**
+     * Extracts a property from the objects in the collection.
+     *
+     * @param  {String} property the name of the property to be extracted.
+     * @return {Collection} A collection with the extracted items.
+     */
+    pluck(property) {
+        return this.map((item) =&gt; item[property]);
+    }
+
+    /**
+     * Adds an element to the collection.
+     *
+     * @param  {var} item the item to be added.
+     */
+    push(item) {
+        this.add(item);
+    }
+
+    /**
+     * Reduces the collection to a single value using a reducing function.
+     *
+     * @param  {Function} callback the reducing function.
+     * @param  {var}   initial  initial value.
+     * @return {var} the reduced results.
+     */
+    reduce(callback, initial) {
+        return this.items.reduce(callback, initial);
+    }
+
+    /**
+     * Removes the elements that do not satisfy the predicate.
+     *
+     * @param  {Function} callback the predicate used on each item.
+     * @return {Collection} A collection without the rejected elements.
+     */
+    reject(callback) {
+        const items = [];
+        this.items.forEach((item) =&gt; {
+            if (! callback(item)) {
+                items.push(item);
+            }
+        });
+
+        return new Collection(items);
+    }
+
+    /**
+     * Reverses the collection order.
+     *
+     * @return {Collection} A new collection with the reversed order.
+     */
+    reverse() {
+        return new Collection(this.items.reverse());
+    }
+
+    /**
+     * Skips a specified number of elements.
+     *
+     * @param  {Number} count the number of items to be skipped.
+     * @return {Collection} A collection without the skipped items.
+     */
+    skip(count) {
+        return this.slice(count);
+    }
+
+    /**
+     * Slices the collection starting from a specific index and ending at a specified index.
+     *
+     * @param  {Number} start The zero-based starting index.
+     * @param  {Number} end The zero-based ending index.
+     * @return {Collection} A collection with the sliced items.
+     */
+    slice(start, end = this.items.length) {
+        return new Collection(this.items.slice(start, end));
+    }
+
+    /**
+     * Stringifies the collection using JSON.stringify API.
+     *
+     * @return {String} The stringified value.
+     */
+    stringify() {
+        return JSON.stringify(this.items);
+    }
+
+    /**
+     * Sums the values of the array, or the properties, or the result of the callback.
+     *
+     * @param  {undefined|String|Function} property the property to be summed.
+     * @return {var} The sum of values used in the summation.
+     */
+    sum(property = undefined) {
+        if (typeof property === &apos;string&apos;) {
+            return this.reduce((previous, current) =&gt;
+                previous + current[property]
+            , 0);
+        }
+
+        if (typeof property === &apos;function&apos;) {
+            return this.reduce((previous, current) =&gt;
+                previous + property(current)
+            , 0);
+        }
+
+        return this.reduce((previous, current) =&gt;
+            previous + current
+        , 0);
+    }
+
+    /**
+     * Gets a new collection with the number of specified items from the begining or the end.
+     *
+     * @param  {Number} count the number of items to take. Takes from end if negative.
+     * @return {Collection} A collection with the taken items.
+     */
+    take(count) {
+        if (! count) {
+            return new Collection([]);
+        }
+
+        if (count &lt; 0) {
+            return new Collection(this.items.reverse()).take(-count);
+        }
+
+        return new Collection(this.items.slice(0, count));
+    }
+
+    /**
+     * Filters the collection using a callback or equality comparison to a property in each item.
+     *
+     * @param  {Function|String} callback The callback to be used to filter the collection.
+     * @param  {var} value The value to be compared.
+     * @return {Collection} A collection with the filtered items.
+     */
+    where(callback, value = null) {
+        if (typeof(callback) === &apos;string&apos;) {
+            return this.filter(item =&gt; item[callback] === value);
+        }
+
+        return this.filter(callback);
+    }
+
+    /**
+     * Pairs each item in the collection with another array item in the same index.
+     *
+     * @param  {Array|Collection} array the array to be paired with.
+     * @return {Collection} A collection with the paired items.
+     */
+    zip(array) {
+        if (array instanceof Collection) {
+            return this.map((item, index) =&gt; [item, array.find(index)]);
+        }
+
+        return this.map((item, index) =&gt; [item, array[index]]);
+    }
+}
+</code></pre>
+
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(0.4.7)</span></a>
+</footer>
+
+<script src="script/search_index.js"></script>
+<script src="script/search.js"></script>
+<script src="script/pretty-print.js"></script>
+<script src="script/inherited-summary.js"></script>
+<script src="script/test-summary.js"></script>
+<script src="script/inner-link.js"></script>
+<script src="script/patch-for-local.js"></script>
+</body>
+</html>

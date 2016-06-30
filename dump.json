@@ -1,0 +1,1636 @@
+[
+  {
+    "__docId__": 0,
+    "kind": "file",
+    "static": true,
+    "variation": null,
+    "name": "src/collection.js",
+    "memberof": null,
+    "longname": "src/collection.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 4,
+    "content": "/**\n * The Collection object.\n */\nexport default class Collection\n{\n    /**\n     * The collection constructor.\n     *\n     * @param  {Array} items = [] the array to collect.\n     * @return {Collection} A Collection object.\n     */\n    constructor(items = []) {\n        this.items = items;\n    }\n\n    /**\n     * Adds an item to the collection.\n     *\n     * @param {var} item the item to be added.\n     */\n    add(item) {\n        this.items.push(item);\n    }\n\n    /**\n     * Gets the collection elements in an array.\n     *\n     * @return {Array} the internal array.\n     */\n    all() {\n        return this.getItems();\n    }\n\n    /**\n     * Gets the average value of the array or a property or a callback return value.\n     * If no property is provided: it will calculate the average value of the array (Numeric array).\n     * If property is a string: it will calculate the average value of that property for all\n     *  objects in the array.\n     * If Property is a callback: the the averaging will use the value returned instead.\n     *\n     * @param  {function|String} property The property name or the callback function.\n     * defaults to null.\n     * @return {Number} The average value.\n     */\n    average(property = null) {\n        return this.sum(property) / this.count();\n    }\n\n    /**\n     * Chunks the collection into a new collection with equal length arrays as its items.\n     *\n     * @param  {Number} size the size of each chunk.\n     * @return {Collection} the new collection.\n     */\n    chunk(size) {\n        if (size <= 0) {\n            return new Collection();\n        }\n\n        const items = [];\n        const length = this.items.length;\n\n        for (let i = 0; i < length; i += size) {\n            items.push(this.items.slice(i, i + size));\n        }\n\n        return new Collection(items);\n    }\n\n    /**\n     * Concatnates the collection with an array or another collection.\n     *\n     * @param {Array|Collection} collection the array or the collection to be concatenated with.\n     * @return {Collection} concatenated collection.\n     */\n    concat(collection) {\n        if (Array.isArray(collection)) {\n            return new Collection(this.items.concat(collection));\n        }\n\n        return new Collection(this.items.concat(collection.all()));\n    }\n\n    /**\n     * Gets the number of items in the collection.\n     *\n     * @return {Number} Number of items in the collection.\n     */\n    count() {\n        return this.items.length;\n    }\n\n\n    /**\n     * Executes a callback for each element in the collection.\n     *\n     * @param  {Function} callback the callback to be excuted for each item.\n     */\n    each(callback) {\n        this.items.forEach(callback);\n    }\n\n    /**\n     * Filters the collection using a predicate (callback that returns a boolean).\n     *\n     * @param  {Function} callback A function that returns a boolean expression.\n     * @return {Collection} Filtered collection.\n     */\n    filter(callback) {\n        return new Collection(this.items.filter(callback));\n    }\n\n    /**\n     * Gets an element at a specified index.\n     *\n     * @param  {Number} index the index of the item.\n     * @return {var} the item at that index.\n     */\n    find(index) {\n        return this.items[index];\n    }\n\n    /**\n     * Gets the first element satisfying a critera.\n     * @param  {Function|null} callback the predicate (callback) that will be applied on all items.\n     * @return {var} the first item to satisfy the critera.\n     */\n    first(callback = null) {\n        if (! this.items.length) {\n            return null;\n        }\n\n        if (callback && typeof(callback) === 'function') {\n            for (let i = 0; i < this.count(); i++) {\n                if (callback(this.items[i])) {\n                    return this.items[i];\n                }\n            }\n        }\n\n        return this.items[0];\n    }\n\n    /**\n     * Flattens the collection elements.\n     *\n     * @param  {Boolean} deep recursively flatten the items (multi-level).\n     * @return {Collection} the flattened collection.\n     */\n    flatten(deep = false) {\n        const flattened = new Collection([].concat(...this.items));\n\n        if (deep && flattened.all().some(Array.isArray)) {\n            return flattened.flatten(true);\n        }\n\n        return flattened;\n    }\n\n    /**\n     * Gets all elements in the collections.\n     *\n     * @return {Array} The elements in the collection.\n     */\n    getItems() {\n        return this.items;\n    }\n\n    /**\n     * Gets the collection elements keys in a new collection.\n     *\n     * @return {Collection} The keys collection.\n     */\n    keys() {\n        let keys = [];\n\n        if (typeof this.items === 'object') {\n            keys = Object.keys(this.items);\n        } else {\n            keys = [...this.items.keys()];\n        }\n\n        return new Collection(keys);\n    }\n\n    /**\n     * Gets the last element to satisfy a callback.\n     *\n     * @param  {Function|null} callback the predicate to be checked on all elements.\n     * @return {var} The last element in the collection that satisfies the predicate.\n     */\n    last(callback = null) {\n        if (! this.items.length) {\n            return null;\n        }\n\n        if (callback && typeof(callback) === 'function') {\n            return this.filter(callback).last();\n        }\n\n        return this.items[this.items.length - 1];\n    }\n\n    /**\n     * Maps each element using a mapping function and collects the mapped items.\n     * @param  {Function} callback the mapping function.\n     * @return {Collection} collection containing the mapped items.\n     */\n    map(callback) {\n        return new Collection(this.items.map(callback));\n    }\n\n    /**\n     * Extracts a property from the objects in the collection.\n     *\n     * @param  {String} property the name of the property to be extracted.\n     * @return {Collection} A collection with the extracted items.\n     */\n    pluck(property) {\n        return this.map((item) => item[property]);\n    }\n\n    /**\n     * Adds an element to the collection.\n     *\n     * @param  {var} item the item to be added.\n     */\n    push(item) {\n        this.add(item);\n    }\n\n    /**\n     * Reduces the collection to a single value using a reducing function.\n     *\n     * @param  {Function} callback the reducing function.\n     * @param  {var}   initial  initial value.\n     * @return {var} the reduced results.\n     */\n    reduce(callback, initial) {\n        return this.items.reduce(callback, initial);\n    }\n\n    /**\n     * Removes the elements that do not satisfy the predicate.\n     *\n     * @param  {Function} callback the predicate used on each item.\n     * @return {Collection} A collection without the rejected elements.\n     */\n    reject(callback) {\n        const items = [];\n        this.items.forEach((item) => {\n            if (! callback(item)) {\n                items.push(item);\n            }\n        });\n\n        return new Collection(items);\n    }\n\n    /**\n     * Reverses the collection order.\n     *\n     * @return {Collection} A new collection with the reversed order.\n     */\n    reverse() {\n        return new Collection(this.items.reverse());\n    }\n\n    /**\n     * Skips a specified number of elements.\n     *\n     * @param  {Number} count the number of items to be skipped.\n     * @return {Collection} A collection without the skipped items.\n     */\n    skip(count) {\n        return this.slice(count);\n    }\n\n    /**\n     * Slices the collection starting from a specific index and ending at a specified index.\n     *\n     * @param  {Number} start The zero-based starting index.\n     * @param  {Number} end The zero-based ending index.\n     * @return {Collection} A collection with the sliced items.\n     */\n    slice(start, end = this.items.length) {\n        return new Collection(this.items.slice(start, end));\n    }\n\n    /**\n     * Stringifies the collection using JSON.stringify API.\n     *\n     * @return {String} The stringified value.\n     */\n    stringify() {\n        return JSON.stringify(this.items);\n    }\n\n    /**\n     * Sums the values of the array, or the properties, or the result of the callback.\n     *\n     * @param  {undefined|String|Function} property the property to be summed.\n     * @return {var} The sum of values used in the summation.\n     */\n    sum(property = undefined) {\n        if (typeof property === 'string') {\n            return this.reduce((previous, current) =>\n                previous + current[property]\n            , 0);\n        }\n\n        if (typeof property === 'function') {\n            return this.reduce((previous, current) =>\n                previous + property(current)\n            , 0);\n        }\n\n        return this.reduce((previous, current) =>\n            previous + current\n        , 0);\n    }\n\n    /**\n     * Gets a new collection with the number of specified items from the begining or the end.\n     *\n     * @param  {Number} count the number of items to take. Takes from end if negative.\n     * @return {Collection} A collection with the taken items.\n     */\n    take(count) {\n        if (! count) {\n            return new Collection([]);\n        }\n\n        if (count < 0) {\n            return new Collection(this.items.reverse()).take(-count);\n        }\n\n        return new Collection(this.items.slice(0, count));\n    }\n\n    /**\n     * Filters the collection using a callback or equality comparison to a property in each item.\n     *\n     * @param  {Function|String} callback The callback to be used to filter the collection.\n     * @param  {var} value The value to be compared.\n     * @return {Collection} A collection with the filtered items.\n     */\n    where(callback, value = null) {\n        if (typeof(callback) === 'string') {\n            return this.filter(item => item[callback] === value);\n        }\n\n        return this.filter(callback);\n    }\n\n    /**\n     * Pairs each item in the collection with another array item in the same index.\n     *\n     * @param  {Array|Collection} array the array to be paired with.\n     * @return {Collection} A collection with the paired items.\n     */\n    zip(array) {\n        if (array instanceof Collection) {\n            return this.map((item, index) => [item, array.find(index)]);\n        }\n\n        return this.map((item, index) => [item, array[index]]);\n    }\n}\n"
+  },
+  {
+    "__docId__": 1,
+    "kind": "class",
+    "static": true,
+    "variation": null,
+    "name": "Collection",
+    "memberof": "src/collection.js",
+    "longname": "src/collection.js~Collection",
+    "access": null,
+    "export": true,
+    "importPath": "collectionjs/src/collection.js",
+    "importStyle": "Collection",
+    "description": "The Collection object.",
+    "lineNumber": 4,
+    "interface": false
+  },
+  {
+    "__docId__": 2,
+    "kind": "constructor",
+    "static": false,
+    "variation": null,
+    "name": "constructor",
+    "memberof": "src/collection.js~Collection",
+    "longname": "src/collection.js~Collection#constructor",
+    "access": null,
+    "description": "The collection constructor.",
+    "lineNumber": 12,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "Array"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "items",
+        "description": "= [] the array to collect."
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "Collection"
+      ],
+      "spread": false,
+      "description": "A Collection object."
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 3,
+    "kind": "member",
+    "static": false,
+    "variation": null,
+    "name": "items",
+    "memberof": "src/collection.js~Collection",
+    "longname": "src/collection.js~Collection#items",
+    "access": null,
+    "description": null,
+    "lineNumber": 13,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 4,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "add",
+    "memberof": "src/collection.js~Collection",
+    "longname": "src/collection.js~Collection#add",
+    "access": null,
+    "description": "Adds an item to the collection.",
+    "lineNumber": 21,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "var"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "item",
+        "description": "the item to be added."
+      }
+    ],
+    "generator": false
+  },
+  {
+    "__docId__": 5,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "all",
+    "memberof": "src/collection.js~Collection",
+    "longname": "src/collection.js~Collection#all",
+    "access": null,
+    "description": "Gets the collection elements in an array.",
+    "lineNumber": 30,
+    "params": [],
+    "return": {
+      "nullable": null,
+      "types": [
+        "Array"
+      ],
+      "spread": false,
+      "description": "the internal array."
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 6,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "average",
+    "memberof": "src/collection.js~Collection",
+    "longname": "src/collection.js~Collection#average",
+    "access": null,
+    "description": "Gets the average value of the array or a property or a callback return value.\nIf no property is provided: it will calculate the average value of the array (Numeric array).\nIf property is a string: it will calculate the average value of that property for all\n objects in the array.\nIf Property is a callback: the the averaging will use the value returned instead.",
+    "lineNumber": 45,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "function",
+          "String"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "property",
+        "description": "The property name or the callback function.\ndefaults to null."
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "Number"
+      ],
+      "spread": false,
+      "description": "The average value."
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 7,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "chunk",
+    "memberof": "src/collection.js~Collection",
+    "longname": "src/collection.js~Collection#chunk",
+    "access": null,
+    "description": "Chunks the collection into a new collection with equal length arrays as its items.",
+    "lineNumber": 55,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "Number"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "size",
+        "description": "the size of each chunk."
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "Collection"
+      ],
+      "spread": false,
+      "description": "the new collection."
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 8,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "concat",
+    "memberof": "src/collection.js~Collection",
+    "longname": "src/collection.js~Collection#concat",
+    "access": null,
+    "description": "Concatnates the collection with an array or another collection.",
+    "lineNumber": 76,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "Array",
+          "Collection"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "collection",
+        "description": "the array or the collection to be concatenated with."
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "Collection"
+      ],
+      "spread": false,
+      "description": "concatenated collection."
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 9,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "count",
+    "memberof": "src/collection.js~Collection",
+    "longname": "src/collection.js~Collection#count",
+    "access": null,
+    "description": "Gets the number of items in the collection.",
+    "lineNumber": 89,
+    "params": [],
+    "return": {
+      "nullable": null,
+      "types": [
+        "Number"
+      ],
+      "spread": false,
+      "description": "Number of items in the collection."
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 10,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "each",
+    "memberof": "src/collection.js~Collection",
+    "longname": "src/collection.js~Collection#each",
+    "access": null,
+    "description": "Executes a callback for each element in the collection.",
+    "lineNumber": 99,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "Function"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "callback",
+        "description": "the callback to be excuted for each item."
+      }
+    ],
+    "generator": false
+  },
+  {
+    "__docId__": 11,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "filter",
+    "memberof": "src/collection.js~Collection",
+    "longname": "src/collection.js~Collection#filter",
+    "access": null,
+    "description": "Filters the collection using a predicate (callback that returns a boolean).",
+    "lineNumber": 109,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "Function"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "callback",
+        "description": "A function that returns a boolean expression."
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "Collection"
+      ],
+      "spread": false,
+      "description": "Filtered collection."
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 12,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "find",
+    "memberof": "src/collection.js~Collection",
+    "longname": "src/collection.js~Collection#find",
+    "access": null,
+    "description": "Gets an element at a specified index.",
+    "lineNumber": 119,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "Number"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "index",
+        "description": "the index of the item."
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "var"
+      ],
+      "spread": false,
+      "description": "the item at that index."
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 13,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "first",
+    "memberof": "src/collection.js~Collection",
+    "longname": "src/collection.js~Collection#first",
+    "access": null,
+    "description": "Gets the first element satisfying a critera.",
+    "lineNumber": 128,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "Function",
+          "null"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "callback",
+        "description": "the predicate (callback) that will be applied on all items."
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "var"
+      ],
+      "spread": false,
+      "description": "the first item to satisfy the critera."
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 14,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "flatten",
+    "memberof": "src/collection.js~Collection",
+    "longname": "src/collection.js~Collection#flatten",
+    "access": null,
+    "description": "Flattens the collection elements.",
+    "lineNumber": 150,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "Boolean"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "deep",
+        "description": "recursively flatten the items (multi-level)."
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "Collection"
+      ],
+      "spread": false,
+      "description": "the flattened collection."
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 15,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "getItems",
+    "memberof": "src/collection.js~Collection",
+    "longname": "src/collection.js~Collection#getItems",
+    "access": null,
+    "description": "Gets all elements in the collections.",
+    "lineNumber": 165,
+    "params": [],
+    "return": {
+      "nullable": null,
+      "types": [
+        "Array"
+      ],
+      "spread": false,
+      "description": "The elements in the collection."
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 16,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "keys",
+    "memberof": "src/collection.js~Collection",
+    "longname": "src/collection.js~Collection#keys",
+    "access": null,
+    "description": "Gets the collection elements keys in a new collection.",
+    "lineNumber": 174,
+    "params": [],
+    "return": {
+      "nullable": null,
+      "types": [
+        "Collection"
+      ],
+      "spread": false,
+      "description": "The keys collection."
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 17,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "last",
+    "memberof": "src/collection.js~Collection",
+    "longname": "src/collection.js~Collection#last",
+    "access": null,
+    "description": "Gets the last element to satisfy a callback.",
+    "lineNumber": 192,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "Function",
+          "null"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "callback",
+        "description": "the predicate to be checked on all elements."
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "var"
+      ],
+      "spread": false,
+      "description": "The last element in the collection that satisfies the predicate."
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 18,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "map",
+    "memberof": "src/collection.js~Collection",
+    "longname": "src/collection.js~Collection#map",
+    "access": null,
+    "description": "Maps each element using a mapping function and collects the mapped items.",
+    "lineNumber": 209,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "Function"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "callback",
+        "description": "the mapping function."
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "Collection"
+      ],
+      "spread": false,
+      "description": "collection containing the mapped items."
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 19,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "pluck",
+    "memberof": "src/collection.js~Collection",
+    "longname": "src/collection.js~Collection#pluck",
+    "access": null,
+    "description": "Extracts a property from the objects in the collection.",
+    "lineNumber": 219,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "String"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "property",
+        "description": "the name of the property to be extracted."
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "Collection"
+      ],
+      "spread": false,
+      "description": "A collection with the extracted items."
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 20,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "push",
+    "memberof": "src/collection.js~Collection",
+    "longname": "src/collection.js~Collection#push",
+    "access": null,
+    "description": "Adds an element to the collection.",
+    "lineNumber": 228,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "var"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "item",
+        "description": "the item to be added."
+      }
+    ],
+    "generator": false
+  },
+  {
+    "__docId__": 21,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "reduce",
+    "memberof": "src/collection.js~Collection",
+    "longname": "src/collection.js~Collection#reduce",
+    "access": null,
+    "description": "Reduces the collection to a single value using a reducing function.",
+    "lineNumber": 239,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "Function"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "callback",
+        "description": "the reducing function."
+      },
+      {
+        "nullable": null,
+        "types": [
+          "var"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "initial",
+        "description": "initial value."
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "var"
+      ],
+      "spread": false,
+      "description": "the reduced results."
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 22,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "reject",
+    "memberof": "src/collection.js~Collection",
+    "longname": "src/collection.js~Collection#reject",
+    "access": null,
+    "description": "Removes the elements that do not satisfy the predicate.",
+    "lineNumber": 249,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "Function"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "callback",
+        "description": "the predicate used on each item."
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "Collection"
+      ],
+      "spread": false,
+      "description": "A collection without the rejected elements."
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 23,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "reverse",
+    "memberof": "src/collection.js~Collection",
+    "longname": "src/collection.js~Collection#reverse",
+    "access": null,
+    "description": "Reverses the collection order.",
+    "lineNumber": 265,
+    "params": [],
+    "return": {
+      "nullable": null,
+      "types": [
+        "Collection"
+      ],
+      "spread": false,
+      "description": "A new collection with the reversed order."
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 24,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "skip",
+    "memberof": "src/collection.js~Collection",
+    "longname": "src/collection.js~Collection#skip",
+    "access": null,
+    "description": "Skips a specified number of elements.",
+    "lineNumber": 275,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "Number"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "count",
+        "description": "the number of items to be skipped."
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "Collection"
+      ],
+      "spread": false,
+      "description": "A collection without the skipped items."
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 25,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "slice",
+    "memberof": "src/collection.js~Collection",
+    "longname": "src/collection.js~Collection#slice",
+    "access": null,
+    "description": "Slices the collection starting from a specific index and ending at a specified index.",
+    "lineNumber": 286,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "Number"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "start",
+        "description": "The zero-based starting index."
+      },
+      {
+        "nullable": null,
+        "types": [
+          "Number"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "end",
+        "description": "The zero-based ending index."
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "Collection"
+      ],
+      "spread": false,
+      "description": "A collection with the sliced items."
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 26,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "stringify",
+    "memberof": "src/collection.js~Collection",
+    "longname": "src/collection.js~Collection#stringify",
+    "access": null,
+    "description": "Stringifies the collection using JSON.stringify API.",
+    "lineNumber": 295,
+    "params": [],
+    "return": {
+      "nullable": null,
+      "types": [
+        "String"
+      ],
+      "spread": false,
+      "description": "The stringified value."
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 27,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "sum",
+    "memberof": "src/collection.js~Collection",
+    "longname": "src/collection.js~Collection#sum",
+    "access": null,
+    "description": "Sums the values of the array, or the properties, or the result of the callback.",
+    "lineNumber": 305,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "undefined",
+          "String",
+          "Function"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "property",
+        "description": "the property to be summed."
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "var"
+      ],
+      "spread": false,
+      "description": "The sum of values used in the summation."
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 28,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "take",
+    "memberof": "src/collection.js~Collection",
+    "longname": "src/collection.js~Collection#take",
+    "access": null,
+    "description": "Gets a new collection with the number of specified items from the begining or the end.",
+    "lineNumber": 329,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "Number"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "count",
+        "description": "the number of items to take. Takes from end if negative."
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "Collection"
+      ],
+      "spread": false,
+      "description": "A collection with the taken items."
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 29,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "where",
+    "memberof": "src/collection.js~Collection",
+    "longname": "src/collection.js~Collection#where",
+    "access": null,
+    "description": "Filters the collection using a callback or equality comparison to a property in each item.",
+    "lineNumber": 348,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "Function",
+          "String"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "callback",
+        "description": "The callback to be used to filter the collection."
+      },
+      {
+        "nullable": null,
+        "types": [
+          "var"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "value",
+        "description": "The value to be compared."
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "Collection"
+      ],
+      "spread": false,
+      "description": "A collection with the filtered items."
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 30,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "zip",
+    "memberof": "src/collection.js~Collection",
+    "longname": "src/collection.js~Collection#zip",
+    "access": null,
+    "description": "Pairs each item in the collection with another array item in the same index.",
+    "lineNumber": 362,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "Array",
+          "Collection"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "array",
+        "description": "the array to be paired with."
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "Collection"
+      ],
+      "spread": false,
+      "description": "A collection with the paired items."
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 32,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Infinity",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Infinity",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Infinity",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 33,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "NaN",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/NaN",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~NaN",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 34,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "undefined",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/undefined",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~undefined",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 35,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "null",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/null",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~null",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 36,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Object",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Object",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 37,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "object",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~object",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 38,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Function",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Function",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 39,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "function",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~function",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 40,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Boolean",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Boolean",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 41,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "boolean",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~boolean",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 42,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Symbol",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Symbol",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 43,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Error",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Error",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 44,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "EvalError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/EvalError",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~EvalError",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 45,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "InternalError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/InternalError",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~InternalError",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 46,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "RangeError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RangeError",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~RangeError",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 47,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "ReferenceError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ReferenceError",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~ReferenceError",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 48,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "SyntaxError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/SyntaxError",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~SyntaxError",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 49,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "TypeError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/TypeError",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~TypeError",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 50,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "URIError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/URIError",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~URIError",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 51,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Number",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Number",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 52,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "number",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~number",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 53,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Date",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Date",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 54,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "String",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~String",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 55,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "string",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~string",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 56,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "RegExp",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~RegExp",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 57,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Array",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 58,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Int8Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Int8Array",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Int8Array",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 59,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Uint8Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint8Array",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Uint8Array",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 60,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Uint8ClampedArray",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint8ClampedArray",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Uint8ClampedArray",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 61,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Int16Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Int16Array",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Int16Array",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 62,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Uint16Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint16Array",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Uint16Array",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 63,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Int32Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Int32Array",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Int32Array",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 64,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Uint32Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint32Array",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Uint32Array",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 65,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Float32Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Float32Array",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Float32Array",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 66,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Float64Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Float64Array",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Float64Array",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 67,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Map",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Map",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 68,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Set",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Set",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 69,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "WeakMap",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WeakMap",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~WeakMap",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 70,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "WeakSet",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WeakSet",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~WeakSet",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 71,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "ArrayBuffer",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~ArrayBuffer",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 72,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "DataView",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/DataView",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~DataView",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 73,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "JSON",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~JSON",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 74,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Promise",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Promise",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 75,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Generator",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Generator",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Generator",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 76,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "GeneratorFunction",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/GeneratorFunction",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~GeneratorFunction",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 77,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Reflect",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Reflect",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Reflect",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 78,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Proxy",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Proxy",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 80,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "CanvasRenderingContext2D",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D",
+    "memberof": "BuiltinExternal/WebAPIExternal.js",
+    "longname": "BuiltinExternal/WebAPIExternal.js~CanvasRenderingContext2D",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 81,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "DocumentFragment",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/API/DocumentFragment",
+    "memberof": "BuiltinExternal/WebAPIExternal.js",
+    "longname": "BuiltinExternal/WebAPIExternal.js~DocumentFragment",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 82,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Element",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/API/Element",
+    "memberof": "BuiltinExternal/WebAPIExternal.js",
+    "longname": "BuiltinExternal/WebAPIExternal.js~Element",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 83,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Event",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/API/Event",
+    "memberof": "BuiltinExternal/WebAPIExternal.js",
+    "longname": "BuiltinExternal/WebAPIExternal.js~Event",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 84,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Node",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/API/Node",
+    "memberof": "BuiltinExternal/WebAPIExternal.js",
+    "longname": "BuiltinExternal/WebAPIExternal.js~Node",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 85,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "NodeList",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/API/NodeList",
+    "memberof": "BuiltinExternal/WebAPIExternal.js",
+    "longname": "BuiltinExternal/WebAPIExternal.js~NodeList",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 86,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "XMLHttpRequest",
+    "externalLink": "https://developer.mozilla.org/en/docs/Web/API/XMLHttpRequest",
+    "memberof": "BuiltinExternal/WebAPIExternal.js",
+    "longname": "BuiltinExternal/WebAPIExternal.js~XMLHttpRequest",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 87,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "AudioContext",
+    "externalLink": "https://developer.mozilla.org/en/docs/Web/API/AudioContext",
+    "memberof": "BuiltinExternal/WebAPIExternal.js",
+    "longname": "BuiltinExternal/WebAPIExternal.js~AudioContext",
+    "access": null,
+    "description": "",
+    "builtinExternal": true
+  }
+]
