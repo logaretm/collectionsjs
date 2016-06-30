@@ -137,6 +137,14 @@ export default class Collection
         return new Collection(this.items.reverse());
     }
 
+    skip(count) {
+        return this.slice(count);
+    }
+
+    slice(start, end = this.items.length) {
+        return new Collection(this.items.slice(start, end));
+    }
+
     stringify() {
         return JSON.stringify(this.items);
     }
