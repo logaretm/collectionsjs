@@ -1,0 +1,14 @@
+{
+  "coverage": "96.66%",
+  "expectCount": 30,
+  "actualCount": 29,
+  "files": {
+    "src/collection.js": {
+      "expectCount": 30,
+      "actualCount": 29,
+      "undocumentLines": [
+        13
+      ]
+    }
+  }
+}

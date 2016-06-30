@@ -1,3 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="../../">
+  <title data-ice="title">src/collection.js | API Document</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="script/prettify/prettify.js"></script>
+  
+  
+  <script src="script/manual.js"></script>
+</head>
+<body class="layout-container" data-ice="rootContainer">
+
+<header>
+  <a href="./">Home</a>
+  
+  <a href="identifiers.html">Reference</a>
+  <a href="source.html">Source</a>
+  
+  
+  <div class="search-box">
+  <span>
+    <img src="./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+</header>
+
+<nav class="navigation" data-ice="nav"><div>
+  <ul>
+    
+  <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/collection.js~Collection.html">Collection</a></span></span></li>
+</ul>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><h1 data-ice="title">src/collection.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">/**
+ * The Collection object.
+ */
 export default class Collection
 {
     /**
@@ -50,14 +93,14 @@ export default class Collection
      * @return {Collection} the new collection.
      */
     chunk(size) {
-        if (size <= 0) {
+        if (size &lt;= 0) {
             return new Collection();
         }
 
         const items = [];
         const length = this.items.length;
 
-        for (let i = 0; i < length; i += size) {
+        for (let i = 0; i &lt; length; i += size) {
             items.push(this.items.slice(i, i + size));
         }
 
@@ -127,8 +170,8 @@ export default class Collection
             return null;
         }
 
-        if (callback && typeof(callback) === 'function') {
-            for (let i = 0; i < this.count(); i++) {
+        if (callback &amp;&amp; typeof(callback) === &apos;function&apos;) {
+            for (let i = 0; i &lt; this.count(); i++) {
                 if (callback(this.items[i])) {
                     return this.items[i];
                 }
@@ -147,7 +190,7 @@ export default class Collection
     flatten(deep = false) {
         const flattened = new Collection([].concat(...this.items));
 
-        if (deep && flattened.all().some(Array.isArray)) {
+        if (deep &amp;&amp; flattened.all().some(Array.isArray)) {
             return flattened.flatten(true);
         }
 
@@ -171,7 +214,7 @@ export default class Collection
     keys() {
         let keys = [];
 
-        if (typeof this.items === 'object') {
+        if (typeof this.items === &apos;object&apos;) {
             keys = Object.keys(this.items);
         } else {
             keys = [...this.items.keys()];
@@ -191,7 +234,7 @@ export default class Collection
             return null;
         }
 
-        if (callback && typeof(callback) === 'function') {
+        if (callback &amp;&amp; typeof(callback) === &apos;function&apos;) {
             return this.filter(callback).last();
         }
 
@@ -214,7 +257,7 @@ export default class Collection
      * @return {Collection} A collection with the extracted items.
      */
     pluck(property) {
-        return this.map((item) => item[property]);
+        return this.map((item) =&gt; item[property]);
     }
 
     /**
@@ -245,7 +288,7 @@ export default class Collection
      */
     reject(callback) {
         const items = [];
-        this.items.forEach((item) => {
+        this.items.forEach((item) =&gt; {
             if (! callback(item)) {
                 items.push(item);
             }
@@ -300,19 +343,19 @@ export default class Collection
      * @return {var} The sum of values used in the summation.
      */
     sum(property = undefined) {
-        if (typeof property === 'string') {
-            return this.reduce((previous, current) =>
+        if (typeof property === &apos;string&apos;) {
+            return this.reduce((previous, current) =&gt;
                 previous + current[property]
             , 0);
         }
 
-        if (typeof property === 'function') {
-            return this.reduce((previous, current) =>
+        if (typeof property === &apos;function&apos;) {
+            return this.reduce((previous, current) =&gt;
                 previous + property(current)
             , 0);
         }
 
-        return this.reduce((previous, current) =>
+        return this.reduce((previous, current) =&gt;
             previous + current
         , 0);
     }
@@ -328,7 +371,7 @@ export default class Collection
             return new Collection([]);
         }
 
-        if (count < 0) {
+        if (count &lt; 0) {
             return new Collection(this.items.reverse()).take(-count);
         }
 
@@ -343,8 +386,8 @@ export default class Collection
      * @return {Collection} A collection with the filtered items.
      */
     where(callback, value = null) {
-        if (typeof(callback) === 'string') {
-            return this.filter(item => item[callback] === value);
+        if (typeof(callback) === &apos;string&apos;) {
+            return this.filter(item =&gt; item[callback] === value);
         }
 
         return this.filter(callback);
@@ -358,9 +401,26 @@ export default class Collection
      */
     zip(array) {
         if (array instanceof Collection) {
-            return this.map((item, index) => [item, array.find(index)]);
+            return this.map((item, index) =&gt; [item, array.find(index)]);
         }
 
-        return this.map((item, index) => [item, array[index]]);
+        return this.map((item, index) =&gt; [item, array[index]]);
     }
 }
+</code></pre>
+
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(0.4.7)</span></a>
+</footer>
+
+<script src="script/search_index.js"></script>
+<script src="script/search.js"></script>
+<script src="script/pretty-print.js"></script>
+<script src="script/inherited-summary.js"></script>
+<script src="script/test-summary.js"></script>
+<script src="script/inner-link.js"></script>
+<script src="script/patch-for-local.js"></script>
+</body>
+</html>
