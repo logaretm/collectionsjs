@@ -101,9 +101,7 @@ Here is a brief summary, read the docs for different behaviors and usage:
 
 ### Testing
 
-I use `ava` for testing which is an amazing framework.
-
-`npm install`
+I use `ava` for testing which is an amazing test runner. With `nyc` for coverage.
 
 `npm run test`
 
@@ -115,6 +113,13 @@ and you can lint with
 
 Go a head and you will be fully credited.
 Don't forget to follow the code style and always add a test file for any additions.
+
+### Build
+
+* Clone the repo.
+* `npm install`
+* Write code better than mine.
+* `npm run build` which will build both minified and unminified versions.
 
 
 ### So...Performance?
