@@ -9,8 +9,8 @@
     "longname": "src/collection.js",
     "access": null,
     "description": null,
-    "lineNumber": 2,
-    "content": "\nexport default class Collection\n{\n    /**\n     * The collection constructor.\n     *\n     * @param  {?Array} items = [] the array to collect.\n     * @return {Collection} A Collection object.\n     */\n    constructor(items = []) {\n        this.items = items;\n        this.length = items.length;\n    }\n\n    /**\n     * Adds an item to the collection.\n     *\n     * @param {var} item the item to be added.\n     */\n    add(item) {\n        this.items.push(item);\n        this.length = this.items.length;\n    }\n\n    /**\n     * Gets the collected elements in an array.\n     *\n     * @return {Array} the internal array.\n     */\n    all() {\n        return this.items;\n    }\n\n    /**\n     * Gets the average value of the array or a property or a callback return value.\n     * If no property is provided: it will calculate the average value of the array (Numeric array).\n     * If property is a string: it will calculate the average value of that property for all\n     *  objects in the array.\n     * If Property is a callback: the the averaging will use the value returned instead.\n     *\n     * @param  {Function|String} [property=null] The property name or the callback function.\n     * defaults to null.\n     * @return {Number} The average value.\n     */\n    average(property = null) {\n        return this.sum(property) / this.count();\n    }\n\n    /**\n     * Chunks the collection into a new collection with equal length arrays as its items.\n     *\n     * @param  {Number} size the size of each chunk.\n     * @return {Collection} the new collection.\n     */\n    chunk(size) {\n        if (size <= 0) {\n            return new Collection();\n        }\n\n        const items = [];\n        const length = this.items.length;\n\n        for (let i = 0; i < length; i += size) {\n            items.push(this.items.slice(i, i + size));\n        }\n\n        return new Collection(items);\n    }\n\n    /**\n     * Static constructor. Will transform a string to array of strings.\n     *\n     * @param  {Array|String} collectable the array or the string to wrapped in a collection.\n     * @return {Collection} A collection that wraps the collectable items.\n     */\n    static collect(collectable) {\n        let items = collectable;\n        if (typeof collectable === 'string') {\n            items = collectable.split();\n        }\n\n        return new Collection(items);\n    }\n\n    /**\n     * Concatnates the collection with an array or another collection.\n     *\n     * @param {Array|Collection} collection the array or the collection to be concatenated with.\n     * @return {Collection} concatenated collection.\n     */\n    concat(collection) {\n        if (Array.isArray(collection)) {\n            return new Collection(this.items.concat(collection));\n        }\n\n        return new Collection(this.items.concat(collection.all()));\n    }\n\n    /**\n     * Gets the number of items in the collection.\n     *\n     * @return {Number} Number of items in the collection.\n     */\n    count() {\n        return this.length;\n    }\n\n\n    /**\n     * Executes a callback for each element in the collection.\n     *\n     * @param  {Function} callback the callback to be excuted for each item.\n     */\n    each(callback) {\n        this.items.forEach(callback);\n    }\n\n    /**\n     * Filters the collection using a predicate (callback that returns a boolean).\n     *\n     * @param  {Function} callback A function that returns a boolean expression.\n     * @return {Collection} Filtered collection.\n     */\n    filter(callback) {\n        return new Collection(this.items.filter(callback));\n    }\n\n    /**\n     * Gets an element at a specified index.\n     *\n     * @param  {Number} index the index of the item.\n     * @return {var} the item at that index.\n     */\n    find(index) {\n        return this.items[index];\n    }\n\n    /**\n     * Gets the first element satisfying a critera.\n     *\n     * @param  {Function} [callback=null] the predicate (callback) that will be applied on items.\n     * @return {var} the first item to satisfy the critera.\n     */\n    first(callback = null) {\n        if (! this.items.length) {\n            return null;\n        }\n\n        if (callback && typeof(callback) === 'function') {\n            const length = this.count();\n            for (let i = 0; i < length; i++) {\n                if (callback(this.items[i])) {\n                    return this.items[i];\n                }\n            }\n        }\n\n        return this.items[0];\n    }\n\n    /**\n     * Flattens the collection elements.\n     *\n     * @param  {Boolean} [deep=false] recursively flatten the items (multi-level).\n     * @return {Collection} the flattened collection.\n     */\n    flatten(deep = false) {\n        const flattened = new Collection([].concat(...this.items));\n\n        if (deep && flattened.all().some(Array.isArray)) {\n            return flattened.flatten(true);\n        }\n\n        return flattened;\n    }\n\n    /**\n     * Gets the collection elements keys in a new collection.\n     *\n     * @return {Collection} The keys collection.\n     */\n    keys() {\n        let keys = [];\n\n        if (typeof this.items === 'object') {\n            keys = Object.keys(this.items);\n        } else {\n            keys = [...this.items.keys()];\n        }\n\n        return new Collection(keys);\n    }\n\n    /**\n     * Gets the last element to satisfy a callback.\n     *\n     * @param  {Function} [callback=null] the predicate to be checked on all elements.\n     * @return {var} The last element in the collection that satisfies the predicate.\n     */\n    last(callback = null) {\n        if (! this.items.length) {\n            return null;\n        }\n\n        if (callback && typeof(callback) === 'function') {\n            return this.filter(callback).last();\n        }\n\n        return this.items[this.items.length - 1];\n    }\n\n    /**\n     * Maps each element using a mapping function and collects the mapped items.\n     * @param  {Function} callback the mapping function.\n     * @return {Collection} collection containing the mapped items.\n     */\n    map(callback) {\n        return new Collection(this.items.map(callback));\n    }\n\n    /**\n     * Extracts a property from the objects in the collection.\n     *\n     * @param  {String} property the name of the property to be extracted.\n     * @return {Collection} A collection with the extracted items.\n     */\n    pluck(property) {\n        return this.map((item) => item[property]);\n    }\n\n    /**\n     * Adds an element to the collection.\n     *\n     * @param  {var} item the item to be added.\n     */\n    push(item) {\n        this.add(item);\n    }\n\n    /**\n     * Reduces the collection to a single value using a reducing function.\n     *\n     * @param  {Function} callback the reducing function.\n     * @param  {var} initial  initial value.\n     * @return {var} The reduced results.\n     */\n    reduce(callback, initial) {\n        return this.items.reduce(callback, initial);\n    }\n\n    /**\n     * Removes the elements that do not satisfy the predicate.\n     *\n     * @param  {Function} callback the predicate used on each item.\n     * @return {Collection} A collection without the rejected elements.\n     */\n    reject(callback) {\n        const items = [];\n        this.items.forEach((item) => {\n            if (! callback(item)) {\n                items.push(item);\n            }\n        });\n\n        return new Collection(items);\n    }\n\n    /**\n     * Reverses the collection order.\n     *\n     * @return {Collection} A new collection with the reversed order.\n     */\n    reverse() {\n        return new Collection(this.items.reverse());\n    }\n\n    /**\n     * Skips a specified number of elements.\n     *\n     * @param  {Number} count the number of items to be skipped.\n     * @return {Collection} A collection without the skipped items.\n     */\n    skip(count) {\n        return this.slice(count);\n    }\n\n    /**\n     * Slices the collection starting from a specific index and ending at a specified index.\n     *\n     * @param  {Number} start The zero-based starting index.\n     * @param  {Number} [end=length] The zero-based ending index.\n     * @return {Collection} A collection with the sliced items.\n     */\n    slice(start, end = this.length) {\n        return new Collection(this.items.slice(start, end));\n    }\n\n    /**\n     * Stringifies the collection using JSON.stringify API.\n     *\n     * @return {String} The stringified value.\n     */\n    stringify() {\n        return JSON.stringify(this.items);\n    }\n\n    /**\n     * Sums the values of the array, or the properties, or the result of the callback.\n     *\n     * @param  {undefined|String|Function} [property=null] the property to be summed.\n     * @return {var} The sum of values used in the summation.\n     */\n    sum(property = null) {\n        if (typeof property === 'string') {\n            return this.reduce((previous, current) =>\n                previous + current[property]\n            , 0);\n        }\n\n        if (typeof property === 'function') {\n            return this.reduce((previous, current) =>\n                previous + property(current)\n            , 0);\n        }\n\n        return this.reduce((previous, current) =>\n            previous + current\n        , 0);\n    }\n\n    /**\n     * Gets a new collection with the number of specified items from the begining or the end.\n     *\n     * @param  {Number} count the number of items to take. Takes from end if negative.\n     * @return {Collection} A collection with the taken items.\n     */\n    take(count) {\n        if (! count) {\n            return new Collection([]);\n        }\n\n        if (count < 0) {\n            return new Collection(this.items.reverse()).take(-count);\n        }\n\n        return new Collection(this.items.slice(0, count));\n    }\n\n    /**\n     * Filters the collection using a callback or equality comparison to a property in each item.\n     *\n     * @param  {Function|String} callback The callback to be used to filter the collection.\n     * @param  {var} [value=null] The value to be compared.\n     * @return {Collection} A collection with the filtered items.\n     */\n    where(callback, value = null) {\n        if (typeof(callback) === 'string') {\n            return this.filter(item => item[callback] === value);\n        }\n\n        return this.filter(callback);\n    }\n\n    /**\n     * Pairs each item in the collection with another array item in the same index.\n     *\n     * @param  {Array|Collection} array the array to be paired with.\n     * @return {Collection} A collection with the paired items.\n     */\n    zip(array) {\n        if (array instanceof Collection) {\n            return this.map((item, index) => [item, array.find(index)]);\n        }\n\n        return this.map((item, index) => [item, array[index]]);\n    }\n}\n"
+    "lineNumber": 7,
+    "content": "/**\n * The Collection object.\n *\n * @example\n * let collection = new Collection([1, 2, 3]);\n */\nexport default class Collection\n{\n    /**\n     * The collection constructor.\n     *\n     * @param  {Array} [items=[]] the array to collect.\n     * @return {Collection} A Collection object.\n     */\n    constructor(items = []) {\n        /**\n         * The internal array.\n         * @type {Array|Object}\n         */\n        this.items = items;\n\n        /**\n         * The length of the array.\n         * @type {Number}\n         */\n        this.length = items.length;\n    }\n\n    /**\n     * Adds an item to the collection.\n     *\n     * @param {var} item the item to be added.\n     */\n    add(item) {\n        this.items.push(item);\n        this.length = this.items.length;\n    }\n\n    /**\n     * Gets the collected elements in an array.\n     *\n     * @return {Array} the internal array.\n     */\n    all() {\n        return this.items;\n    }\n\n    /**\n     * Gets the average value of the array or a property or a callback return value.\n     * If no property is provided: it will calculate the average value of the array (Numeric array).\n     * If property is a string: it will calculate the average value of that property for all\n     *  objects in the array.\n     * If Property is a callback: the the averaging will use the value returned instead.\n     *\n     * @param  {Function|String} [property=null] The property name or the callback function.\n     * defaults to null.\n     * @return {Number} The average value.\n     */\n    average(property = null) {\n        return this.sum(property) / this.count();\n    }\n\n    /**\n     * Chunks the collection into a new collection with equal length arrays as its items.\n     *\n     * @param  {Number} size the size of each chunk.\n     * @return {Collection} the new collection.\n     */\n    chunk(size) {\n        if (size <= 0) {\n            return new Collection();\n        }\n\n        const items = [];\n\n        for (let i = 0; i < this.length; i += size) {\n            items.push(this.items.slice(i, i + size));\n        }\n\n        return new Collection(items);\n    }\n\n    /**\n     * Static constructor. Will transform a string to array of strings.\n     *\n     * @param  {Array|String} collectable the array or the string to wrapped in a collection.\n     * @return {Collection} A collection that wraps the collectable items.\n     */\n    static collect(collectable) {\n        let items = collectable;\n        if (typeof collectable === 'string') {\n            items = collectable.split('');\n        }\n\n        return new Collection(items);\n    }\n\n    /**\n     * Concatnates the collection with an array or another collection.\n     *\n     * @param {Array|Collection} collection the array or the collection to be concatenated with.\n     * @return {Collection} concatenated collection.\n     */\n    concat(collection) {\n        if (Array.isArray(collection)) {\n            return new Collection(this.items.concat(collection));\n        }\n\n        return new Collection(this.items.concat(collection.all()));\n    }\n\n    /**\n     * Gets the number of items in the collection.\n     *\n     * @return {Number} Number of items in the collection.\n     */\n    count() {\n        return this.length;\n    }\n\n\n    /**\n     * Executes a callback for each element in the collection.\n     *\n     * @param  {Function} callback the callback to be excuted for each item.\n     */\n    each(callback) {\n        this.items.forEach(callback);\n    }\n\n    /**\n     * Filters the collection using a predicate (callback that returns a boolean).\n     *\n     * @param  {Function} callback A function that returns a boolean expression.\n     * @return {Collection} Filtered collection.\n     */\n    filter(callback) {\n        return new Collection(this.items.filter(callback));\n    }\n\n    /**\n     * Gets an element at a specified index.\n     *\n     * @param  {Number} index the index of the item.\n     * @return {var} the item at that index.\n     */\n    find(index) {\n        return this.items[index];\n    }\n\n    /**\n     * Gets the first element satisfying a critera.\n     *\n     * @param  {Function} [callback=null] the predicate (callback) that will be applied on items.\n     * @return {var} the first item to satisfy the critera.\n     */\n    first(callback = null) {\n        if (! this.count()) {\n            return null;\n        }\n\n        if (callback && typeof(callback) === 'function') {\n            for (let i = 0; i < this.count(); i++) {\n                if (callback(this.items[i])) {\n                    return this.items[i];\n                }\n            }\n        }\n\n        return this.items[0];\n    }\n\n    /**\n     * Flattens the collection elements.\n     *\n     * @param  {Boolean} [deep=false] recursively flatten the items (multi-level).\n     * @return {Collection} the flattened collection.\n     */\n    flatten(deep = false) {\n        const flattened = new Collection([].concat(...this.items));\n\n        if (deep && flattened.all().some(Array.isArray)) {\n            return flattened.flatten(true);\n        }\n\n        return flattened;\n    }\n\n    /**\n     * Gets the collection elements keys in a new collection.\n     *\n     * @return {Collection} The keys collection.\n     */\n    keys() {\n        let keys = [];\n\n        if (typeof this.items === 'object') {\n            keys = Object.keys(this.items);\n        } else {\n            keys = [...this.items.keys()];\n        }\n\n        return new Collection(keys);\n    }\n\n    /**\n     * Gets the last element to satisfy a callback.\n     *\n     * @param  {Function} [callback=null] the predicate to be checked on all elements.\n     * @return {var} The last element in the collection that satisfies the predicate.\n     */\n    last(callback = null) {\n        if (! this.count()) {\n            return null;\n        }\n\n        if (callback && typeof(callback) === 'function') {\n            return this.filter(callback).last();\n        }\n\n        return this.items[this.count() - 1];\n    }\n\n    /**\n     * Maps each element using a mapping function and collects the mapped items.\n     * @param  {Function} callback the mapping function.\n     * @return {Collection} collection containing the mapped items.\n     */\n    map(callback) {\n        return new Collection(this.items.map(callback));\n    }\n\n    /**\n     * Extracts a property from the objects in the collection.\n     *\n     * @param  {String} property the name of the property to be extracted.\n     * @return {Collection} A collection with the extracted items.\n     */\n    pluck(property) {\n        return this.map((item) => item[property]);\n    }\n\n    /**\n     * Adds an element to the collection.\n     *\n     * @param  {var} item the item to be added.\n     */\n    push(item) {\n        this.add(item);\n    }\n\n    /**\n     * Reduces the collection to a single value using a reducing function.\n     *\n     * @param  {Function} callback the reducing function.\n     * @param  {var} initial  initial value.\n     * @return {var} The reduced results.\n     */\n    reduce(callback, initial) {\n        return this.items.reduce(callback, initial);\n    }\n\n    /**\n     * Removes the elements that do not satisfy the predicate.\n     *\n     * @param  {Function} callback the predicate used on each item.\n     * @return {Collection} A collection without the rejected elements.\n     */\n    reject(callback) {\n        const items = [];\n        this.items.forEach((item) => {\n            if (! callback(item)) {\n                items.push(item);\n            }\n        });\n\n        return new Collection(items);\n    }\n\n    /**\n     * Reverses the collection order.\n     *\n     * @return {Collection} A new collection with the reversed order.\n     */\n    reverse() {\n        return new Collection(this.items.reverse());\n    }\n\n    /**\n     * Skips a specified number of elements.\n     *\n     * @param  {Number} count the number of items to be skipped.\n     * @return {Collection} A collection without the skipped items.\n     */\n    skip(count) {\n        return this.slice(count);\n    }\n\n    /**\n     * Slices the collection starting from a specific index and ending at a specified index.\n     *\n     * @param  {Number} start The zero-based starting index.\n     * @param  {Number} [end=length] The zero-based ending index.\n     * @return {Collection} A collection with the sliced items.\n     */\n    slice(start, end = this.length) {\n        return new Collection(this.items.slice(start, end));\n    }\n\n    /**\n     * Stringifies the collection using JSON.stringify API.\n     *\n     * @return {String} The stringified value.\n     */\n    stringify() {\n        return JSON.stringify(this.items);\n    }\n\n    /**\n     * Sums the values of the array, or the properties, or the result of the callback.\n     *\n     * @param  {undefined|String|Function} [property=null] the property to be summed.\n     * @return {var} The sum of values used in the summation.\n     */\n    sum(property = null) {\n        if (typeof property === 'string') {\n            return this.reduce((previous, current) =>\n                previous + current[property]\n            , 0);\n        }\n\n        if (typeof property === 'function') {\n            return this.reduce((previous, current) =>\n                previous + property(current)\n            , 0);\n        }\n\n        return this.reduce((previous, current) =>\n            previous + current\n        , 0);\n    }\n\n    /**\n     * Gets a new collection with the number of specified items from the begining or the end.\n     *\n     * @param  {Number} count the number of items to take. Takes from end if negative.\n     * @return {Collection} A collection with the taken items.\n     */\n    take(count) {\n        if (! count) {\n            return new Collection([]);\n        }\n\n        if (count < 0) {\n            return new Collection(this.items.reverse()).take(-count);\n        }\n\n        return new Collection(this.items.slice(0, count));\n    }\n\n    /**\n     * Filters the collection using a callback or equality comparison to a property in each item.\n     *\n     * @param  {Function|String} callback The callback to be used to filter the collection.\n     * @param  {var} [value=null] The value to be compared.\n     * @return {Collection} A collection with the filtered items.\n     */\n    where(callback, value = null) {\n        if (typeof(callback) === 'string') {\n            return this.filter(item => item[callback] === value);\n        }\n\n        return this.filter(callback);\n    }\n\n    /**\n     * Pairs each item in the collection with another array item in the same index.\n     *\n     * @param  {Array|Collection} array the array to be paired with.\n     * @return {Collection} A collection with the paired items.\n     */\n    zip(array) {\n        if (array instanceof Collection) {\n            return this.map((item, index) => [item, array.find(index)]);\n        }\n\n        return this.map((item, index) => [item, array[index]]);\n    }\n}\n"
   },
   {
     "__docId__": 1,
@@ -24,9 +24,11 @@
     "export": true,
     "importPath": "collectionjs/src/collection.js",
     "importStyle": "Collection",
-    "description": null,
-    "lineNumber": 2,
-    "undocument": true,
+    "description": "The Collection object.",
+    "examples": [
+      "let collection = new Collection([1, 2, 3]);"
+    ],
+    "lineNumber": 7,
     "interface": false
   },
   {
@@ -39,17 +41,19 @@
     "longname": "src/collection.js~Collection#constructor",
     "access": null,
     "description": "The collection constructor.",
-    "lineNumber": 10,
+    "lineNumber": 15,
     "params": [
       {
-        "nullable": true,
+        "nullable": null,
         "types": [
           "Array"
         ],
         "spread": false,
-        "optional": false,
+        "optional": true,
+        "defaultValue": "[]",
+        "defaultRaw": [],
         "name": "items",
-        "description": "= [] the array to collect."
+        "description": "the array to collect."
       }
     ],
     "return": {
@@ -71,13 +75,16 @@
     "memberof": "src/collection.js~Collection",
     "longname": "src/collection.js~Collection#items",
     "access": null,
-    "description": null,
-    "lineNumber": 11,
-    "undocument": true,
+    "description": "The internal array.",
+    "lineNumber": 20,
     "type": {
+      "nullable": null,
       "types": [
-        "*"
-      ]
+        "Array",
+        "Object"
+      ],
+      "spread": false,
+      "description": null
     }
   },
   {
@@ -89,13 +96,15 @@
     "memberof": "src/collection.js~Collection",
     "longname": "src/collection.js~Collection#length",
     "access": null,
-    "description": null,
-    "lineNumber": 12,
-    "undocument": true,
+    "description": "The length of the array.",
+    "lineNumber": 26,
     "type": {
+      "nullable": null,
       "types": [
-        "*"
-      ]
+        "Number"
+      ],
+      "spread": false,
+      "description": null
     }
   },
   {
@@ -108,7 +117,7 @@
     "longname": "src/collection.js~Collection#add",
     "access": null,
     "description": "Adds an item to the collection.",
-    "lineNumber": 20,
+    "lineNumber": 34,
     "params": [
       {
         "nullable": null,
@@ -133,7 +142,7 @@
     "longname": "src/collection.js~Collection#length",
     "access": null,
     "description": null,
-    "lineNumber": 22,
+    "lineNumber": 36,
     "undocument": true,
     "type": {
       "types": [
@@ -151,7 +160,7 @@
     "longname": "src/collection.js~Collection#all",
     "access": null,
     "description": "Gets the collected elements in an array.",
-    "lineNumber": 30,
+    "lineNumber": 44,
     "params": [],
     "return": {
       "nullable": null,
@@ -173,7 +182,7 @@
     "longname": "src/collection.js~Collection#average",
     "access": null,
     "description": "Gets the average value of the array or a property or a callback return value.\nIf no property is provided: it will calculate the average value of the array (Numeric array).\nIf property is a string: it will calculate the average value of that property for all\n objects in the array.\nIf Property is a callback: the the averaging will use the value returned instead.",
-    "lineNumber": 45,
+    "lineNumber": 59,
     "params": [
       {
         "nullable": null,
@@ -209,7 +218,7 @@
     "longname": "src/collection.js~Collection#chunk",
     "access": null,
     "description": "Chunks the collection into a new collection with equal length arrays as its items.",
-    "lineNumber": 55,
+    "lineNumber": 69,
     "params": [
       {
         "nullable": null,
@@ -242,7 +251,7 @@
     "longname": "src/collection.js~Collection.collect",
     "access": null,
     "description": "Static constructor. Will transform a string to array of strings.",
-    "lineNumber": 76,
+    "lineNumber": 89,
     "params": [
       {
         "nullable": null,
@@ -276,7 +285,7 @@
     "longname": "src/collection.js~Collection#concat",
     "access": null,
     "description": "Concatnates the collection with an array or another collection.",
-    "lineNumber": 91,
+    "lineNumber": 104,
     "params": [
       {
         "nullable": null,
@@ -310,7 +319,7 @@
     "longname": "src/collection.js~Collection#count",
     "access": null,
     "description": "Gets the number of items in the collection.",
-    "lineNumber": 104,
+    "lineNumber": 117,
     "params": [],
     "return": {
       "nullable": null,
@@ -332,7 +341,7 @@
     "longname": "src/collection.js~Collection#each",
     "access": null,
     "description": "Executes a callback for each element in the collection.",
-    "lineNumber": 114,
+    "lineNumber": 127,
     "params": [
       {
         "nullable": null,
@@ -357,7 +366,7 @@
     "longname": "src/collection.js~Collection#filter",
     "access": null,
     "description": "Filters the collection using a predicate (callback that returns a boolean).",
-    "lineNumber": 124,
+    "lineNumber": 137,
     "params": [
       {
         "nullable": null,
@@ -390,7 +399,7 @@
     "longname": "src/collection.js~Collection#find",
     "access": null,
     "description": "Gets an element at a specified index.",
-    "lineNumber": 134,
+    "lineNumber": 147,
     "params": [
       {
         "nullable": null,
@@ -423,7 +432,7 @@
     "longname": "src/collection.js~Collection#first",
     "access": null,
     "description": "Gets the first element satisfying a critera.",
-    "lineNumber": 144,
+    "lineNumber": 157,
     "params": [
       {
         "nullable": null,
@@ -458,7 +467,7 @@
     "longname": "src/collection.js~Collection#flatten",
     "access": null,
     "description": "Flattens the collection elements.",
-    "lineNumber": 167,
+    "lineNumber": 179,
     "params": [
       {
         "nullable": null,
@@ -493,7 +502,7 @@
     "longname": "src/collection.js~Collection#keys",
     "access": null,
     "description": "Gets the collection elements keys in a new collection.",
-    "lineNumber": 182,
+    "lineNumber": 194,
     "params": [],
     "return": {
       "nullable": null,
@@ -515,7 +524,7 @@
     "longname": "src/collection.js~Collection#last",
     "access": null,
     "description": "Gets the last element to satisfy a callback.",
-    "lineNumber": 200,
+    "lineNumber": 212,
     "params": [
       {
         "nullable": null,
@@ -550,7 +559,7 @@
     "longname": "src/collection.js~Collection#map",
     "access": null,
     "description": "Maps each element using a mapping function and collects the mapped items.",
-    "lineNumber": 217,
+    "lineNumber": 229,
     "params": [
       {
         "nullable": null,
@@ -583,7 +592,7 @@
     "longname": "src/collection.js~Collection#pluck",
     "access": null,
     "description": "Extracts a property from the objects in the collection.",
-    "lineNumber": 227,
+    "lineNumber": 239,
     "params": [
       {
         "nullable": null,
@@ -616,7 +625,7 @@
     "longname": "src/collection.js~Collection#push",
     "access": null,
     "description": "Adds an element to the collection.",
-    "lineNumber": 236,
+    "lineNumber": 248,
     "params": [
       {
         "nullable": null,
@@ -641,7 +650,7 @@
     "longname": "src/collection.js~Collection#reduce",
     "access": null,
     "description": "Reduces the collection to a single value using a reducing function.",
-    "lineNumber": 247,
+    "lineNumber": 259,
     "params": [
       {
         "nullable": null,
@@ -684,7 +693,7 @@
     "longname": "src/collection.js~Collection#reject",
     "access": null,
     "description": "Removes the elements that do not satisfy the predicate.",
-    "lineNumber": 257,
+    "lineNumber": 269,
     "params": [
       {
         "nullable": null,
@@ -717,7 +726,7 @@
     "longname": "src/collection.js~Collection#reverse",
     "access": null,
     "description": "Reverses the collection order.",
-    "lineNumber": 273,
+    "lineNumber": 285,
     "params": [],
     "return": {
       "nullable": null,
@@ -739,7 +748,7 @@
     "longname": "src/collection.js~Collection#skip",
     "access": null,
     "description": "Skips a specified number of elements.",
-    "lineNumber": 283,
+    "lineNumber": 295,
     "params": [
       {
         "nullable": null,
@@ -772,7 +781,7 @@
     "longname": "src/collection.js~Collection#slice",
     "access": null,
     "description": "Slices the collection starting from a specific index and ending at a specified index.",
-    "lineNumber": 294,
+    "lineNumber": 306,
     "params": [
       {
         "nullable": null,
@@ -817,7 +826,7 @@
     "longname": "src/collection.js~Collection#stringify",
     "access": null,
     "description": "Stringifies the collection using JSON.stringify API.",
-    "lineNumber": 303,
+    "lineNumber": 315,
     "params": [],
     "return": {
       "nullable": null,
@@ -839,7 +848,7 @@
     "longname": "src/collection.js~Collection#sum",
     "access": null,
     "description": "Sums the values of the array, or the properties, or the result of the callback.",
-    "lineNumber": 313,
+    "lineNumber": 325,
     "params": [
       {
         "nullable": null,
@@ -876,7 +885,7 @@
     "longname": "src/collection.js~Collection#take",
     "access": null,
     "description": "Gets a new collection with the number of specified items from the begining or the end.",
-    "lineNumber": 337,
+    "lineNumber": 349,
     "params": [
       {
         "nullable": null,
@@ -909,7 +918,7 @@
     "longname": "src/collection.js~Collection#where",
     "access": null,
     "description": "Filters the collection using a callback or equality comparison to a property in each item.",
-    "lineNumber": 356,
+    "lineNumber": 368,
     "params": [
       {
         "nullable": null,
@@ -955,7 +964,7 @@
     "longname": "src/collection.js~Collection#zip",
     "access": null,
     "description": "Pairs each item in the collection with another array item in the same index.",
-    "lineNumber": 370,
+    "lineNumber": 382,
     "params": [
       {
         "nullable": null,

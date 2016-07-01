@@ -38,17 +38,31 @@
 </nav>
 
 <div class="content" data-ice="content"><h1 data-ice="title">src/collection.js</h1>
-<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">/**
+ * The Collection object.
+ *
+ * @example
+ * let collection = new Collection([1, 2, 3]);
+ */
 export default class Collection
 {
     /**
      * The collection constructor.
      *
-     * @param  {?Array} items = [] the array to collect.
+     * @param  {Array} [items=[]] the array to collect.
      * @return {Collection} A Collection object.
      */
     constructor(items = []) {
+        /**
+         * The internal array.
+         * @type {Array|Object}
+         */
         this.items = items;
+
+        /**
+         * The length of the array.
+         * @type {Number}
+         */
         this.length = items.length;
     }
 
@@ -98,9 +112,8 @@ export default class Collection
         }
 
         const items = [];
-        const length = this.items.length;
 
-        for (let i = 0; i &lt; length; i += size) {
+        for (let i = 0; i &lt; this.length; i += size) {
             items.push(this.items.slice(i, i + size));
         }
 
@@ -116,7 +129,7 @@ export default class Collection
     static collect(collectable) {
         let items = collectable;
         if (typeof collectable === &apos;string&apos;) {
-            items = collectable.split();
+            items = collectable.split(&apos;&apos;);
         }
 
         return new Collection(items);
@@ -182,13 +195,12 @@ export default class Collection
      * @return {var} the first item to satisfy the critera.
      */
     first(callback = null) {
-        if (! this.items.length) {
+        if (! this.count()) {
             return null;
         }
 
         if (callback &amp;&amp; typeof(callback) === &apos;function&apos;) {
-            const length = this.count();
-            for (let i = 0; i &lt; length; i++) {
+            for (let i = 0; i &lt; this.count(); i++) {
                 if (callback(this.items[i])) {
                     return this.items[i];
                 }
@@ -238,7 +250,7 @@ export default class Collection
      * @return {var} The last element in the collection that satisfies the predicate.
      */
     last(callback = null) {
-        if (! this.items.length) {
+        if (! this.count()) {
             return null;
         }
 
@@ -246,7 +258,7 @@ export default class Collection
             return this.filter(callback).last();
         }
 
-        return this.items[this.items.length - 1];
+        return this.items[this.count() - 1];
     }
 
     /**
