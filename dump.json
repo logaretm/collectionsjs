@@ -9,8 +9,8 @@
     "longname": "src/collection.js",
     "access": null,
     "description": null,
-    "lineNumber": 4,
-    "content": "/**\n * The Collection object.\n */\nexport default class Collection\n{\n    /**\n     * The collection constructor.\n     *\n     * @param  {Array} items = [] the array to collect.\n     * @return {Collection} A Collection object.\n     */\n    constructor(items = []) {\n        this.items = items;\n    }\n\n    /**\n     * Adds an item to the collection.\n     *\n     * @param {var} item the item to be added.\n     */\n    add(item) {\n        this.items.push(item);\n    }\n\n    /**\n     * Gets the collection elements in an array.\n     *\n     * @return {Array} the internal array.\n     */\n    all() {\n        return this.getItems();\n    }\n\n    /**\n     * Gets the average value of the array or a property or a callback return value.\n     * If no property is provided: it will calculate the average value of the array (Numeric array).\n     * If property is a string: it will calculate the average value of that property for all\n     *  objects in the array.\n     * If Property is a callback: the the averaging will use the value returned instead.\n     *\n     * @param  {function|String} property The property name or the callback function.\n     * defaults to null.\n     * @return {Number} The average value.\n     */\n    average(property = null) {\n        return this.sum(property) / this.count();\n    }\n\n    /**\n     * Chunks the collection into a new collection with equal length arrays as its items.\n     *\n     * @param  {Number} size the size of each chunk.\n     * @return {Collection} the new collection.\n     */\n    chunk(size) {\n        if (size <= 0) {\n            return new Collection();\n        }\n\n        const items = [];\n        const length = this.items.length;\n\n        for (let i = 0; i < length; i += size) {\n            items.push(this.items.slice(i, i + size));\n        }\n\n        return new Collection(items);\n    }\n\n    /**\n     * Concatnates the collection with an array or another collection.\n     *\n     * @param {Array|Collection} collection the array or the collection to be concatenated with.\n     * @return {Collection} concatenated collection.\n     */\n    concat(collection) {\n        if (Array.isArray(collection)) {\n            return new Collection(this.items.concat(collection));\n        }\n\n        return new Collection(this.items.concat(collection.all()));\n    }\n\n    /**\n     * Gets the number of items in the collection.\n     *\n     * @return {Number} Number of items in the collection.\n     */\n    count() {\n        return this.items.length;\n    }\n\n\n    /**\n     * Executes a callback for each element in the collection.\n     *\n     * @param  {Function} callback the callback to be excuted for each item.\n     */\n    each(callback) {\n        this.items.forEach(callback);\n    }\n\n    /**\n     * Filters the collection using a predicate (callback that returns a boolean).\n     *\n     * @param  {Function} callback A function that returns a boolean expression.\n     * @return {Collection} Filtered collection.\n     */\n    filter(callback) {\n        return new Collection(this.items.filter(callback));\n    }\n\n    /**\n     * Gets an element at a specified index.\n     *\n     * @param  {Number} index the index of the item.\n     * @return {var} the item at that index.\n     */\n    find(index) {\n        return this.items[index];\n    }\n\n    /**\n     * Gets the first element satisfying a critera.\n     * @param  {Function|null} callback the predicate (callback) that will be applied on all items.\n     * @return {var} the first item to satisfy the critera.\n     */\n    first(callback = null) {\n        if (! this.items.length) {\n            return null;\n        }\n\n        if (callback && typeof(callback) === 'function') {\n            for (let i = 0; i < this.count(); i++) {\n                if (callback(this.items[i])) {\n                    return this.items[i];\n                }\n            }\n        }\n\n        return this.items[0];\n    }\n\n    /**\n     * Flattens the collection elements.\n     *\n     * @param  {Boolean} deep recursively flatten the items (multi-level).\n     * @return {Collection} the flattened collection.\n     */\n    flatten(deep = false) {\n        const flattened = new Collection([].concat(...this.items));\n\n        if (deep && flattened.all().some(Array.isArray)) {\n            return flattened.flatten(true);\n        }\n\n        return flattened;\n    }\n\n    /**\n     * Gets all elements in the collections.\n     *\n     * @return {Array} The elements in the collection.\n     */\n    getItems() {\n        return this.items;\n    }\n\n    /**\n     * Gets the collection elements keys in a new collection.\n     *\n     * @return {Collection} The keys collection.\n     */\n    keys() {\n        let keys = [];\n\n        if (typeof this.items === 'object') {\n            keys = Object.keys(this.items);\n        } else {\n            keys = [...this.items.keys()];\n        }\n\n        return new Collection(keys);\n    }\n\n    /**\n     * Gets the last element to satisfy a callback.\n     *\n     * @param  {Function|null} callback the predicate to be checked on all elements.\n     * @return {var} The last element in the collection that satisfies the predicate.\n     */\n    last(callback = null) {\n        if (! this.items.length) {\n            return null;\n        }\n\n        if (callback && typeof(callback) === 'function') {\n            return this.filter(callback).last();\n        }\n\n        return this.items[this.items.length - 1];\n    }\n\n    /**\n     * Maps each element using a mapping function and collects the mapped items.\n     * @param  {Function} callback the mapping function.\n     * @return {Collection} collection containing the mapped items.\n     */\n    map(callback) {\n        return new Collection(this.items.map(callback));\n    }\n\n    /**\n     * Extracts a property from the objects in the collection.\n     *\n     * @param  {String} property the name of the property to be extracted.\n     * @return {Collection} A collection with the extracted items.\n     */\n    pluck(property) {\n        return this.map((item) => item[property]);\n    }\n\n    /**\n     * Adds an element to the collection.\n     *\n     * @param  {var} item the item to be added.\n     */\n    push(item) {\n        this.add(item);\n    }\n\n    /**\n     * Reduces the collection to a single value using a reducing function.\n     *\n     * @param  {Function} callback the reducing function.\n     * @param  {var}   initial  initial value.\n     * @return {var} the reduced results.\n     */\n    reduce(callback, initial) {\n        return this.items.reduce(callback, initial);\n    }\n\n    /**\n     * Removes the elements that do not satisfy the predicate.\n     *\n     * @param  {Function} callback the predicate used on each item.\n     * @return {Collection} A collection without the rejected elements.\n     */\n    reject(callback) {\n        const items = [];\n        this.items.forEach((item) => {\n            if (! callback(item)) {\n                items.push(item);\n            }\n        });\n\n        return new Collection(items);\n    }\n\n    /**\n     * Reverses the collection order.\n     *\n     * @return {Collection} A new collection with the reversed order.\n     */\n    reverse() {\n        return new Collection(this.items.reverse());\n    }\n\n    /**\n     * Skips a specified number of elements.\n     *\n     * @param  {Number} count the number of items to be skipped.\n     * @return {Collection} A collection without the skipped items.\n     */\n    skip(count) {\n        return this.slice(count);\n    }\n\n    /**\n     * Slices the collection starting from a specific index and ending at a specified index.\n     *\n     * @param  {Number} start The zero-based starting index.\n     * @param  {Number} end The zero-based ending index.\n     * @return {Collection} A collection with the sliced items.\n     */\n    slice(start, end = this.items.length) {\n        return new Collection(this.items.slice(start, end));\n    }\n\n    /**\n     * Stringifies the collection using JSON.stringify API.\n     *\n     * @return {String} The stringified value.\n     */\n    stringify() {\n        return JSON.stringify(this.items);\n    }\n\n    /**\n     * Sums the values of the array, or the properties, or the result of the callback.\n     *\n     * @param  {undefined|String|Function} property the property to be summed.\n     * @return {var} The sum of values used in the summation.\n     */\n    sum(property = undefined) {\n        if (typeof property === 'string') {\n            return this.reduce((previous, current) =>\n                previous + current[property]\n            , 0);\n        }\n\n        if (typeof property === 'function') {\n            return this.reduce((previous, current) =>\n                previous + property(current)\n            , 0);\n        }\n\n        return this.reduce((previous, current) =>\n            previous + current\n        , 0);\n    }\n\n    /**\n     * Gets a new collection with the number of specified items from the begining or the end.\n     *\n     * @param  {Number} count the number of items to take. Takes from end if negative.\n     * @return {Collection} A collection with the taken items.\n     */\n    take(count) {\n        if (! count) {\n            return new Collection([]);\n        }\n\n        if (count < 0) {\n            return new Collection(this.items.reverse()).take(-count);\n        }\n\n        return new Collection(this.items.slice(0, count));\n    }\n\n    /**\n     * Filters the collection using a callback or equality comparison to a property in each item.\n     *\n     * @param  {Function|String} callback The callback to be used to filter the collection.\n     * @param  {var} value The value to be compared.\n     * @return {Collection} A collection with the filtered items.\n     */\n    where(callback, value = null) {\n        if (typeof(callback) === 'string') {\n            return this.filter(item => item[callback] === value);\n        }\n\n        return this.filter(callback);\n    }\n\n    /**\n     * Pairs each item in the collection with another array item in the same index.\n     *\n     * @param  {Array|Collection} array the array to be paired with.\n     * @return {Collection} A collection with the paired items.\n     */\n    zip(array) {\n        if (array instanceof Collection) {\n            return this.map((item, index) => [item, array.find(index)]);\n        }\n\n        return this.map((item, index) => [item, array[index]]);\n    }\n}\n"
+    "lineNumber": 2,
+    "content": "\nexport default class Collection\n{\n    /**\n     * The collection constructor.\n     *\n     * @param  {?Array} items = [] the array to collect.\n     * @return {Collection} A Collection object.\n     */\n    constructor(items = []) {\n        this.items = items;\n        this.length = items.length;\n    }\n\n    /**\n     * Adds an item to the collection.\n     *\n     * @param {var} item the item to be added.\n     */\n    add(item) {\n        this.items.push(item);\n        this.length = this.items.length;\n    }\n\n    /**\n     * Gets the collected elements in an array.\n     *\n     * @return {Array} the internal array.\n     */\n    all() {\n        return this.items;\n    }\n\n    /**\n     * Gets the average value of the array or a property or a callback return value.\n     * If no property is provided: it will calculate the average value of the array (Numeric array).\n     * If property is a string: it will calculate the average value of that property for all\n     *  objects in the array.\n     * If Property is a callback: the the averaging will use the value returned instead.\n     *\n     * @param  {Function|String} [property=null] The property name or the callback function.\n     * defaults to null.\n     * @return {Number} The average value.\n     */\n    average(property = null) {\n        return this.sum(property) / this.count();\n    }\n\n    /**\n     * Chunks the collection into a new collection with equal length arrays as its items.\n     *\n     * @param  {Number} size the size of each chunk.\n     * @return {Collection} the new collection.\n     */\n    chunk(size) {\n        if (size <= 0) {\n            return new Collection();\n        }\n\n        const items = [];\n        const length = this.items.length;\n\n        for (let i = 0; i < length; i += size) {\n            items.push(this.items.slice(i, i + size));\n        }\n\n        return new Collection(items);\n    }\n\n    /**\n     * Static constructor. Will transform a string to array of strings.\n     *\n     * @param  {Array|String} collectable the array or the string to wrapped in a collection.\n     * @return {Collection} A collection that wraps the collectable items.\n     */\n    static collect(collectable) {\n        let items = collectable;\n        if (typeof collectable === 'string') {\n            items = collectable.split();\n        }\n\n        return new Collection(items);\n    }\n\n    /**\n     * Concatnates the collection with an array or another collection.\n     *\n     * @param {Array|Collection} collection the array or the collection to be concatenated with.\n     * @return {Collection} concatenated collection.\n     */\n    concat(collection) {\n        if (Array.isArray(collection)) {\n            return new Collection(this.items.concat(collection));\n        }\n\n        return new Collection(this.items.concat(collection.all()));\n    }\n\n    /**\n     * Gets the number of items in the collection.\n     *\n     * @return {Number} Number of items in the collection.\n     */\n    count() {\n        return this.length;\n    }\n\n\n    /**\n     * Executes a callback for each element in the collection.\n     *\n     * @param  {Function} callback the callback to be excuted for each item.\n     */\n    each(callback) {\n        this.items.forEach(callback);\n    }\n\n    /**\n     * Filters the collection using a predicate (callback that returns a boolean).\n     *\n     * @param  {Function} callback A function that returns a boolean expression.\n     * @return {Collection} Filtered collection.\n     */\n    filter(callback) {\n        return new Collection(this.items.filter(callback));\n    }\n\n    /**\n     * Gets an element at a specified index.\n     *\n     * @param  {Number} index the index of the item.\n     * @return {var} the item at that index.\n     */\n    find(index) {\n        return this.items[index];\n    }\n\n    /**\n     * Gets the first element satisfying a critera.\n     *\n     * @param  {Function} [callback=null] the predicate (callback) that will be applied on items.\n     * @return {var} the first item to satisfy the critera.\n     */\n    first(callback = null) {\n        if (! this.items.length) {\n            return null;\n        }\n\n        if (callback && typeof(callback) === 'function') {\n            const length = this.count();\n            for (let i = 0; i < length; i++) {\n                if (callback(this.items[i])) {\n                    return this.items[i];\n                }\n            }\n        }\n\n        return this.items[0];\n    }\n\n    /**\n     * Flattens the collection elements.\n     *\n     * @param  {Boolean} [deep=false] recursively flatten the items (multi-level).\n     * @return {Collection} the flattened collection.\n     */\n    flatten(deep = false) {\n        const flattened = new Collection([].concat(...this.items));\n\n        if (deep && flattened.all().some(Array.isArray)) {\n            return flattened.flatten(true);\n        }\n\n        return flattened;\n    }\n\n    /**\n     * Gets the collection elements keys in a new collection.\n     *\n     * @return {Collection} The keys collection.\n     */\n    keys() {\n        let keys = [];\n\n        if (typeof this.items === 'object') {\n            keys = Object.keys(this.items);\n        } else {\n            keys = [...this.items.keys()];\n        }\n\n        return new Collection(keys);\n    }\n\n    /**\n     * Gets the last element to satisfy a callback.\n     *\n     * @param  {Function} [callback=null] the predicate to be checked on all elements.\n     * @return {var} The last element in the collection that satisfies the predicate.\n     */\n    last(callback = null) {\n        if (! this.items.length) {\n            return null;\n        }\n\n        if (callback && typeof(callback) === 'function') {\n            return this.filter(callback).last();\n        }\n\n        return this.items[this.items.length - 1];\n    }\n\n    /**\n     * Maps each element using a mapping function and collects the mapped items.\n     * @param  {Function} callback the mapping function.\n     * @return {Collection} collection containing the mapped items.\n     */\n    map(callback) {\n        return new Collection(this.items.map(callback));\n    }\n\n    /**\n     * Extracts a property from the objects in the collection.\n     *\n     * @param  {String} property the name of the property to be extracted.\n     * @return {Collection} A collection with the extracted items.\n     */\n    pluck(property) {\n        return this.map((item) => item[property]);\n    }\n\n    /**\n     * Adds an element to the collection.\n     *\n     * @param  {var} item the item to be added.\n     */\n    push(item) {\n        this.add(item);\n    }\n\n    /**\n     * Reduces the collection to a single value using a reducing function.\n     *\n     * @param  {Function} callback the reducing function.\n     * @param  {var} initial  initial value.\n     * @return {var} The reduced results.\n     */\n    reduce(callback, initial) {\n        return this.items.reduce(callback, initial);\n    }\n\n    /**\n     * Removes the elements that do not satisfy the predicate.\n     *\n     * @param  {Function} callback the predicate used on each item.\n     * @return {Collection} A collection without the rejected elements.\n     */\n    reject(callback) {\n        const items = [];\n        this.items.forEach((item) => {\n            if (! callback(item)) {\n                items.push(item);\n            }\n        });\n\n        return new Collection(items);\n    }\n\n    /**\n     * Reverses the collection order.\n     *\n     * @return {Collection} A new collection with the reversed order.\n     */\n    reverse() {\n        return new Collection(this.items.reverse());\n    }\n\n    /**\n     * Skips a specified number of elements.\n     *\n     * @param  {Number} count the number of items to be skipped.\n     * @return {Collection} A collection without the skipped items.\n     */\n    skip(count) {\n        return this.slice(count);\n    }\n\n    /**\n     * Slices the collection starting from a specific index and ending at a specified index.\n     *\n     * @param  {Number} start The zero-based starting index.\n     * @param  {Number} [end=length] The zero-based ending index.\n     * @return {Collection} A collection with the sliced items.\n     */\n    slice(start, end = this.length) {\n        return new Collection(this.items.slice(start, end));\n    }\n\n    /**\n     * Stringifies the collection using JSON.stringify API.\n     *\n     * @return {String} The stringified value.\n     */\n    stringify() {\n        return JSON.stringify(this.items);\n    }\n\n    /**\n     * Sums the values of the array, or the properties, or the result of the callback.\n     *\n     * @param  {undefined|String|Function} [property=null] the property to be summed.\n     * @return {var} The sum of values used in the summation.\n     */\n    sum(property = null) {\n        if (typeof property === 'string') {\n            return this.reduce((previous, current) =>\n                previous + current[property]\n            , 0);\n        }\n\n        if (typeof property === 'function') {\n            return this.reduce((previous, current) =>\n                previous + property(current)\n            , 0);\n        }\n\n        return this.reduce((previous, current) =>\n            previous + current\n        , 0);\n    }\n\n    /**\n     * Gets a new collection with the number of specified items from the begining or the end.\n     *\n     * @param  {Number} count the number of items to take. Takes from end if negative.\n     * @return {Collection} A collection with the taken items.\n     */\n    take(count) {\n        if (! count) {\n            return new Collection([]);\n        }\n\n        if (count < 0) {\n            return new Collection(this.items.reverse()).take(-count);\n        }\n\n        return new Collection(this.items.slice(0, count));\n    }\n\n    /**\n     * Filters the collection using a callback or equality comparison to a property in each item.\n     *\n     * @param  {Function|String} callback The callback to be used to filter the collection.\n     * @param  {var} [value=null] The value to be compared.\n     * @return {Collection} A collection with the filtered items.\n     */\n    where(callback, value = null) {\n        if (typeof(callback) === 'string') {\n            return this.filter(item => item[callback] === value);\n        }\n\n        return this.filter(callback);\n    }\n\n    /**\n     * Pairs each item in the collection with another array item in the same index.\n     *\n     * @param  {Array|Collection} array the array to be paired with.\n     * @return {Collection} A collection with the paired items.\n     */\n    zip(array) {\n        if (array instanceof Collection) {\n            return this.map((item, index) => [item, array.find(index)]);\n        }\n\n        return this.map((item, index) => [item, array[index]]);\n    }\n}\n"
   },
   {
     "__docId__": 1,
@@ -24,8 +24,9 @@
     "export": true,
     "importPath": "collectionjs/src/collection.js",
     "importStyle": "Collection",
-    "description": "The Collection object.",
-    "lineNumber": 4,
+    "description": null,
+    "lineNumber": 2,
+    "undocument": true,
     "interface": false
   },
   {
@@ -38,10 +39,10 @@
     "longname": "src/collection.js~Collection#constructor",
     "access": null,
     "description": "The collection constructor.",
-    "lineNumber": 12,
+    "lineNumber": 10,
     "params": [
       {
-        "nullable": null,
+        "nullable": true,
         "types": [
           "Array"
         ],
@@ -71,7 +72,7 @@
     "longname": "src/collection.js~Collection#items",
     "access": null,
     "description": null,
-    "lineNumber": 13,
+    "lineNumber": 11,
     "undocument": true,
     "type": {
       "types": [
@@ -81,6 +82,24 @@
   },
   {
     "__docId__": 4,
+    "kind": "member",
+    "static": false,
+    "variation": null,
+    "name": "length",
+    "memberof": "src/collection.js~Collection",
+    "longname": "src/collection.js~Collection#length",
+    "access": null,
+    "description": null,
+    "lineNumber": 12,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 5,
     "kind": "method",
     "static": false,
     "variation": null,
@@ -89,7 +108,7 @@
     "longname": "src/collection.js~Collection#add",
     "access": null,
     "description": "Adds an item to the collection.",
-    "lineNumber": 21,
+    "lineNumber": 20,
     "params": [
       {
         "nullable": null,
@@ -105,7 +124,25 @@
     "generator": false
   },
   {
-    "__docId__": 5,
+    "__docId__": 6,
+    "kind": "member",
+    "static": false,
+    "variation": null,
+    "name": "length",
+    "memberof": "src/collection.js~Collection",
+    "longname": "src/collection.js~Collection#length",
+    "access": null,
+    "description": null,
+    "lineNumber": 22,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 7,
     "kind": "method",
     "static": false,
     "variation": null,
@@ -113,7 +150,7 @@
     "memberof": "src/collection.js~Collection",
     "longname": "src/collection.js~Collection#all",
     "access": null,
-    "description": "Gets the collection elements in an array.",
+    "description": "Gets the collected elements in an array.",
     "lineNumber": 30,
     "params": [],
     "return": {
@@ -127,7 +164,7 @@
     "generator": false
   },
   {
-    "__docId__": 6,
+    "__docId__": 8,
     "kind": "method",
     "static": false,
     "variation": null,
@@ -141,11 +178,13 @@
       {
         "nullable": null,
         "types": [
-          "function",
+          "Function",
           "String"
         ],
         "spread": false,
-        "optional": false,
+        "optional": true,
+        "defaultValue": "null",
+        "defaultRaw": null,
         "name": "property",
         "description": "The property name or the callback function.\ndefaults to null."
       }
@@ -161,7 +200,7 @@
     "generator": false
   },
   {
-    "__docId__": 7,
+    "__docId__": 9,
     "kind": "method",
     "static": false,
     "variation": null,
@@ -194,7 +233,41 @@
     "generator": false
   },
   {
-    "__docId__": 8,
+    "__docId__": 10,
+    "kind": "method",
+    "static": true,
+    "variation": null,
+    "name": "collect",
+    "memberof": "src/collection.js~Collection",
+    "longname": "src/collection.js~Collection.collect",
+    "access": null,
+    "description": "Static constructor. Will transform a string to array of strings.",
+    "lineNumber": 76,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "Array",
+          "String"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "collectable",
+        "description": "the array or the string to wrapped in a collection."
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "Collection"
+      ],
+      "spread": false,
+      "description": "A collection that wraps the collectable items."
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 11,
     "kind": "method",
     "static": false,
     "variation": null,
@@ -203,7 +276,7 @@
     "longname": "src/collection.js~Collection#concat",
     "access": null,
     "description": "Concatnates the collection with an array or another collection.",
-    "lineNumber": 76,
+    "lineNumber": 91,
     "params": [
       {
         "nullable": null,
@@ -228,7 +301,7 @@
     "generator": false
   },
   {
-    "__docId__": 9,
+    "__docId__": 12,
     "kind": "method",
     "static": false,
     "variation": null,
@@ -237,7 +310,7 @@
     "longname": "src/collection.js~Collection#count",
     "access": null,
     "description": "Gets the number of items in the collection.",
-    "lineNumber": 89,
+    "lineNumber": 104,
     "params": [],
     "return": {
       "nullable": null,
@@ -250,7 +323,7 @@
     "generator": false
   },
   {
-    "__docId__": 10,
+    "__docId__": 13,
     "kind": "method",
     "static": false,
     "variation": null,
@@ -259,7 +332,7 @@
     "longname": "src/collection.js~Collection#each",
     "access": null,
     "description": "Executes a callback for each element in the collection.",
-    "lineNumber": 99,
+    "lineNumber": 114,
     "params": [
       {
         "nullable": null,
@@ -275,7 +348,7 @@
     "generator": false
   },
   {
-    "__docId__": 11,
+    "__docId__": 14,
     "kind": "method",
     "static": false,
     "variation": null,
@@ -284,7 +357,7 @@
     "longname": "src/collection.js~Collection#filter",
     "access": null,
     "description": "Filters the collection using a predicate (callback that returns a boolean).",
-    "lineNumber": 109,
+    "lineNumber": 124,
     "params": [
       {
         "nullable": null,
@@ -308,7 +381,7 @@
     "generator": false
   },
   {
-    "__docId__": 12,
+    "__docId__": 15,
     "kind": "method",
     "static": false,
     "variation": null,
@@ -317,7 +390,7 @@
     "longname": "src/collection.js~Collection#find",
     "access": null,
     "description": "Gets an element at a specified index.",
-    "lineNumber": 119,
+    "lineNumber": 134,
     "params": [
       {
         "nullable": null,
@@ -341,7 +414,7 @@
     "generator": false
   },
   {
-    "__docId__": 13,
+    "__docId__": 16,
     "kind": "method",
     "static": false,
     "variation": null,
@@ -350,18 +423,19 @@
     "longname": "src/collection.js~Collection#first",
     "access": null,
     "description": "Gets the first element satisfying a critera.",
-    "lineNumber": 128,
+    "lineNumber": 144,
     "params": [
       {
         "nullable": null,
         "types": [
-          "Function",
-          "null"
+          "Function"
         ],
         "spread": false,
-        "optional": false,
+        "optional": true,
+        "defaultValue": "null",
+        "defaultRaw": null,
         "name": "callback",
-        "description": "the predicate (callback) that will be applied on all items."
+        "description": "the predicate (callback) that will be applied on items."
       }
     ],
     "return": {
@@ -375,7 +449,7 @@
     "generator": false
   },
   {
-    "__docId__": 14,
+    "__docId__": 17,
     "kind": "method",
     "static": false,
     "variation": null,
@@ -384,7 +458,7 @@
     "longname": "src/collection.js~Collection#flatten",
     "access": null,
     "description": "Flattens the collection elements.",
-    "lineNumber": 150,
+    "lineNumber": 167,
     "params": [
       {
         "nullable": null,
@@ -392,7 +466,9 @@
           "Boolean"
         ],
         "spread": false,
-        "optional": false,
+        "optional": true,
+        "defaultValue": "false",
+        "defaultRaw": false,
         "name": "deep",
         "description": "recursively flatten the items (multi-level)."
       }
@@ -408,29 +484,7 @@
     "generator": false
   },
   {
-    "__docId__": 15,
-    "kind": "method",
-    "static": false,
-    "variation": null,
-    "name": "getItems",
-    "memberof": "src/collection.js~Collection",
-    "longname": "src/collection.js~Collection#getItems",
-    "access": null,
-    "description": "Gets all elements in the collections.",
-    "lineNumber": 165,
-    "params": [],
-    "return": {
-      "nullable": null,
-      "types": [
-        "Array"
-      ],
-      "spread": false,
-      "description": "The elements in the collection."
-    },
-    "generator": false
-  },
-  {
-    "__docId__": 16,
+    "__docId__": 18,
     "kind": "method",
     "static": false,
     "variation": null,
@@ -439,7 +493,7 @@
     "longname": "src/collection.js~Collection#keys",
     "access": null,
     "description": "Gets the collection elements keys in a new collection.",
-    "lineNumber": 174,
+    "lineNumber": 182,
     "params": [],
     "return": {
       "nullable": null,
@@ -452,7 +506,7 @@
     "generator": false
   },
   {
-    "__docId__": 17,
+    "__docId__": 19,
     "kind": "method",
     "static": false,
     "variation": null,
@@ -461,16 +515,17 @@
     "longname": "src/collection.js~Collection#last",
     "access": null,
     "description": "Gets the last element to satisfy a callback.",
-    "lineNumber": 192,
+    "lineNumber": 200,
     "params": [
       {
         "nullable": null,
         "types": [
-          "Function",
-          "null"
+          "Function"
         ],
         "spread": false,
-        "optional": false,
+        "optional": true,
+        "defaultValue": "null",
+        "defaultRaw": null,
         "name": "callback",
         "description": "the predicate to be checked on all elements."
       }
@@ -486,7 +541,7 @@
     "generator": false
   },
   {
-    "__docId__": 18,
+    "__docId__": 20,
     "kind": "method",
     "static": false,
     "variation": null,
@@ -495,7 +550,7 @@
     "longname": "src/collection.js~Collection#map",
     "access": null,
     "description": "Maps each element using a mapping function and collects the mapped items.",
-    "lineNumber": 209,
+    "lineNumber": 217,
     "params": [
       {
         "nullable": null,
@@ -519,7 +574,7 @@
     "generator": false
   },
   {
-    "__docId__": 19,
+    "__docId__": 21,
     "kind": "method",
     "static": false,
     "variation": null,
@@ -528,7 +583,7 @@
     "longname": "src/collection.js~Collection#pluck",
     "access": null,
     "description": "Extracts a property from the objects in the collection.",
-    "lineNumber": 219,
+    "lineNumber": 227,
     "params": [
       {
         "nullable": null,
@@ -552,7 +607,7 @@
     "generator": false
   },
   {
-    "__docId__": 20,
+    "__docId__": 22,
     "kind": "method",
     "static": false,
     "variation": null,
@@ -561,7 +616,7 @@
     "longname": "src/collection.js~Collection#push",
     "access": null,
     "description": "Adds an element to the collection.",
-    "lineNumber": 228,
+    "lineNumber": 236,
     "params": [
       {
         "nullable": null,
@@ -577,7 +632,7 @@
     "generator": false
   },
   {
-    "__docId__": 21,
+    "__docId__": 23,
     "kind": "method",
     "static": false,
     "variation": null,
@@ -586,7 +641,7 @@
     "longname": "src/collection.js~Collection#reduce",
     "access": null,
     "description": "Reduces the collection to a single value using a reducing function.",
-    "lineNumber": 239,
+    "lineNumber": 247,
     "params": [
       {
         "nullable": null,
@@ -615,12 +670,12 @@
         "var"
       ],
       "spread": false,
-      "description": "the reduced results."
+      "description": "The reduced results."
     },
     "generator": false
   },
   {
-    "__docId__": 22,
+    "__docId__": 24,
     "kind": "method",
     "static": false,
     "variation": null,
@@ -629,7 +684,7 @@
     "longname": "src/collection.js~Collection#reject",
     "access": null,
     "description": "Removes the elements that do not satisfy the predicate.",
-    "lineNumber": 249,
+    "lineNumber": 257,
     "params": [
       {
         "nullable": null,
@@ -653,7 +708,7 @@
     "generator": false
   },
   {
-    "__docId__": 23,
+    "__docId__": 25,
     "kind": "method",
     "static": false,
     "variation": null,
@@ -662,7 +717,7 @@
     "longname": "src/collection.js~Collection#reverse",
     "access": null,
     "description": "Reverses the collection order.",
-    "lineNumber": 265,
+    "lineNumber": 273,
     "params": [],
     "return": {
       "nullable": null,
@@ -675,7 +730,7 @@
     "generator": false
   },
   {
-    "__docId__": 24,
+    "__docId__": 26,
     "kind": "method",
     "static": false,
     "variation": null,
@@ -684,7 +739,7 @@
     "longname": "src/collection.js~Collection#skip",
     "access": null,
     "description": "Skips a specified number of elements.",
-    "lineNumber": 275,
+    "lineNumber": 283,
     "params": [
       {
         "nullable": null,
@@ -708,7 +763,7 @@
     "generator": false
   },
   {
-    "__docId__": 25,
+    "__docId__": 27,
     "kind": "method",
     "static": false,
     "variation": null,
@@ -717,7 +772,7 @@
     "longname": "src/collection.js~Collection#slice",
     "access": null,
     "description": "Slices the collection starting from a specific index and ending at a specified index.",
-    "lineNumber": 286,
+    "lineNumber": 294,
     "params": [
       {
         "nullable": null,
@@ -735,7 +790,9 @@
           "Number"
         ],
         "spread": false,
-        "optional": false,
+        "optional": true,
+        "defaultValue": "length",
+        "defaultRaw": "length",
         "name": "end",
         "description": "The zero-based ending index."
       }
@@ -751,7 +808,7 @@
     "generator": false
   },
   {
-    "__docId__": 26,
+    "__docId__": 28,
     "kind": "method",
     "static": false,
     "variation": null,
@@ -760,7 +817,7 @@
     "longname": "src/collection.js~Collection#stringify",
     "access": null,
     "description": "Stringifies the collection using JSON.stringify API.",
-    "lineNumber": 295,
+    "lineNumber": 303,
     "params": [],
     "return": {
       "nullable": null,
@@ -773,7 +830,7 @@
     "generator": false
   },
   {
-    "__docId__": 27,
+    "__docId__": 29,
     "kind": "method",
     "static": false,
     "variation": null,
@@ -782,7 +839,7 @@
     "longname": "src/collection.js~Collection#sum",
     "access": null,
     "description": "Sums the values of the array, or the properties, or the result of the callback.",
-    "lineNumber": 305,
+    "lineNumber": 313,
     "params": [
       {
         "nullable": null,
@@ -792,7 +849,9 @@
           "Function"
         ],
         "spread": false,
-        "optional": false,
+        "optional": true,
+        "defaultValue": "null",
+        "defaultRaw": null,
         "name": "property",
         "description": "the property to be summed."
       }
@@ -808,7 +867,7 @@
     "generator": false
   },
   {
-    "__docId__": 28,
+    "__docId__": 30,
     "kind": "method",
     "static": false,
     "variation": null,
@@ -817,7 +876,7 @@
     "longname": "src/collection.js~Collection#take",
     "access": null,
     "description": "Gets a new collection with the number of specified items from the begining or the end.",
-    "lineNumber": 329,
+    "lineNumber": 337,
     "params": [
       {
         "nullable": null,
@@ -841,7 +900,7 @@
     "generator": false
   },
   {
-    "__docId__": 29,
+    "__docId__": 31,
     "kind": "method",
     "static": false,
     "variation": null,
@@ -850,7 +909,7 @@
     "longname": "src/collection.js~Collection#where",
     "access": null,
     "description": "Filters the collection using a callback or equality comparison to a property in each item.",
-    "lineNumber": 348,
+    "lineNumber": 356,
     "params": [
       {
         "nullable": null,
@@ -869,7 +928,9 @@
           "var"
         ],
         "spread": false,
-        "optional": false,
+        "optional": true,
+        "defaultValue": "null",
+        "defaultRaw": null,
         "name": "value",
         "description": "The value to be compared."
       }
@@ -885,7 +946,7 @@
     "generator": false
   },
   {
-    "__docId__": 30,
+    "__docId__": 32,
     "kind": "method",
     "static": false,
     "variation": null,
@@ -894,7 +955,7 @@
     "longname": "src/collection.js~Collection#zip",
     "access": null,
     "description": "Pairs each item in the collection with another array item in the same index.",
-    "lineNumber": 362,
+    "lineNumber": 370,
     "params": [
       {
         "nullable": null,
@@ -919,7 +980,7 @@
     "generator": false
   },
   {
-    "__docId__": 32,
+    "__docId__": 34,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -932,7 +993,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 33,
+    "__docId__": 35,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -945,7 +1006,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 34,
+    "__docId__": 36,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -958,7 +1019,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 35,
+    "__docId__": 37,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -971,7 +1032,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 36,
+    "__docId__": 38,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -984,7 +1045,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 37,
+    "__docId__": 39,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -997,7 +1058,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 38,
+    "__docId__": 40,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1010,7 +1071,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 39,
+    "__docId__": 41,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1023,7 +1084,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 40,
+    "__docId__": 42,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1036,7 +1097,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 41,
+    "__docId__": 43,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1049,7 +1110,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 42,
+    "__docId__": 44,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1062,7 +1123,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 43,
+    "__docId__": 45,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1075,7 +1136,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 44,
+    "__docId__": 46,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1088,7 +1149,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 45,
+    "__docId__": 47,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1101,7 +1162,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 46,
+    "__docId__": 48,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1114,7 +1175,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 47,
+    "__docId__": 49,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1127,7 +1188,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 48,
+    "__docId__": 50,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1140,7 +1201,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 49,
+    "__docId__": 51,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1153,7 +1214,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 50,
+    "__docId__": 52,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1166,7 +1227,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 51,
+    "__docId__": 53,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1179,7 +1240,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 52,
+    "__docId__": 54,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1192,7 +1253,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 53,
+    "__docId__": 55,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1205,7 +1266,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 54,
+    "__docId__": 56,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1218,7 +1279,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 55,
+    "__docId__": 57,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1231,7 +1292,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 56,
+    "__docId__": 58,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1244,7 +1305,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 57,
+    "__docId__": 59,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1257,7 +1318,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 58,
+    "__docId__": 60,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1270,7 +1331,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 59,
+    "__docId__": 61,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1283,7 +1344,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 60,
+    "__docId__": 62,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1296,7 +1357,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 61,
+    "__docId__": 63,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1309,7 +1370,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 62,
+    "__docId__": 64,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1322,7 +1383,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 63,
+    "__docId__": 65,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1335,7 +1396,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 64,
+    "__docId__": 66,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1348,7 +1409,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 65,
+    "__docId__": 67,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1361,7 +1422,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 66,
+    "__docId__": 68,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1374,7 +1435,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 67,
+    "__docId__": 69,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1387,7 +1448,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 68,
+    "__docId__": 70,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1400,7 +1461,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 69,
+    "__docId__": 71,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1413,7 +1474,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 70,
+    "__docId__": 72,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1426,7 +1487,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 71,
+    "__docId__": 73,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1439,7 +1500,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 72,
+    "__docId__": 74,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1452,7 +1513,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 73,
+    "__docId__": 75,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1465,7 +1526,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 74,
+    "__docId__": 76,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1478,7 +1539,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 75,
+    "__docId__": 77,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1491,7 +1552,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 76,
+    "__docId__": 78,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1504,7 +1565,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 77,
+    "__docId__": 79,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1517,7 +1578,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 78,
+    "__docId__": 80,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1530,7 +1591,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 80,
+    "__docId__": 82,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1543,7 +1604,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 81,
+    "__docId__": 83,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1556,7 +1617,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 82,
+    "__docId__": 84,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1569,7 +1630,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 83,
+    "__docId__": 85,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1582,7 +1643,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 84,
+    "__docId__": 86,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1595,7 +1656,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 85,
+    "__docId__": 87,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1608,7 +1669,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 86,
+    "__docId__": 88,
     "kind": "external",
     "static": true,
     "variation": null,
@@ -1621,7 +1682,7 @@
     "builtinExternal": true
   },
   {
-    "__docId__": 87,
+    "__docId__": 89,
     "kind": "external",
     "static": true,
     "variation": null,

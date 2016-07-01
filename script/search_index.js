@@ -414,12 +414,6 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
-    "src/collection.js~collection#getitems",
-    "class/src/collection.js~Collection.html#instance-method-getItems",
-    "src/collection.js~Collection#getItems",
-    "method"
-  ],
-  [
     "src/collection.js~collection#items",
     "class/src/collection.js~Collection.html#instance-member-items",
     "src/collection.js~Collection#items",
@@ -436,6 +430,12 @@ window.esdocSearchIndex = [
     "class/src/collection.js~Collection.html#instance-method-last",
     "src/collection.js~Collection#last",
     "method"
+  ],
+  [
+    "src/collection.js~collection#length",
+    "class/src/collection.js~Collection.html#instance-member-length",
+    "src/collection.js~Collection#length",
+    "member"
   ],
   [
     "src/collection.js~collection#map",
@@ -513,6 +513,12 @@ window.esdocSearchIndex = [
     "src/collection.js~collection#zip",
     "class/src/collection.js~Collection.html#instance-method-zip",
     "src/collection.js~Collection#zip",
+    "method"
+  ],
+  [
+    "src/collection.js~collection.collect",
+    "class/src/collection.js~Collection.html#static-method-collect",
+    "src/collection.js~Collection.collect",
     "method"
   ]
 ]
