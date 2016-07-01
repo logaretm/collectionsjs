@@ -37,7 +37,92 @@
 </div>
 </nav>
 
-<div class="content" data-ice="content">Please create README.md</div>
+<div class="content" data-ice="content"><div data-ice="index" class="github-markdown"><h1 id="collectionjs">CollectionJS</h1>
+<p>A lightweight object for array pipelining operations.</p>
+<p>Arrays are awesome in JavaScript and now are easier to use and manipulate using the ES5 functions like map and filter, which enables you to chain some operations like:</p>
+<pre><code class="lang-JavaScript"><code class="source-code prettyprint">var array = [1, 2, 3];
+array.map(i =&gt; i + 1).filter(i =&gt; i &gt; 2);</code>
+</code></pre>
+<p>which can be thought of as a pipeline of operations. however there are some functions that do not exist or considered as an edge case which can be fairly simple to implement, but annoying to reuse.</p>
+<p>CollectionJS is an object that acts as a wrapper around the Array object, exposing the same Array API and some extra methods and utilities, and simplifying their use. and it always returns a Collection (except for some examples) meaning you will be able to keep chaining until you get the collection you want to work with.</p>
+<h3 id="why-inspiration-">Why (Inspiration)?</h3>
+<p>I&apos;m not an expert JavaScript developer, but I run into enough situations where I needed some complex operations, great libraries like lodash are amazing and offer a whole lot to do with arrays, but most methods return an array. so doing multiple operations wasn&apos;t as great.</p>
+<p>Working with The PHP framework Laravel, I came across the collection object. I didn&apos;t realize how powerful the combination of immutable objects are until I read the &apos;Refactoring to collections book&apos; which is a great read for any developer.</p>
+<p>And I had a free week at the time.</p>
+<h3 id="install">Install</h3>
+<p>npm</p>
+<pre><code class="lang-bash"><code class="source-code prettyprint">npm install collectionjs --save</code>
+</code></pre>
+<p>bower</p>
+<pre><code class="lang-bash"><code class="source-code prettyprint">bower install collectionjs --save</code>
+</code></pre>
+<h3 id="usage">Usage</h3>
+<p>Download it manually and add the script tag at the bottom of your body, it doesn&apos;t matter in which order because there are no dependencies.</p>
+<pre><code class="lang-html"><code class="source-code prettyprint">&lt;script src=&quot;/path/to/collection.min.js&quot;&gt;&lt;/script&gt;</code>
+</code></pre>
+<p>or reference a cdn:</p>
+<pre><code class="lang-html"><code class="source-code prettyprint">&lt;script src=&quot;cdn/collection.min.js&quot;&gt;&lt;/script&gt;</code>
+</code></pre>
+<p>However if you have a more complex setup, Then in your code you can do:</p>
+<pre><code class="lang-JavaScript"><code class="source-code prettyprint">// ES6
+import Collection from &apos;collectionjs&apos;;</code>
+</code></pre>
+<p>or</p>
+<pre><code class="lang-JavaScript"><code class="source-code prettyprint">var Collection = require(&apos;collectionjs&apos;);</code>
+</code></pre>
+<h3 id="behaviors">Behaviors</h3>
+<p>I have chosen to allow different types to be used for the same parameter, some may see this as some violation of some pattern out there or something, while I like to respect all best practices I think the trade of having less methods to memorize and the versatility of one method is better than writing over 2x the same amount of functions for slightly different behaviors.</p>
+<ul>
+<li>Most of the methods just defer to the existing array functions like filter and map.</li>
+<li>Many methods accept a different argument types for the same parameter, which will dictate its behavior like <code>where()</code> and <code>first()</code>.</li>
+<li>Few methods are just an alias.</li>
+</ul>
+<h3 id="api">API</h3>
+<p>There are just over 25+ unique methods for most of your needs I will be adding more useful ones in time.</p>
+<p>Here is a brief summary, read the docs for different behaviors and usage:</p>
+<ul>
+<li>add(item)</li>
+<li>all()</li>
+<li>average(callback)</li>
+<li>chunk(size)</li>
+<li>concat(Array)</li>
+<li>count()</li>
+<li>each(callback)</li>
+<li>filter(callback)</li>
+<li>find(index)</li>
+<li>first(callback)</li>
+<li>flatten(deep)</li>
+<li>getItems()</li>
+<li>keys()</li>
+<li>last(callback)</li>
+<li>map(callback)</li>
+<li>pluck(callback)</li>
+<li>push(item)</li>
+<li>reduce(callback, initial)</li>
+<li>reject(callback)</li>
+<li>reverse()</li>
+<li>skip(count)</li>
+<li>slice(start, end)</li>
+<li>stringify()</li>
+<li>sum(callback)</li>
+<li>take(count)</li>
+<li>where(callback)</li>
+<li>zip(Array)</li>
+</ul>
+<h3 id="testing">Testing</h3>
+<p>I use <code>ava</code> for testing which is an amazing framework.</p>
+<p><code>npm install</code></p>
+<p><code>npm run test</code></p>
+<p>and you can lint with</p>
+<p><code>npm run lint</code></p>
+<h3 id="contribution">Contribution</h3>
+<p>Go a head and you will be fully credited.
+Don&apos;t forget to follow the code style and always add a test file for any additions.</p>
+<h3 id="so-performance-">So...Performance?</h3>
+<p>I don&apos;t think its very performant at the moment not very slow either, I can always use some help with optimizing things.</p>
+<h3 id="mit">MIT</h3>
+</div>
+</div>
 
 <footer class="footer">
   Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(0.4.7)</span></a>

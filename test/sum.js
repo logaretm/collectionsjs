@@ -1,12 +1,14 @@
 import test from 'ava';
 import Collection from './../src/collection';
 
+/** @test {Collection#sum} */
 test('should return a single value that is the sum of all elements', t => {
     const sum = new Collection([1, 2, 3, 4, 5]).sum();
 
     t.is(sum, 15);
 });
 
+/** @test {Collection#sum} */
 test('should return a single value that is the sum of a property in all elements', t => {
     const sum = new Collection([
         { name: 'Arya Stark', age: 9 },
@@ -17,6 +19,7 @@ test('should return a single value that is the sum of a property in all elements
     t.is(sum, 30);
 });
 
+/** @test {Collection#sum} */
 test('should return a single value that is the sum of a callback called on each element', t => {
     const sum = new Collection([
         { name: 'Arya Stark', age: 9 },

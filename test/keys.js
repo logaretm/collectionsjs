@@ -1,6 +1,7 @@
 import test from 'ava';
 import Collection from './../src/collection';
 
+/** @test {Collection#keys} */
 test('should return a new collection with the object keys', t => {
     const keys = new Collection({
         arya: 10,
@@ -12,6 +13,7 @@ test('should return a new collection with the object keys', t => {
     t.deepEqual(['arya', 'john', 'potato'], keys.all());
 });
 
+/** @test {Collection#keys} */
 test('should return a new collection with the array keys', t => {
     const keys = new Collection(['arya', 'john', 'potato']).keys();
 

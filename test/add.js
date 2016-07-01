@@ -1,7 +1,7 @@
 import test from 'ava';
 import Collection from './../src/collection';
 
-// #add
+/** @test {Collection#add} */
 test('should add an item to the collection', t => {
     const collection = new Collection();
     const item = 'Arya';

@@ -1,18 +1,21 @@
 import test from 'ava';
 import Collection from './../src/collection';
 
+/** @test {Collection#last} */
 test('should return null if the collection is empty', t => {
     const last = new Collection().last();
 
     t.is(last, null);
 });
 
+/** @test {Collection#last} */
 test('should return last element in a collection', t => {
     const last = new Collection([6, 2, 3, 4, 5]).last();
 
     t.is(last, 5);
 });
 
+/** @test {Collection#last} */
 test('should return the last element that satisifies a predicate/callback', t => {
     const last = new Collection([
         { name: 'Arya Stark', age: 9 },

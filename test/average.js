@@ -1,12 +1,14 @@
 import test from 'ava';
 import Collection from './../src/collection';
 
+/** @test {Collection#average} */
 test('should calculate the average of the elements directly', t => {
     const avg = new Collection([1, 2, 3, 4]).average();
 
     t.is(2.5, avg);
 });
 
+/** @test {Collection#average} */
 test('should calculate the average of a property in the elements', t => {
     const avg = new Collection([
         { name: 'Arya Stark', age: 9 },
@@ -17,6 +19,7 @@ test('should calculate the average of a property in the elements', t => {
     t.is(10, avg);
 });
 
+/** @test {Collection#average} */
 test('should calculate the average of a callback called on all elements', t => {
     const avg = new Collection([
         { name: 'Arya Stark', age: 9 },

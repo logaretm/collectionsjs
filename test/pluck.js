@@ -1,6 +1,7 @@
 import test from 'ava';
 import Collection from './../src/collection';
 
+/** @test {Collection#pluck} */
 test('should return a mapped collection containg values from objects', t => {
     const collection = new Collection([
         { name: 'Arya Stark', age: 9 },

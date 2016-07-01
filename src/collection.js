@@ -1,13 +1,29 @@
+/**
+ * The Collection object.
+ *
+ * @example
+ * let collection = new Collection([1, 2, 3]);
+ */
 export default class Collection
 {
     /**
      * The collection constructor.
      *
-     * @param  {Array} items = [] the array to collect.
+     * @param  {Array} [items=[]] the array to collect.
      * @return {Collection} A Collection object.
      */
     constructor(items = []) {
+        /**
+         * The internal array.
+         * @type {Array|Object}
+         */
         this.items = items;
+
+        /**
+         * The length of the array.
+         * @type {Number}
+         */
+        this.length = items.length;
     }
 
     /**
@@ -17,15 +33,16 @@ export default class Collection
      */
     add(item) {
         this.items.push(item);
+        this.length = this.items.length;
     }
 
     /**
-     * Gets the collection elements in an array.
+     * Gets the collected elements in an array.
      *
      * @return {Array} the internal array.
      */
     all() {
-        return this.getItems();
+        return this.items;
     }
 
     /**
@@ -35,7 +52,7 @@ export default class Collection
      *  objects in the array.
      * If Property is a callback: the the averaging will use the value returned instead.
      *
-     * @param  {function|String} property The property name or the callback function.
+     * @param  {Function|String} [property=null] The property name or the callback function.
      * defaults to null.
      * @return {Number} The average value.
      */
@@ -55,10 +72,24 @@ export default class Collection
         }
 
         const items = [];
-        const length = this.items.length;
 
-        for (let i = 0; i < length; i += size) {
+        for (let i = 0; i < this.length; i += size) {
             items.push(this.items.slice(i, i + size));
+        }
+
+        return new Collection(items);
+    }
+
+    /**
+     * Static constructor. Will transform a string to array of strings.
+     *
+     * @param  {Array|String} collectable the array or the string to wrapped in a collection.
+     * @return {Collection} A collection that wraps the collectable items.
+     */
+    static collect(collectable) {
+        let items = collectable;
+        if (typeof collectable === 'string') {
+            items = collectable.split('');
         }
 
         return new Collection(items);
@@ -84,7 +115,7 @@ export default class Collection
      * @return {Number} Number of items in the collection.
      */
     count() {
-        return this.items.length;
+        return this.length;
     }
 
 
@@ -119,11 +150,12 @@ export default class Collection
 
     /**
      * Gets the first element satisfying a critera.
-     * @param  {Function|null} callback the predicate (callback) that will be applied on all items.
+     *
+     * @param  {Function} [callback=null] the predicate (callback) that will be applied on items.
      * @return {var} the first item to satisfy the critera.
      */
     first(callback = null) {
-        if (! this.items.length) {
+        if (! this.count()) {
             return null;
         }
 
@@ -141,7 +173,7 @@ export default class Collection
     /**
      * Flattens the collection elements.
      *
-     * @param  {Boolean} deep recursively flatten the items (multi-level).
+     * @param  {Boolean} [deep=false] recursively flatten the items (multi-level).
      * @return {Collection} the flattened collection.
      */
     flatten(deep = false) {
@@ -152,15 +184,6 @@ export default class Collection
         }
 
         return flattened;
-    }
-
-    /**
-     * Gets all elements in the collections.
-     *
-     * @return {Array} The elements in the collection.
-     */
-    getItems() {
-        return this.items;
     }
 
     /**
@@ -183,11 +206,11 @@ export default class Collection
     /**
      * Gets the last element to satisfy a callback.
      *
-     * @param  {Function|null} callback the predicate to be checked on all elements.
+     * @param  {Function} [callback=null] the predicate to be checked on all elements.
      * @return {var} The last element in the collection that satisfies the predicate.
      */
     last(callback = null) {
-        if (! this.items.length) {
+        if (! this.count()) {
             return null;
         }
 
@@ -195,7 +218,7 @@ export default class Collection
             return this.filter(callback).last();
         }
 
-        return this.items[this.items.length - 1];
+        return this.items[this.count() - 1];
     }
 
     /**
@@ -230,8 +253,8 @@ export default class Collection
      * Reduces the collection to a single value using a reducing function.
      *
      * @param  {Function} callback the reducing function.
-     * @param  {var}   initial  initial value.
-     * @return {var} the reduced results.
+     * @param  {var} initial  initial value.
+     * @return {var} The reduced results.
      */
     reduce(callback, initial) {
         return this.items.reduce(callback, initial);
@@ -277,10 +300,10 @@ export default class Collection
      * Slices the collection starting from a specific index and ending at a specified index.
      *
      * @param  {Number} start The zero-based starting index.
-     * @param  {Number} end The zero-based ending index.
+     * @param  {Number} [end=length] The zero-based ending index.
      * @return {Collection} A collection with the sliced items.
      */
-    slice(start, end = this.items.length) {
+    slice(start, end = this.length) {
         return new Collection(this.items.slice(start, end));
     }
 
@@ -296,10 +319,10 @@ export default class Collection
     /**
      * Sums the values of the array, or the properties, or the result of the callback.
      *
-     * @param  {undefined|String|Function} property the property to be summed.
+     * @param  {undefined|String|Function} [property=null] the property to be summed.
      * @return {var} The sum of values used in the summation.
      */
-    sum(property = undefined) {
+    sum(property = null) {
         if (typeof property === 'string') {
             return this.reduce((previous, current) =>
                 previous + current[property]
@@ -339,7 +362,7 @@ export default class Collection
      * Filters the collection using a callback or equality comparison to a property in each item.
      *
      * @param  {Function|String} callback The callback to be used to filter the collection.
-     * @param  {var} value The value to be compared.
+     * @param  {var} [value=null] The value to be compared.
      * @return {Collection} A collection with the filtered items.
      */
     where(callback, value = null) {

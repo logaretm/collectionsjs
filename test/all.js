@@ -1,7 +1,7 @@
 import test from 'ava';
 import Collection from './../src/collection';
 
-// #all
+/** @test {Collection#all} */
 test('should return internal array elements', t => {
     const collection = new Collection([1, 2, 3]);
 

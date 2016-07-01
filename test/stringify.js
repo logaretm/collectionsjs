@@ -1,6 +1,7 @@
 import test from 'ava';
 import Collection from './../src/collection';
 
+/** @test {Collection#stringify} */
 test('should stringify the collection contents', t => {
     const collection = new Collection([1, 2, 3]);
 
