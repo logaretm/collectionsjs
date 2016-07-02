@@ -2,7 +2,7 @@
   "name": "collectionjs",
   "version": "0.1.0",
   "repository": "https://github.com/logaretm/collectionjs",
-  "description": "immutable collection class for working with arrays similiar to Laravel's collections",
+  "description": "Immutable collection class for working with JavaScript arrays similiar to Laravel's collections",
   "main": "dist/collection.js",
   "scripts": {
     "prepublish": "npm run build",

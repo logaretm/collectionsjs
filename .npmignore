@@ -2,3 +2,4 @@ src/
 coverage/
 .nyc_output/
 test/
+docs/

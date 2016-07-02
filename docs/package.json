@@ -1,9 +1,11 @@
 {
   "name": "collectionjs",
   "version": "0.1.0",
-  "description": "fluent utility class for working with arrays similiar to Laravel's collections",
-  "main": "index.js",
+  "repository": "https://github.com/logaretm/collectionjs",
+  "description": "Immutable collection class for working with JavaScript arrays similiar to Laravel's collections",
+  "main": "dist/collection.js",
   "scripts": {
+    "prepublish": "npm run build",
     "dev": "webpack --progress --colors --watch",
     "build": "webpack && cross-env NODE_ENV=production webpack -p",
     "test": "nyc ava --colors",

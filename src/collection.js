@@ -123,9 +123,12 @@ export default class Collection
      * Executes a callback for each element in the collection.
      *
      * @param  {Function} callback the callback to be excuted for each item.
+     * @return {Collection} this
      */
     each(callback) {
         this.items.forEach(callback);
+
+        return this;
     }
 
     /**
