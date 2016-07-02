@@ -70,16 +70,26 @@ export default class Collection
      * Adds an item to the collection.
      *
      * @param {var} item the item to be added.
+     * @return {Collection} the collection object.
+     * @example
+     * const collection = new Collection();
+     * collection.add(&apos;Arya&apos;);
+     * console.log(collection.first()); //outputs &apos;Arya&apos;
      */
     add(item) {
         this.items.push(item);
         this.length = this.items.length;
+
+        return this;
     }
 
     /**
      * Gets the collected elements in an array.
      *
      * @return {Array} the internal array.
+     * @example
+     * const collection = new Collection([1, 2, 3]);
+     * console.log(collection.all()); // [1, 2, 3]
      */
     all() {
         return this.items;
@@ -95,6 +105,23 @@ export default class Collection
      * @param  {Function|String} [property=null] The property name or the callback function.
      * defaults to null.
      * @return {Number} The average value.
+     * @example &lt;caption&gt;Averaging elements&lt;/caption&gt;
+     * const collection = new Collection([1, 2, 3]);
+     * console.log(collection.average()); // 2
+     * @example &lt;caption&gt;Averaging a property&lt;/caption&gt;
+     * const collection = new Collection([
+     *     { name: &apos;Arya Stark&apos;, age: 9 },
+     *     { name: &apos;Bran Stark&apos;, age: 7 },
+     *     { name: &apos;Jon Snow&apos;, age: 14 }
+     * ]);
+     * console.log(collection.average(&apos;age&apos;)); // 10
+     * @example &lt;caption&gt;Averaging using a callback&lt;/caption&gt;
+     * const collection = new Collection([
+     *     { name: &apos;Arya Stark&apos;, age: 9 },
+     *     { name: &apos;Bran Stark&apos;, age: 7 },
+     *     { name: &apos;Jon Snow&apos;, age: 14 }
+     * ]);
+     * console.log(collection.average(i =&gt; i.age)); // 10
      */
     average(property = null) {
         return this.sum(property) / this.count();
@@ -105,6 +132,9 @@ export default class Collection
      *
      * @param  {Number} size the size of each chunk.
      * @return {Collection} the new collection.
+     * @example
+     * const collection = new Collection([1, 2, 3, 4, 5]).chunk(2);
+     * console.log(collection.all()); // [[1, 2], [3, 4], [5]]
      */
     chunk(size) {
         if (size &lt;= 0) {
@@ -122,9 +152,13 @@ export default class Collection
 
     /**
      * Static constructor. Will transform a string to array of strings.
+     * cool if you don&apos;t like using the &apos;new&apos; keyword.
      *
      * @param  {Array|String} collectable the array or the string to wrapped in a collection.
      * @return {Collection} A collection that wraps the collectable items.
+     * @example
+     * const collection = Collection.collect(&apos;abcd&apos;);
+     * console.log(collection.all()); // [&apos;a&apos;, &apos;b&apos;, &apos;c&apos;, &apos;d&apos;]
      */
     static collect(collectable) {
         let items = collectable;
@@ -140,6 +174,11 @@ export default class Collection
      *
      * @param {Array|Collection} collection the array or the collection to be concatenated with.
      * @return {Collection} concatenated collection.
+     * @example
+     * const collection = new Collection([1, 2, 3]);
+     * const array = [4, 5, 6]; // or another collection.
+     * const newCollection = collection.concat(array);
+     * console.log(newCollection.all()); // [1, 2, 3, 4, 5, 6]
      */
     concat(collection) {
         if (Array.isArray(collection)) {
@@ -153,6 +192,9 @@ export default class Collection
      * Gets the number of items in the collection.
      *
      * @return {Number} Number of items in the collection.
+     * @example
+     * const collection = new Collection([1, 2, 3]);
+     * console.log(collection.count()); // 3
      */
     count() {
         return this.length;
@@ -163,7 +205,10 @@ export default class Collection
      * Executes a callback for each element in the collection.
      *
      * @param  {Function} callback the callback to be excuted for each item.
-     * @return {Collection} this
+     * @return {Collection} The collection object.
+     * @example
+     * const collection = new Collection([&apos;this&apos;, &apos;is&apos;, &apos;collectionjs&apos;]);
+     * collection.each(t =&gt; console.log(t)); // this is collectionjs
      */
     each(callback) {
         this.items.forEach(callback);
@@ -176,6 +221,13 @@ export default class Collection
      *
      * @param  {Function} callback A function that returns a boolean expression.
      * @return {Collection} Filtered collection.
+     * @example
+     * const collection = new Collection([
+     *     { name: &apos;Arya Stark&apos;, age: 9 },
+     *     { name: &apos;Bran Stark&apos;, age: 7 },
+     *     { name: &apos;Jon Snow&apos;, age: 14 }
+     * ]).filter(stark =&gt; stark.age === 14);
+     * console.log(collection.all()); // [{ name: &apos;Jon Snow&apos;, age: 14 }]
      */
     filter(callback) {
         return new Collection(this.items.filter(callback));
@@ -186,6 +238,9 @@ export default class Collection
      *
      * @param  {Number} index the index of the item.
      * @return {var} the item at that index.
+     * @example
+     * const collection = new Collection([1, 2, 3]);
+     * console.log(collection.find(2)); // 3
      */
     find(index) {
         return this.items[index];
@@ -196,6 +251,22 @@ export default class Collection
      *
      * @param  {Function} [callback=null] the predicate (callback) that will be applied on items.
      * @return {var} the first item to satisfy the critera.
+     * @example &lt;caption&gt;Using a callback&lt;/caption&gt;
+     * const first = new Collection([
+     *     { name: &apos;Bran Stark&apos;, age: 7 },
+     *     { name: &apos;Arya Stark&apos;, age: 9 },
+     *     { name: &apos;Jon Snow&apos;, age: 14 }
+     * ]).first(item =&gt; item.age &gt; 7);
+     *
+     * console.log(first); // { name: &apos;Arya Stark&apos;, age: 9 }
+     * @example &lt;caption&gt;No Arguments&lt;/caption&gt;
+     * const first = new Collection([
+     *     { name: &apos;Bran Stark&apos;, age: 7 },
+     *     { name: &apos;Arya Stark&apos;, age: 9 },
+     *     { name: &apos;Jon Snow&apos;, age: 14 }
+     * ]).first();
+     *
+     * console.log(first); // { name: &apos;Bran Stark&apos;, age: 7 }
      */
     first(callback = null) {
         if (! this.count()) {
@@ -218,6 +289,13 @@ export default class Collection
      *
      * @param  {Boolean} [deep=false] recursively flatten the items (multi-level).
      * @return {Collection} the flattened collection.
+     * @example &lt;caption&gt;Just one level&lt;/caption&gt;
+     * const collection = new Collection([1, [2, [3, [4]], 5]]).flatten();
+     * console.log(collection.all()); // [1, 2, [3, [4]], 5]
+     *
+     * @example &lt;caption&gt;Deep&lt;/caption&gt;
+     * const collection = new Collection([1, [2, [3, [4]], 5]]).flatten(true);
+     * console.log(collection.all()); // [1, 2, 3, 4, 5]
      */
     flatten(deep = false) {
         const flattened = new Collection([].concat(...this.items));
@@ -233,6 +311,17 @@ export default class Collection
      * Gets the collection elements keys in a new collection.
      *
      * @return {Collection} The keys collection.
+     * @example &lt;caption&gt;Objects&lt;/caption&gt;
+     * const keys = new Collection({
+     *     arya: 10,
+     *     john: 20,
+     *     potato: 30
+     * }).keys();
+     * console.log(keys); // [&apos;arya&apos;, &apos;john&apos;, &apos;potato&apos;]
+     *
+     * @example &lt;caption&gt;Regular Array&lt;/caption&gt;
+     * const keys = new Collection([&apos;arya&apos;, &apos;john&apos;, &apos;potato&apos;]).keys();
+     * console.log(keys); // [&apos;0&apos;, &apos;1&apos;, &apos;2&apos;]
      */
     keys() {
         let keys = [];
@@ -251,6 +340,22 @@ export default class Collection
      *
      * @param  {Function} [callback=null] the predicate to be checked on all elements.
      * @return {var} The last element in the collection that satisfies the predicate.
+     * @example &lt;caption&gt;Using a callback&lt;/caption&gt;
+     * const last = new Collection([
+     *     { name: &apos;Bran Stark&apos;, age: 7 },
+     *     { name: &apos;Arya Stark&apos;, age: 9 },
+     *     { name: &apos;Jon Snow&apos;, age: 14 }
+     * ]).last(item =&gt; item.age &gt; 7);
+     *
+     * console.log(last); // { name: &apos;Jon Snow&apos;, age: 14 }
+     * @example &lt;caption&gt;No Arguments&lt;/caption&gt;
+     * const last = new Collection([
+     *     { name: &apos;Bran Stark&apos;, age: 7 },
+     *     { name: &apos;Arya Stark&apos;, age: 9 },
+     *     { name: &apos;Jon Snow&apos;, age: 14 }
+     * ]).last();
+     *
+     * console.log(last); // { name: &apos;Jon Snow&apos;, age: 14 }
      */
     last(callback = null) {
         if (! this.count()) {
@@ -268,6 +373,13 @@ export default class Collection
      * Maps each element using a mapping function and collects the mapped items.
      * @param  {Function} callback the mapping function.
      * @return {Collection} collection containing the mapped items.
+     * @example
+     * const collection = new Collection([
+     *     { name: &apos;Bran Stark&apos;, age: 7 },
+     *     { name: &apos;Arya Stark&apos;, age: 9 },
+     *     { name: &apos;Jon Snow&apos;, age: 14 }
+     * ]).map(stark =&gt; stark.name);
+     * console.log(collection.all()); [&apos;Bran Stark&apos;, &apos;Arya Stark&apos;, &apos;Jon Snow&apos;]
      */
     map(callback) {
         return new Collection(this.items.map(callback));
@@ -278,6 +390,13 @@ export default class Collection
      *
      * @param  {String} property the name of the property to be extracted.
      * @return {Collection} A collection with the extracted items.
+     * @example
+     * const collection = new Collection([
+     *     { name: &apos;Bran Stark&apos;, age: 7 },
+     *     { name: &apos;Arya Stark&apos;, age: 9 },
+     *     { name: &apos;Jon Snow&apos;, age: 14 }
+     * ]).pluck(&apos;name&apos;);
+     * console.log(collection.all()); [&apos;Bran Stark&apos;, &apos;Arya Stark&apos;, &apos;Jon Snow&apos;]
      */
     pluck(property) {
         return this.map((item) =&gt; item[property]);
@@ -287,9 +406,13 @@ export default class Collection
      * Adds an element to the collection.
      *
      * @param  {var} item the item to be added.
+     * @return {Collection} The collection object.
+     * @example
+     * const collection = new Collection().push(&apos;First&apos;);
+     * console.log(collection.first()); // &quot;First&quot;
      */
     push(item) {
-        this.add(item);
+        return this.add(item);
     }
 
     /**
@@ -298,6 +421,12 @@ export default class Collection
      * @param  {Function} callback the reducing function.
      * @param  {var} initial  initial value.
      * @return {var} The reduced results.
+     * @example
+     * const value = new Collection([1, 2, 3]).reduce(
+     *     (previous, current) =&gt; previous + current,
+     *      0
+     *  );
+     *  console.log(value); // 6
      */
     reduce(callback, initial) {
         return this.items.reduce(callback, initial);
@@ -308,6 +437,13 @@ export default class Collection
      *
      * @param  {Function} callback the predicate used on each item.
      * @return {Collection} A collection without the rejected elements.
+     * @example
+     * const collection = new Collection([
+     *     { name: &apos;Arya Stark&apos;, age: 9 },
+     *     { name: &apos;Bran Stark&apos;, age: 7 },
+     *     { name: &apos;Jon Snow&apos;, age: 14 }
+     * ]).reject(stark =&gt; stark.age &lt; 14);
+     * console.log(collection.all()); // [{ name: &apos;Jon Snow&apos;, age: 14 }]
      */
     reject(callback) {
         const items = [];
@@ -324,6 +460,9 @@ export default class Collection
      * Reverses the collection order.
      *
      * @return {Collection} A new collection with the reversed order.
+     * @example
+     * const collection = new Collection([&apos;one&apos;, &apos;two&apos;, &apos;three&apos;]).reverse();
+     * console.log(collection.all()); // [&apos;three&apos;, &apos;two&apos;, &apos;one&apos;]
      */
     reverse() {
         return new Collection(this.items.reverse());
@@ -334,6 +473,9 @@ export default class Collection
      *
      * @param  {Number} count the number of items to be skipped.
      * @return {Collection} A collection without the skipped items.
+     * @example
+     * const collection = new Collection([&apos;John&apos;, &apos;Arya&apos;, &apos;Bran&apos;, &apos;Sansa&apos;]).skip(2);
+     * console.log(collection.all()); // [&apos;Bran&apos;, &apos;Sansa&apos;]
      */
     skip(count) {
         return this.slice(count);
@@ -345,6 +487,13 @@ export default class Collection
      * @param  {Number} start The zero-based starting index.
      * @param  {Number} [end=length] The zero-based ending index.
      * @return {Collection} A collection with the sliced items.
+     * @example &lt;caption&gt;start and end are specified&lt;/caption&gt;
+     * const collection = new Collection([0, 1, 2, 3, 4, 5, 6]).slice(2, 4);
+     * console.log(collection.all()); // [2, 3]
+     *
+     * @example &lt;caption&gt;only start is specified&lt;/caption&gt;
+     * const collection = new Collection([0, 1, 2, 3, 4, 5, 6]).slice(2);
+     * console.log(collection.all()); // [2, 3, 4, 5, 6]
      */
     slice(start, end = this.length) {
         return new Collection(this.items.slice(start, end));
@@ -354,6 +503,9 @@ export default class Collection
      * Stringifies the collection using JSON.stringify API.
      *
      * @return {String} The stringified value.
+     * @example
+     * const collection = new Collection([1, 2, 3]);
+     * console.log(collection.stringify()); // &quot;[1,2,3]&quot;
      */
     stringify() {
         return JSON.stringify(this.items);
@@ -364,6 +516,25 @@ export default class Collection
      *
      * @param  {undefined|String|Function} [property=null] the property to be summed.
      * @return {var} The sum of values used in the summation.
+     * @example &lt;caption&gt;Summing elements&lt;/caption&gt;
+     * const collection = new Collection([1, 2, 3]);
+     * console.log(collection.sum()); // 6
+     *
+     * @example &lt;caption&gt;Summing a property&lt;/caption&gt;
+     * const collection = new Collection([
+     *     { name: &apos;Arya Stark&apos;, age: 9 },
+     *     { name: &apos;Bran Stark&apos;, age: 7 },
+     *     { name: &apos;Jon Snow&apos;, age: 14 }
+     * ]);
+     * console.log(collection.sum(&apos;age&apos;)); // 30
+     *
+     * @example &lt;caption&gt;Summing using a callback&lt;/caption&gt;
+     * const collection = new Collection([
+     *     { name: &apos;Arya Stark&apos;, age: 9 },
+     *     { name: &apos;Bran Stark&apos;, age: 7 },
+     *     { name: &apos;Jon Snow&apos;, age: 14 }
+     * ]);
+     * console.log(collection.sum(i =&gt; i.age + 1)); // 33
      */
     sum(property = null) {
         if (typeof property === &apos;string&apos;) {
@@ -388,6 +559,13 @@ export default class Collection
      *
      * @param  {Number} count the number of items to take. Takes from end if negative.
      * @return {Collection} A collection with the taken items.
+     * @example &lt;caption&gt;From the beginning&lt;/caption&gt;
+     * const collection = new Collection([1, 2, 3, 4, 5]).take(3);
+     * console.log(collection.all()); // [1, 2, 3]
+     *
+     * @example &lt;caption&gt;From the end&lt;/caption&gt;
+     * const collection = new Collection([1, 2, 3, 4, 5]).take(-3);
+     * console.log(collection.all()); // [5, 4 ,3]
      */
     take(count) {
         if (! count) {
@@ -407,6 +585,21 @@ export default class Collection
      * @param  {Function|String} callback The callback to be used to filter the collection.
      * @param  {var} [value=null] The value to be compared.
      * @return {Collection} A collection with the filtered items.
+     * @example &lt;caption&gt;Using a property name&lt;/caption&gt;
+     * const collection = new Collection([
+     *     { name: &apos;Arya Stark&apos;, age: 9 },
+     *     { name: &apos;Bran Stark&apos;, age: 7 },
+     *     { name: &apos;Jon Snow&apos;, age: 14 }
+     * ]).where(&apos;age&apos;, 14);
+     * console.log(collection.all()); // [{ name: &apos;Jon Snow&apos;, age: 14 }]
+     *
+     * @example &lt;caption&gt;Using a callback&lt;/caption&gt;
+     * const collection = new Collection([
+     *     { name: &apos;Arya Stark&apos;, age: 9 },
+     *     { name: &apos;Bran Stark&apos;, age: 7 },
+     *     { name: &apos;Jon Snow&apos;, age: 14 }
+     * ]).where(stark =&gt; stark.age === 14);
+     * console.log(collection.all()); // [{ name: &apos;Jon Snow&apos;, age: 14 }]
      */
     where(callback, value = null) {
         if (typeof(callback) === &apos;string&apos;) {
@@ -421,6 +614,10 @@ export default class Collection
      *
      * @param  {Array|Collection} array the array to be paired with.
      * @return {Collection} A collection with the paired items.
+     * @example
+     * const array = [&apos;a&apos;, &apos;b&apos;, &apos;c&apos;]; // or a collection.
+     * const collection = new Collection([1, 2, 3]).zip(array);
+     * console.log(collection.all()); // [[1, &apos;a&apos;], [2, &apos;b&apos;], [3, &apos;c&apos;]]
      */
     zip(array) {
         if (array instanceof Collection) {

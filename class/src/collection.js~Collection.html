@@ -224,7 +224,7 @@
     <td>
       <div>
         <p>
-           <span data-ice="name"><span><a href="class/src/collection.js~Collection.html#instance-method-add">add</a></span></span><span data-ice="signature">(item: <span>var</span>)</span>
+           <span data-ice="name"><span><a href="class/src/collection.js~Collection.html#instance-method-add">add</a></span></span><span data-ice="signature">(item: <span>var</span>): <span><a href="class/src/collection.js~Collection.html">Collection</a></span></span>
         </p>
       </div>
       <div>
@@ -614,7 +614,7 @@
     <td>
       <div>
         <p>
-           <span data-ice="name"><span><a href="class/src/collection.js~Collection.html#instance-method-push">push</a></span></span><span data-ice="signature">(item: <span>var</span>)</span>
+           <span data-ice="name"><span><a href="class/src/collection.js~Collection.html#instance-method-push">push</a></span></span><span data-ice="signature">(item: <span>var</span>): <span><a href="class/src/collection.js~Collection.html">Collection</a></span></span>
         </p>
       </div>
       <div>
@@ -909,14 +909,15 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber89">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber123">source</a></span></span>
     </span>
   </h3>
 
   
   
   
-  <div data-ice="description"><p>Static constructor. Will transform a string to array of strings.</p>
+  <div data-ice="description"><p>Static constructor. Will transform a string to array of strings.
+cool if you don&apos;t like using the &apos;new&apos; keyword.</p>
 </div>
 
   
@@ -960,7 +961,15 @@
 
   
 
-  
+  <div data-ice="example">
+    <h4>Example:</h4>
+    
+  <div class="example-doc" data-ice="exampleDoc">
+      
+      <pre class="prettyprint source-code"><code data-ice="exampleCode">const collection = Collection.collect(&apos;abcd&apos;);
+console.log(collection.all()); // [&apos;a&apos;, &apos;b&apos;, &apos;c&apos;, &apos;d&apos;]</code></pre>
+    </div>
+</div>
 
   
 
@@ -1135,11 +1144,11 @@
     
     
     
-    <span data-ice="name">add</span><span data-ice="signature">(item: <span>var</span>)</span>
+    <span data-ice="name">add</span><span data-ice="signature">(item: <span>var</span>): <span><a href="class/src/collection.js~Collection.html">Collection</a></span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber34">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber39">source</a></span></span>
     </span>
   </h3>
 
@@ -1171,7 +1180,18 @@
 </div>
 </div>
 
-  
+  <div class="return-params" data-ice="returnParams">
+    <h4>Return:</h4>
+    <table>
+      <tr>
+        <td class="return-type" data-ice="returnType"><span><a href="class/src/collection.js~Collection.html">Collection</a></span></td>
+        <td class="return-desc" data-ice="returnDescription"><p>the collection object.</p>
+</td>
+      </tr>
+    </table>
+    <div data-ice="returnProperties">
+</div>
+  </div>
 
   
 
@@ -1179,7 +1199,16 @@
 
   
 
-  
+  <div data-ice="example">
+    <h4>Example:</h4>
+    
+  <div class="example-doc" data-ice="exampleDoc">
+      
+      <pre class="prettyprint source-code"><code data-ice="exampleCode">const collection = new Collection();
+collection.add(&apos;Arya&apos;);
+console.log(collection.first()); //outputs &apos;Arya&apos;</code></pre>
+    </div>
+</div>
 
   
 
@@ -1197,7 +1226,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber44">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber54">source</a></span></span>
     </span>
   </h3>
 
@@ -1231,7 +1260,15 @@
 
   
 
-  
+  <div data-ice="example">
+    <h4>Example:</h4>
+    
+  <div class="example-doc" data-ice="exampleDoc">
+      
+      <pre class="prettyprint source-code"><code data-ice="exampleCode">const collection = new Collection([1, 2, 3]);
+console.log(collection.all()); // [1, 2, 3]</code></pre>
+    </div>
+</div>
 
   
 
@@ -1249,7 +1286,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber59">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber86">source</a></span></span>
     </span>
   </h3>
 
@@ -1306,7 +1343,33 @@ defaults to null.</p>
 
   
 
-  
+  <div data-ice="example">
+    <h4>Example:</h4>
+    
+  <div class="example-doc" data-ice="exampleDoc">
+      <div class="example-caption" data-ice="exampleCaption">Averaging elements</div>
+      <pre class="prettyprint source-code"><code data-ice="exampleCode">const collection = new Collection([1, 2, 3]);
+console.log(collection.average()); // 2</code></pre>
+    </div>
+<div class="example-doc" data-ice="exampleDoc">
+      <div class="example-caption" data-ice="exampleCaption">Averaging a property</div>
+      <pre class="prettyprint source-code"><code data-ice="exampleCode">const collection = new Collection([
+    { name: &apos;Arya Stark&apos;, age: 9 },
+    { name: &apos;Bran Stark&apos;, age: 7 },
+    { name: &apos;Jon Snow&apos;, age: 14 }
+]);
+console.log(collection.average(&apos;age&apos;)); // 10</code></pre>
+    </div>
+<div class="example-doc" data-ice="exampleDoc">
+      <div class="example-caption" data-ice="exampleCaption">Averaging using a callback</div>
+      <pre class="prettyprint source-code"><code data-ice="exampleCode">const collection = new Collection([
+    { name: &apos;Arya Stark&apos;, age: 9 },
+    { name: &apos;Bran Stark&apos;, age: 7 },
+    { name: &apos;Jon Snow&apos;, age: 14 }
+]);
+console.log(collection.average(i =&gt; i.age)); // 10</code></pre>
+    </div>
+</div>
 
   
 
@@ -1324,7 +1387,7 @@ defaults to null.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber69">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber99">source</a></span></span>
     </span>
   </h3>
 
@@ -1375,7 +1438,15 @@ defaults to null.</p>
 
   
 
-  
+  <div data-ice="example">
+    <h4>Example:</h4>
+    
+  <div class="example-doc" data-ice="exampleDoc">
+      
+      <pre class="prettyprint source-code"><code data-ice="exampleCode">const collection = new Collection([1, 2, 3, 4, 5]).chunk(2);
+console.log(collection.all()); // [[1, 2], [3, 4], [5]]</code></pre>
+    </div>
+</div>
 
   
 
@@ -1393,7 +1464,7 @@ defaults to null.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber104">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber143">source</a></span></span>
     </span>
   </h3>
 
@@ -1444,7 +1515,17 @@ defaults to null.</p>
 
   
 
-  
+  <div data-ice="example">
+    <h4>Example:</h4>
+    
+  <div class="example-doc" data-ice="exampleDoc">
+      
+      <pre class="prettyprint source-code"><code data-ice="exampleCode">const collection = new Collection([1, 2, 3]);
+const array = [4, 5, 6]; // or another collection.
+const newCollection = collection.concat(array);
+console.log(newCollection.all()); // [1, 2, 3, 4, 5, 6]</code></pre>
+    </div>
+</div>
 
   
 
@@ -1462,7 +1543,7 @@ defaults to null.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber117">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber159">source</a></span></span>
     </span>
   </h3>
 
@@ -1496,7 +1577,15 @@ defaults to null.</p>
 
   
 
-  
+  <div data-ice="example">
+    <h4>Example:</h4>
+    
+  <div class="example-doc" data-ice="exampleDoc">
+      
+      <pre class="prettyprint source-code"><code data-ice="exampleCode">const collection = new Collection([1, 2, 3]);
+console.log(collection.count()); // 3</code></pre>
+    </div>
+</div>
 
   
 
@@ -1514,7 +1603,7 @@ defaults to null.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber128">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber173">source</a></span></span>
     </span>
   </h3>
 
@@ -1551,7 +1640,7 @@ defaults to null.</p>
     <table>
       <tr>
         <td class="return-type" data-ice="returnType"><span><a href="class/src/collection.js~Collection.html">Collection</a></span></td>
-        <td class="return-desc" data-ice="returnDescription"><p>this</p>
+        <td class="return-desc" data-ice="returnDescription"><p>The collection object.</p>
 </td>
       </tr>
     </table>
@@ -1565,7 +1654,15 @@ defaults to null.</p>
 
   
 
-  
+  <div data-ice="example">
+    <h4>Example:</h4>
+    
+  <div class="example-doc" data-ice="exampleDoc">
+      
+      <pre class="prettyprint source-code"><code data-ice="exampleCode">const collection = new Collection([&apos;this&apos;, &apos;is&apos;, &apos;collectionjs&apos;]);
+collection.each(t =&gt; console.log(t)); // this is collectionjs</code></pre>
+    </div>
+</div>
 
   
 
@@ -1583,7 +1680,7 @@ defaults to null.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber140">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber192">source</a></span></span>
     </span>
   </h3>
 
@@ -1634,7 +1731,19 @@ defaults to null.</p>
 
   
 
-  
+  <div data-ice="example">
+    <h4>Example:</h4>
+    
+  <div class="example-doc" data-ice="exampleDoc">
+      
+      <pre class="prettyprint source-code"><code data-ice="exampleCode">const collection = new Collection([
+    { name: &apos;Arya Stark&apos;, age: 9 },
+    { name: &apos;Bran Stark&apos;, age: 7 },
+    { name: &apos;Jon Snow&apos;, age: 14 }
+]).filter(stark =&gt; stark.age === 14);
+console.log(collection.all()); // [{ name: &apos;Jon Snow&apos;, age: 14 }]</code></pre>
+    </div>
+</div>
 
   
 
@@ -1652,7 +1761,7 @@ defaults to null.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber150">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber205">source</a></span></span>
     </span>
   </h3>
 
@@ -1703,7 +1812,15 @@ defaults to null.</p>
 
   
 
-  
+  <div data-ice="example">
+    <h4>Example:</h4>
+    
+  <div class="example-doc" data-ice="exampleDoc">
+      
+      <pre class="prettyprint source-code"><code data-ice="exampleCode">const collection = new Collection([1, 2, 3]);
+console.log(collection.find(2)); // 3</code></pre>
+    </div>
+</div>
 
   
 
@@ -1721,7 +1838,7 @@ defaults to null.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber160">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber231">source</a></span></span>
     </span>
   </h3>
 
@@ -1773,7 +1890,30 @@ defaults to null.</p>
 
   
 
-  
+  <div data-ice="example">
+    <h4>Example:</h4>
+    
+  <div class="example-doc" data-ice="exampleDoc">
+      <div class="example-caption" data-ice="exampleCaption">Using a callback</div>
+      <pre class="prettyprint source-code"><code data-ice="exampleCode">const first = new Collection([
+    { name: &apos;Bran Stark&apos;, age: 7 },
+    { name: &apos;Arya Stark&apos;, age: 9 },
+    { name: &apos;Jon Snow&apos;, age: 14 }
+]).first(item =&gt; item.age &gt; 7);
+
+console.log(first); // { name: &apos;Arya Stark&apos;, age: 9 }</code></pre>
+    </div>
+<div class="example-doc" data-ice="exampleDoc">
+      <div class="example-caption" data-ice="exampleCaption">No Arguments</div>
+      <pre class="prettyprint source-code"><code data-ice="exampleCode">const first = new Collection([
+    { name: &apos;Bran Stark&apos;, age: 7 },
+    { name: &apos;Arya Stark&apos;, age: 9 },
+    { name: &apos;Jon Snow&apos;, age: 14 }
+]).first();
+
+console.log(first); // { name: &apos;Bran Stark&apos;, age: 7 }</code></pre>
+    </div>
+</div>
 
   
 
@@ -1791,7 +1931,7 @@ defaults to null.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber182">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber260">source</a></span></span>
     </span>
   </h3>
 
@@ -1843,7 +1983,20 @@ defaults to null.</p>
 
   
 
-  
+  <div data-ice="example">
+    <h4>Example:</h4>
+    
+  <div class="example-doc" data-ice="exampleDoc">
+      <div class="example-caption" data-ice="exampleCaption">Just one level</div>
+      <pre class="prettyprint source-code"><code data-ice="exampleCode">const collection = new Collection([1, [2, [3, [4]], 5]]).flatten();
+console.log(collection.all()); // [1, 2, [3, [4]], 5]</code></pre>
+    </div>
+<div class="example-doc" data-ice="exampleDoc">
+      <div class="example-caption" data-ice="exampleCaption">Deep</div>
+      <pre class="prettyprint source-code"><code data-ice="exampleCode">const collection = new Collection([1, [2, [3, [4]], 5]]).flatten(true);
+console.log(collection.all()); // [1, 2, 3, 4, 5]</code></pre>
+    </div>
+</div>
 
   
 
@@ -1861,7 +2014,7 @@ defaults to null.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber197">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber286">source</a></span></span>
     </span>
   </h3>
 
@@ -1895,7 +2048,24 @@ defaults to null.</p>
 
   
 
-  
+  <div data-ice="example">
+    <h4>Example:</h4>
+    
+  <div class="example-doc" data-ice="exampleDoc">
+      <div class="example-caption" data-ice="exampleCaption">Objects</div>
+      <pre class="prettyprint source-code"><code data-ice="exampleCode">const keys = new Collection({
+    arya: 10,
+    john: 20,
+    potato: 30
+}).keys();
+console.log(keys); // [&apos;arya&apos;, &apos;john&apos;, &apos;potato&apos;]</code></pre>
+    </div>
+<div class="example-doc" data-ice="exampleDoc">
+      <div class="example-caption" data-ice="exampleCaption">Regular Array</div>
+      <pre class="prettyprint source-code"><code data-ice="exampleCode">const keys = new Collection([&apos;arya&apos;, &apos;john&apos;, &apos;potato&apos;]).keys();
+console.log(keys); // [&apos;0&apos;, &apos;1&apos;, &apos;2&apos;]</code></pre>
+    </div>
+</div>
 
   
 
@@ -1913,7 +2083,7 @@ defaults to null.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber215">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber320">source</a></span></span>
     </span>
   </h3>
 
@@ -1965,7 +2135,30 @@ defaults to null.</p>
 
   
 
-  
+  <div data-ice="example">
+    <h4>Example:</h4>
+    
+  <div class="example-doc" data-ice="exampleDoc">
+      <div class="example-caption" data-ice="exampleCaption">Using a callback</div>
+      <pre class="prettyprint source-code"><code data-ice="exampleCode">const last = new Collection([
+    { name: &apos;Bran Stark&apos;, age: 7 },
+    { name: &apos;Arya Stark&apos;, age: 9 },
+    { name: &apos;Jon Snow&apos;, age: 14 }
+]).last(item =&gt; item.age &gt; 7);
+
+console.log(last); // { name: &apos;Jon Snow&apos;, age: 14 }</code></pre>
+    </div>
+<div class="example-doc" data-ice="exampleDoc">
+      <div class="example-caption" data-ice="exampleCaption">No Arguments</div>
+      <pre class="prettyprint source-code"><code data-ice="exampleCode">const last = new Collection([
+    { name: &apos;Bran Stark&apos;, age: 7 },
+    { name: &apos;Arya Stark&apos;, age: 9 },
+    { name: &apos;Jon Snow&apos;, age: 14 }
+]).last();
+
+console.log(last); // { name: &apos;Jon Snow&apos;, age: 14 }</code></pre>
+    </div>
+</div>
 
   
 
@@ -1983,7 +2176,7 @@ defaults to null.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber232">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber344">source</a></span></span>
     </span>
   </h3>
 
@@ -2034,7 +2227,19 @@ defaults to null.</p>
 
   
 
-  
+  <div data-ice="example">
+    <h4>Example:</h4>
+    
+  <div class="example-doc" data-ice="exampleDoc">
+      
+      <pre class="prettyprint source-code"><code data-ice="exampleCode">const collection = new Collection([
+    { name: &apos;Bran Stark&apos;, age: 7 },
+    { name: &apos;Arya Stark&apos;, age: 9 },
+    { name: &apos;Jon Snow&apos;, age: 14 }
+]).map(stark =&gt; stark.name);
+console.log(collection.all()); [&apos;Bran Stark&apos;, &apos;Arya Stark&apos;, &apos;Jon Snow&apos;]</code></pre>
+    </div>
+</div>
 
   
 
@@ -2052,7 +2257,7 @@ defaults to null.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber242">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber361">source</a></span></span>
     </span>
   </h3>
 
@@ -2103,7 +2308,19 @@ defaults to null.</p>
 
   
 
-  
+  <div data-ice="example">
+    <h4>Example:</h4>
+    
+  <div class="example-doc" data-ice="exampleDoc">
+      
+      <pre class="prettyprint source-code"><code data-ice="exampleCode">const collection = new Collection([
+    { name: &apos;Bran Stark&apos;, age: 7 },
+    { name: &apos;Arya Stark&apos;, age: 9 },
+    { name: &apos;Jon Snow&apos;, age: 14 }
+]).pluck(&apos;name&apos;);
+console.log(collection.all()); [&apos;Bran Stark&apos;, &apos;Arya Stark&apos;, &apos;Jon Snow&apos;]</code></pre>
+    </div>
+</div>
 
   
 
@@ -2117,11 +2334,11 @@ defaults to null.</p>
     
     
     
-    <span data-ice="name">push</span><span data-ice="signature">(item: <span>var</span>)</span>
+    <span data-ice="name">push</span><span data-ice="signature">(item: <span>var</span>): <span><a href="class/src/collection.js~Collection.html">Collection</a></span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber251">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber374">source</a></span></span>
     </span>
   </h3>
 
@@ -2153,7 +2370,18 @@ defaults to null.</p>
 </div>
 </div>
 
-  
+  <div class="return-params" data-ice="returnParams">
+    <h4>Return:</h4>
+    <table>
+      <tr>
+        <td class="return-type" data-ice="returnType"><span><a href="class/src/collection.js~Collection.html">Collection</a></span></td>
+        <td class="return-desc" data-ice="returnDescription"><p>The collection object.</p>
+</td>
+      </tr>
+    </table>
+    <div data-ice="returnProperties">
+</div>
+  </div>
 
   
 
@@ -2161,7 +2389,15 @@ defaults to null.</p>
 
   
 
-  
+  <div data-ice="example">
+    <h4>Example:</h4>
+    
+  <div class="example-doc" data-ice="exampleDoc">
+      
+      <pre class="prettyprint source-code"><code data-ice="exampleCode">const collection = new Collection().push(&apos;First&apos;);
+console.log(collection.first()); // &quot;First&quot;</code></pre>
+    </div>
+</div>
 
   
 
@@ -2179,7 +2415,7 @@ defaults to null.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber262">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber391">source</a></span></span>
     </span>
   </h3>
 
@@ -2237,7 +2473,18 @@ defaults to null.</p>
 
   
 
-  
+  <div data-ice="example">
+    <h4>Example:</h4>
+    
+  <div class="example-doc" data-ice="exampleDoc">
+      
+      <pre class="prettyprint source-code"><code data-ice="exampleCode">const value = new Collection([1, 2, 3]).reduce(
+    (previous, current) =&gt; previous + current,
+     0
+ );
+ console.log(value); // 6</code></pre>
+    </div>
+</div>
 
   
 
@@ -2255,7 +2502,7 @@ defaults to null.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber272">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber408">source</a></span></span>
     </span>
   </h3>
 
@@ -2306,7 +2553,19 @@ defaults to null.</p>
 
   
 
-  
+  <div data-ice="example">
+    <h4>Example:</h4>
+    
+  <div class="example-doc" data-ice="exampleDoc">
+      
+      <pre class="prettyprint source-code"><code data-ice="exampleCode">const collection = new Collection([
+    { name: &apos;Arya Stark&apos;, age: 9 },
+    { name: &apos;Bran Stark&apos;, age: 7 },
+    { name: &apos;Jon Snow&apos;, age: 14 }
+]).reject(stark =&gt; stark.age &lt; 14);
+console.log(collection.all()); // [{ name: &apos;Jon Snow&apos;, age: 14 }]</code></pre>
+    </div>
+</div>
 
   
 
@@ -2324,7 +2583,7 @@ defaults to null.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber288">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber427">source</a></span></span>
     </span>
   </h3>
 
@@ -2358,7 +2617,15 @@ defaults to null.</p>
 
   
 
-  
+  <div data-ice="example">
+    <h4>Example:</h4>
+    
+  <div class="example-doc" data-ice="exampleDoc">
+      
+      <pre class="prettyprint source-code"><code data-ice="exampleCode">const collection = new Collection([&apos;one&apos;, &apos;two&apos;, &apos;three&apos;]).reverse();
+console.log(collection.all()); // [&apos;three&apos;, &apos;two&apos;, &apos;one&apos;]</code></pre>
+    </div>
+</div>
 
   
 
@@ -2376,7 +2643,7 @@ defaults to null.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber298">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber440">source</a></span></span>
     </span>
   </h3>
 
@@ -2427,7 +2694,15 @@ defaults to null.</p>
 
   
 
-  
+  <div data-ice="example">
+    <h4>Example:</h4>
+    
+  <div class="example-doc" data-ice="exampleDoc">
+      
+      <pre class="prettyprint source-code"><code data-ice="exampleCode">const collection = new Collection([&apos;John&apos;, &apos;Arya&apos;, &apos;Bran&apos;, &apos;Sansa&apos;]).skip(2);
+console.log(collection.all()); // [&apos;Bran&apos;, &apos;Sansa&apos;]</code></pre>
+    </div>
+</div>
 
   
 
@@ -2445,7 +2720,7 @@ defaults to null.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber309">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber458">source</a></span></span>
     </span>
   </h3>
 
@@ -2504,7 +2779,20 @@ defaults to null.</p>
 
   
 
-  
+  <div data-ice="example">
+    <h4>Example:</h4>
+    
+  <div class="example-doc" data-ice="exampleDoc">
+      <div class="example-caption" data-ice="exampleCaption">start and end are specified</div>
+      <pre class="prettyprint source-code"><code data-ice="exampleCode">const collection = new Collection([0, 1, 2, 3, 4, 5, 6]).slice(2, 4);
+console.log(collection.all()); // [2, 3]</code></pre>
+    </div>
+<div class="example-doc" data-ice="exampleDoc">
+      <div class="example-caption" data-ice="exampleCaption">only start is specified</div>
+      <pre class="prettyprint source-code"><code data-ice="exampleCode">const collection = new Collection([0, 1, 2, 3, 4, 5, 6]).slice(2);
+console.log(collection.all()); // [2, 3, 4, 5, 6]</code></pre>
+    </div>
+</div>
 
   
 
@@ -2522,7 +2810,7 @@ defaults to null.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber318">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber470">source</a></span></span>
     </span>
   </h3>
 
@@ -2556,7 +2844,15 @@ defaults to null.</p>
 
   
 
-  
+  <div data-ice="example">
+    <h4>Example:</h4>
+    
+  <div class="example-doc" data-ice="exampleDoc">
+      
+      <pre class="prettyprint source-code"><code data-ice="exampleCode">const collection = new Collection([1, 2, 3]);
+console.log(collection.stringify()); // &quot;[1,2,3]&quot;</code></pre>
+    </div>
+</div>
 
   
 
@@ -2574,7 +2870,7 @@ defaults to null.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber328">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber499">source</a></span></span>
     </span>
   </h3>
 
@@ -2626,7 +2922,33 @@ defaults to null.</p>
 
   
 
-  
+  <div data-ice="example">
+    <h4>Example:</h4>
+    
+  <div class="example-doc" data-ice="exampleDoc">
+      <div class="example-caption" data-ice="exampleCaption">Summing elements</div>
+      <pre class="prettyprint source-code"><code data-ice="exampleCode">const collection = new Collection([1, 2, 3]);
+console.log(collection.sum()); // 6</code></pre>
+    </div>
+<div class="example-doc" data-ice="exampleDoc">
+      <div class="example-caption" data-ice="exampleCaption">Summing a property</div>
+      <pre class="prettyprint source-code"><code data-ice="exampleCode">const collection = new Collection([
+    { name: &apos;Arya Stark&apos;, age: 9 },
+    { name: &apos;Bran Stark&apos;, age: 7 },
+    { name: &apos;Jon Snow&apos;, age: 14 }
+]);
+console.log(collection.sum(&apos;age&apos;)); // 30</code></pre>
+    </div>
+<div class="example-doc" data-ice="exampleDoc">
+      <div class="example-caption" data-ice="exampleCaption">Summing using a callback</div>
+      <pre class="prettyprint source-code"><code data-ice="exampleCode">const collection = new Collection([
+    { name: &apos;Arya Stark&apos;, age: 9 },
+    { name: &apos;Bran Stark&apos;, age: 7 },
+    { name: &apos;Jon Snow&apos;, age: 14 }
+]);
+console.log(collection.sum(i =&gt; i.age + 1)); // 33</code></pre>
+    </div>
+</div>
 
   
 
@@ -2644,7 +2966,7 @@ defaults to null.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber352">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber530">source</a></span></span>
     </span>
   </h3>
 
@@ -2695,7 +3017,20 @@ defaults to null.</p>
 
   
 
-  
+  <div data-ice="example">
+    <h4>Example:</h4>
+    
+  <div class="example-doc" data-ice="exampleDoc">
+      <div class="example-caption" data-ice="exampleCaption">From the beginning</div>
+      <pre class="prettyprint source-code"><code data-ice="exampleCode">const collection = new Collection([1, 2, 3, 4, 5]).take(3);
+console.log(collection.all()); // [1, 2, 3]</code></pre>
+    </div>
+<div class="example-doc" data-ice="exampleDoc">
+      <div class="example-caption" data-ice="exampleCaption">From the end</div>
+      <pre class="prettyprint source-code"><code data-ice="exampleCode">const collection = new Collection([1, 2, 3, 4, 5]).take(-3);
+console.log(collection.all()); // [5, 4 ,3]</code></pre>
+    </div>
+</div>
 
   
 
@@ -2713,7 +3048,7 @@ defaults to null.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber371">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber564">source</a></span></span>
     </span>
   </h3>
 
@@ -2772,7 +3107,28 @@ defaults to null.</p>
 
   
 
-  
+  <div data-ice="example">
+    <h4>Example:</h4>
+    
+  <div class="example-doc" data-ice="exampleDoc">
+      <div class="example-caption" data-ice="exampleCaption">Using a property name</div>
+      <pre class="prettyprint source-code"><code data-ice="exampleCode">const collection = new Collection([
+    { name: &apos;Arya Stark&apos;, age: 9 },
+    { name: &apos;Bran Stark&apos;, age: 7 },
+    { name: &apos;Jon Snow&apos;, age: 14 }
+]).where(&apos;age&apos;, 14);
+console.log(collection.all()); // [{ name: &apos;Jon Snow&apos;, age: 14 }]</code></pre>
+    </div>
+<div class="example-doc" data-ice="exampleDoc">
+      <div class="example-caption" data-ice="exampleCaption">Using a callback</div>
+      <pre class="prettyprint source-code"><code data-ice="exampleCode">const collection = new Collection([
+    { name: &apos;Arya Stark&apos;, age: 9 },
+    { name: &apos;Bran Stark&apos;, age: 7 },
+    { name: &apos;Jon Snow&apos;, age: 14 }
+]).where(stark =&gt; stark.age === 14);
+console.log(collection.all()); // [{ name: &apos;Jon Snow&apos;, age: 14 }]</code></pre>
+    </div>
+</div>
 
   
 
@@ -2790,7 +3146,7 @@ defaults to null.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber385">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber582">source</a></span></span>
     </span>
   </h3>
 
@@ -2841,7 +3197,16 @@ defaults to null.</p>
 
   
 
-  
+  <div data-ice="example">
+    <h4>Example:</h4>
+    
+  <div class="example-doc" data-ice="exampleDoc">
+      
+      <pre class="prettyprint source-code"><code data-ice="exampleCode">const array = [&apos;a&apos;, &apos;b&apos;, &apos;c&apos;]; // or a collection.
+const collection = new Collection([1, 2, 3]).zip(array);
+console.log(collection.all()); // [[1, &apos;a&apos;], [2, &apos;b&apos;], [3, &apos;c&apos;]]</code></pre>
+    </div>
+</div>
 
   
 
