@@ -2,8 +2,9 @@
   "name": "collectionjs",
   "version": "0.1.0",
   "description": "fluent utility class for working with arrays similiar to Laravel's collections",
-  "main": "index.js",
+  "main": "dist/collection.js",
   "scripts": {
+    "prepublish": "npm run build",
     "dev": "webpack --progress --colors --watch",
     "build": "webpack && cross-env NODE_ENV=production webpack -p",
     "test": "nyc ava --colors",
