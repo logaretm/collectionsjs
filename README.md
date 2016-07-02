@@ -39,10 +39,6 @@ Download it manually and add the script tag at the bottom of your body, it doesn
 ```html
 <script src="/path/to/collection.min.js"></script>
 ```
-or reference a cdn:
-```html
-<script src="cdn/collection.min.js"></script>
-```
 
 However if you have a more complex setup, Then in your code you can do:
 
