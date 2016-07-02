@@ -1,0 +1,23 @@
+{
+  "name": "collectionjs",
+  "version": "0.1.0",
+  "homepage": "https://github.com/logaretm/collectionjs",
+  "authors": [
+    "'Abdelrahman Awad' <'logaretm1@outlook.com'>"
+  ],
+  "description": "immutable collection class for working with arrays similiar to Laravel's collections",
+  "main": "dist/collection.js",
+  "keywords": [
+    "collections",
+    "arrays",
+    "laravel"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
