@@ -19,7 +19,7 @@
   <a href="identifiers.html">Reference</a>
   <a href="source.html">Source</a>
   
-  
+  <a data-ice="repoURL" href="https://github.com/logaretm/collectionjs" class="repo-url-github">Repository</a>
   <div class="search-box">
   <span>
     <img src="./image/search.png">
@@ -59,9 +59,6 @@ array.map(i =&gt; i + 1).filter(i =&gt; i &gt; 2);</code>
 <h3 id="usage">Usage</h3>
 <p>Download it manually and add the script tag at the bottom of your body, it doesn&apos;t matter in which order because there are no dependencies.</p>
 <pre><code class="lang-html"><code class="source-code prettyprint">&lt;script src=&quot;/path/to/collection.min.js&quot;&gt;&lt;/script&gt;</code>
-</code></pre>
-<p>or reference a cdn:</p>
-<pre><code class="lang-html"><code class="source-code prettyprint">&lt;script src=&quot;cdn/collection.min.js&quot;&gt;&lt;/script&gt;</code>
 </code></pre>
 <p>However if you have a more complex setup, Then in your code you can do:</p>
 <pre><code class="lang-JavaScript"><code class="source-code prettyprint">// ES6
@@ -110,14 +107,20 @@ import Collection from &apos;collectionjs&apos;;</code>
 <li>zip(Array)</li>
 </ul>
 <h3 id="testing">Testing</h3>
-<p>I use <code>ava</code> for testing which is an amazing framework.</p>
-<p><code>npm install</code></p>
+<p>I use <code>ava</code> for testing which is an amazing test runner. With <code>nyc</code> for coverage.</p>
 <p><code>npm run test</code></p>
 <p>and you can lint with</p>
 <p><code>npm run lint</code></p>
 <h3 id="contribution">Contribution</h3>
 <p>Go a head and you will be fully credited.
 Don&apos;t forget to follow the code style and always add a test file for any additions.</p>
+<h3 id="build">Build</h3>
+<ul>
+<li>Clone the repo.</li>
+<li><code>npm install</code></li>
+<li>Write code better than mine.</li>
+<li><code>npm run build</code> which will build both minified and unminified versions.</li>
+</ul>
 <h3 id="so-performance-">So...Performance?</h3>
 <p>I don&apos;t think its very performant at the moment not very slow either, I can always use some help with optimizing things.</p>
 <h3 id="mit">MIT</h3>
