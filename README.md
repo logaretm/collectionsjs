@@ -1,4 +1,4 @@
-# CollectionJS
+# CollectionsJS
 
 A lightweight object for array pipelining operations.
 
@@ -24,7 +24,7 @@ And I had a free week at the time.
 npm
 
 ```bash
-npm install collectionjs --save
+npm install collectionsjs --save
 ```
 
 ### Usage
