@@ -504,6 +504,12 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "src/collection.js~collection#values",
+    "class/src/collection.js~Collection.html#instance-method-values",
+    "src/collection.js~Collection#values",
+    "method"
+  ],
+  [
     "src/collection.js~collection#where",
     "class/src/collection.js~Collection.html#instance-method-where",
     "src/collection.js~Collection#where",

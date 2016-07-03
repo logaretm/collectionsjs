@@ -848,6 +848,32 @@
     <td>
       <div>
         <p>
+           <span data-ice="name"><span><a href="class/src/collection.js~Collection.html#instance-method-values">values</a></span></span><span data-ice="signature">(): <span><a href="class/src/collection.js~Collection.html">Collection</a></span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Gets the values without preserving the keys.</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
            <span data-ice="name"><span><a href="class/src/collection.js~Collection.html#instance-method-where">where</a></span></span><span data-ice="signature">(callback: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function">Function</a></span> | <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span>, value: <span>var</span>): <span><a href="class/src/collection.js~Collection.html">Collection</a></span></span>
         </p>
       </div>
@@ -3038,6 +3064,71 @@ console.log(collection.all()); // [5, 4 ,3]</code></pre>
   
 </div>
 <div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="instance-method-values">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    <span data-ice="name">values</span><span data-ice="signature">(): <span><a href="class/src/collection.js~Collection.html">Collection</a></span></span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber555">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  <div data-ice="description"><p>Gets the values without preserving the keys.</p>
+</div>
+
+  
+
+  <div data-ice="properties">
+</div>
+
+  <div class="return-params" data-ice="returnParams">
+    <h4>Return:</h4>
+    <table>
+      <tr>
+        <td class="return-type" data-ice="returnType"><span><a href="class/src/collection.js~Collection.html">Collection</a></span></td>
+        <td class="return-desc" data-ice="returnDescription"><p>A Collection containing the values.</p>
+</td>
+      </tr>
+    </table>
+    <div data-ice="returnProperties">
+</div>
+  </div>
+
+  
+
+  
+
+  
+
+  <div data-ice="example">
+    <h4>Example:</h4>
+    
+  <div class="example-doc" data-ice="exampleDoc">
+      
+      <pre class="prettyprint source-code"><code data-ice="exampleCode">const collection = new Collection({
+    1: 2,
+    2: 3,
+    4: 5
+}).values();
+
+console.log(collection.all()); / /[2, 3, 5]</code></pre>
+    </div>
+</div>
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
   <h3 data-ice="anchor" id="instance-method-where">
     <span class="access" data-ice="access">public</span>
     
@@ -3048,7 +3139,7 @@ console.log(collection.all()); // [5, 4 ,3]</code></pre>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber564">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber581">source</a></span></span>
     </span>
   </h3>
 
@@ -3146,7 +3237,7 @@ console.log(collection.all()); // [{ name: &apos;Jon Snow&apos;, age: 14 }]</cod
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber582">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber599">source</a></span></span>
     </span>
   </h3>
 

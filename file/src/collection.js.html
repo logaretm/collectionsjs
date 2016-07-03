@@ -580,6 +580,23 @@ export default class Collection
     }
 
     /**
+     * Gets the values without preserving the keys.
+     *
+     * @return {Collection} A Collection containing the values.
+     * @example
+     * const collection = new Collection({
+     *     1: 2,
+     *     2: 3,
+     *     4: 5
+     * }).values();
+     *
+     * console.log(collection.all()); / /[2, 3, 5]
+     */
+    values() {
+        return this.keys().map(key =&gt; this.items[key]);
+    }
+
+    /**
      * Filters the collection using a callback or equality comparison to a property in each item.
      *
      * @param  {Function|String} callback The callback to be used to filter the collection.
