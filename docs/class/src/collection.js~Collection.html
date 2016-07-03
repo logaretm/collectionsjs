@@ -770,6 +770,58 @@
     <td>
       <div>
         <p>
+           <span data-ice="name"><span><a href="class/src/collection.js~Collection.html#instance-method-sort">sort</a></span></span><span data-ice="signature">(compare: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function">Function</a></span>): <span><a href="class/src/collection.js~Collection.html">Collection</a></span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Sorts the elements of a collection and returns a new sorted collection.</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+           <span data-ice="name"><span><a href="class/src/collection.js~Collection.html#instance-method-sortBy">sortBy</a></span></span><span data-ice="signature">(property: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, order: <span>[type]</span>): <span><a href="class/src/collection.js~Collection.html">Collection</a></span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Sorts the collection by key value comaprison, given that the items are objects.</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
            <span data-ice="name"><span><a href="class/src/collection.js~Collection.html#instance-method-stringify">stringify</a></span></span><span data-ice="signature">(): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></span></span>
         </p>
       </div>
@@ -2826,6 +2878,184 @@ console.log(collection.all()); // [2, 3, 4, 5, 6]</code></pre>
   
 </div>
 <div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="instance-method-sort">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    <span data-ice="name">sort</span><span data-ice="signature">(compare: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function">Function</a></span>): <span><a href="class/src/collection.js~Collection.html">Collection</a></span></span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber477">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  <div data-ice="description"><p>Sorts the elements of a collection and returns a new sorted collection.
+note that it doesn&apos;t change the orignal collection and it creates a
+shallow copy.</p>
+</div>
+
+  
+
+  <div data-ice="properties"><div data-ice="properties">
+  <h4 data-ice="title">Params:</h4>
+  <table class="params">
+    <thead>
+    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+    
+    <tr data-ice="property" data-depth="0">
+      <td data-ice="name" data-depth="0">compare</td>
+      <td data-ice="type"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function">Function</a></span></td>
+      <td data-ice="appendix"><ul><li>optional</li>
+<li>default: null</li></ul></td>
+      <td data-ice="description"><p>the compare function.</p>
+</td>
+    </tr>
+</tbody>
+  </table>
+</div>
+</div>
+
+  <div class="return-params" data-ice="returnParams">
+    <h4>Return:</h4>
+    <table>
+      <tr>
+        <td class="return-type" data-ice="returnType"><span><a href="class/src/collection.js~Collection.html">Collection</a></span></td>
+        <td class="return-desc" data-ice="returnDescription"><p>A new collection with the sorted items.</p>
+</td>
+      </tr>
+    </table>
+    <div data-ice="returnProperties">
+</div>
+  </div>
+
+  
+
+  
+
+  
+
+  <div data-ice="example">
+    <h4>Example:</h4>
+    
+  <div class="example-doc" data-ice="exampleDoc">
+      
+      <pre class="prettyprint source-code"><code data-ice="exampleCode">const collection = new Collection([5, 3, 4, 1, 2]);
+const sorted = collection.sort();
+// original collection is intact.
+console.log(collection.all()); // [5, 3, 4, 1, 2]
+console.log(sorted.all()); // [1, 2, 3, 4, 5]</code></pre>
+    </div>
+</div>
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="instance-method-sortBy">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    <span data-ice="name">sortBy</span><span data-ice="signature">(property: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, order: <span>[type]</span>): <span><a href="class/src/collection.js~Collection.html">Collection</a></span></span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber502">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  <div data-ice="description"><p>Sorts the collection by key value comaprison, given that the items are objects.
+It creates a shallow copy and retains the order of the orignal collection.</p>
+</div>
+
+  
+
+  <div data-ice="properties"><div data-ice="properties">
+  <h4 data-ice="title">Params:</h4>
+  <table class="params">
+    <thead>
+    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+    
+    <tr data-ice="property" data-depth="0">
+      <td data-ice="name" data-depth="0">property</td>
+      <td data-ice="type"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>the key or the property to be compared.</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" data-depth="0">order</td>
+      <td data-ice="type"><span>[type]</span></td>
+      <td data-ice="appendix"><ul><li>optional</li>
+<li>default: &apos;asc&apos;</li></ul></td>
+      <td data-ice="description"><p>The sorting order.
+use &apos;asc&apos; for ascending or &apos;desc&apos; for descending, case insensitive.</p>
+</td>
+    </tr>
+</tbody>
+  </table>
+</div>
+</div>
+
+  <div class="return-params" data-ice="returnParams">
+    <h4>Return:</h4>
+    <table>
+      <tr>
+        <td class="return-type" data-ice="returnType"><span><a href="class/src/collection.js~Collection.html">Collection</a></span></td>
+        <td class="return-desc" data-ice="returnDescription"><p>A new Collection with the sorted items.</p>
+</td>
+      </tr>
+    </table>
+    <div data-ice="returnProperties">
+</div>
+  </div>
+
+  
+
+  
+
+  
+
+  <div data-ice="example">
+    <h4>Example:</h4>
+    
+  <div class="example-doc" data-ice="exampleDoc">
+      
+      <pre class="prettyprint source-code"><code data-ice="exampleCode">const collection = new Collection([
+    { name: &apos;Jon Snow&apos;, age: 14 },
+    { name: &apos;Arya Stark&apos;, age: 9 },
+    { name: &apos;Bran Stark&apos;, age: 7 },
+]).sortBy(&apos;age&apos;);
+console.log(collection.all()); // [
+								//	 	{ name: &apos;Bran Stark&apos;, age: 7 },
+                             //      { name: &apos;Arya Stark&apos;, age: 9 },
+                             //      { name: &apos;Jon Snow&apos;, age: 14 }
+                             //   ]</code></pre>
+    </div>
+</div>
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
   <h3 data-ice="anchor" id="instance-method-stringify">
     <span class="access" data-ice="access">public</span>
     
@@ -2836,7 +3066,7 @@ console.log(collection.all()); // [2, 3, 4, 5, 6]</code></pre>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber470">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber526">source</a></span></span>
     </span>
   </h3>
 
@@ -2896,7 +3126,7 @@ console.log(collection.stringify()); // &quot;[1,2,3]&quot;</code></pre>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber499">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber555">source</a></span></span>
     </span>
   </h3>
 
@@ -2992,7 +3222,7 @@ console.log(collection.sum(i =&gt; i.age + 1)); // 33</code></pre>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber530">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber586">source</a></span></span>
     </span>
   </h3>
 
@@ -3074,7 +3304,7 @@ console.log(collection.all()); // [5, 4 ,3]</code></pre>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber555">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber611">source</a></span></span>
     </span>
   </h3>
 
@@ -3139,7 +3369,7 @@ console.log(collection.all()); / /[2, 3, 5]</code></pre>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber581">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber637">source</a></span></span>
     </span>
   </h3>
 
@@ -3237,7 +3467,7 @@ console.log(collection.all()); // [{ name: &apos;Jon Snow&apos;, age: 14 }]</cod
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber599">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber655">source</a></span></span>
     </span>
   </h3>
 

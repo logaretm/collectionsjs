@@ -460,6 +460,62 @@ export default class Collection
     }
 
     /**
+     * Sorts the elements of a collection and returns a new sorted collection.
+     * note that it doesn't change the orignal collection and it creates a
+     * shallow copy.
+     *
+     * @param  {Function} [compare=null] the compare function.
+     * @return {Collection} A new collection with the sorted items.
+     *
+     * @example
+     * const collection = new Collection([5, 3, 4, 1, 2]);
+     * const sorted = collection.sort();
+     * // original collection is intact.
+     * console.log(collection.all()); // [5, 3, 4, 1, 2]
+     * console.log(sorted.all()); // [1, 2, 3, 4, 5]
+     */
+    sort(compare = null) {
+        return new Collection(this.items.slice().sort(compare));
+    }
+
+    /**
+     * Sorts the collection by key value comaprison, given that the items are objects.
+     * It creates a shallow copy and retains the order of the orignal collection.
+     *
+     * @param  {string} property the key or the property to be compared.
+     * @param  {[type]} [order='asc'] The sorting order.
+     * use 'asc' for ascending or 'desc' for descending, case insensitive.
+     * @return {Collection} A new Collection with the sorted items.
+     *
+     * @example
+     * const collection = new Collection([
+     *     { name: 'Jon Snow', age: 14 },
+     *     { name: 'Arya Stark', age: 9 },
+     *     { name: 'Bran Stark', age: 7 },
+     * ]).sortBy('age');
+     * console.log(collection.all()); // [
+     * 								//	 	{ name: 'Bran Stark', age: 7 },
+     *                              //      { name: 'Arya Stark', age: 9 },
+     *                              //      { name: 'Jon Snow', age: 14 }
+     *                              //   ]
+     */
+    sortBy(property, order = 'asc') {
+        const isAscending = order.toLowerCase() === 'asc';
+
+        return this.sort((a, b) => {
+            if (a[property] > b[property]) {
+                return isAscending ? 1 : -1;
+            }
+
+            if (a[property] < b[property]) {
+                return isAscending ? -1 : 1;
+            }
+
+            return 0;
+        });
+    }
+
+    /**
      * Stringifies the collection using JSON.stringify API.
      *
      * @return {String} The stringified value.
