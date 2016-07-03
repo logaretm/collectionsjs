@@ -486,6 +486,18 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "src/collection.js~collection#sort",
+    "class/src/collection.js~Collection.html#instance-method-sort",
+    "src/collection.js~Collection#sort",
+    "method"
+  ],
+  [
+    "src/collection.js~collection#sortby",
+    "class/src/collection.js~Collection.html#instance-method-sortBy",
+    "src/collection.js~Collection#sortBy",
+    "method"
+  ],
+  [
     "src/collection.js~collection#stringify",
     "class/src/collection.js~Collection.html#instance-method-stringify",
     "src/collection.js~Collection#stringify",
