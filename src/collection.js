@@ -21,7 +21,7 @@ export default class Collection
 
         /**
          * The length of the array.
-         * @type {Number}
+         * @type {number}
          */
         this.length = items.length;
     }
@@ -29,7 +29,7 @@ export default class Collection
     /**
      * Adds an item to the collection.
      *
-     * @param {var} item the item to be added.
+     * @param {*} item the item to be added.
      * @return {Collection} the collection object.
      * @example
      * const collection = new Collection();
@@ -62,9 +62,9 @@ export default class Collection
      *  objects in the array.
      * If Property is a callback: the the averaging will use the value returned instead.
      *
-     * @param  {Function|String} [property=null] The property name or the callback function.
+     * @param  {function|string} [property=null] The property name or the callback function.
      * defaults to null.
-     * @return {Number} The average value.
+     * @return {number} The average value.
      * @example <caption>Averaging elements</caption>
      * const collection = new Collection([1, 2, 3]);
      * console.log(collection.average()); // 2
@@ -90,7 +90,7 @@ export default class Collection
     /**
      * Chunks the collection into a new collection with equal length arrays as its items.
      *
-     * @param  {Number} size the size of each chunk.
+     * @param  {number} size the size of each chunk.
      * @return {Collection} the new collection.
      * @example
      * const collection = new Collection([1, 2, 3, 4, 5]).chunk(2);
@@ -114,7 +114,7 @@ export default class Collection
      * Static constructor. Will transform a string to array of strings.
      * cool if you don't like using the 'new' keyword.
      *
-     * @param  {Array|String} collectable the array or the string to wrapped in a collection.
+     * @param  {Array|string} collectable the array or the string to wrapped in a collection.
      * @return {Collection} A collection that wraps the collectable items.
      * @example
      * const collection = Collection.collect('abcd');
@@ -151,7 +151,7 @@ export default class Collection
     /**
      * Gets the number of items in the collection.
      *
-     * @return {Number} Number of items in the collection.
+     * @return {number} Number of items in the collection.
      * @example
      * const collection = new Collection([1, 2, 3]);
      * console.log(collection.count()); // 3
@@ -164,7 +164,7 @@ export default class Collection
     /**
      * Executes a callback for each element in the collection.
      *
-     * @param  {Function} callback the callback to be excuted for each item.
+     * @param  {function} callback the callback to be excuted for each item.
      * @return {Collection} The collection object.
      * @example
      * const collection = new Collection(['this', 'is', 'collectionjs']);
@@ -179,7 +179,7 @@ export default class Collection
     /**
      * Filters the collection using a predicate (callback that returns a boolean).
      *
-     * @param  {Function} callback A function that returns a boolean expression.
+     * @param  {function} callback A function that returns a boolean expression.
      * @return {Collection} Filtered collection.
      * @example
      * const collection = new Collection([
@@ -196,8 +196,8 @@ export default class Collection
     /**
      * Gets an element at a specified index.
      *
-     * @param  {Number} index the index of the item.
-     * @return {var} the item at that index.
+     * @param  {number} index the index of the item.
+     * @return {*} the item at that index.
      * @example
      * const collection = new Collection([1, 2, 3]);
      * console.log(collection.find(2)); // 3
@@ -209,8 +209,8 @@ export default class Collection
     /**
      * Gets the first element satisfying a critera.
      *
-     * @param  {Function} [callback=null] the predicate (callback) that will be applied on items.
-     * @return {var} the first item to satisfy the critera.
+     * @param  {function} [callback=null] the predicate (callback) that will be applied on items.
+     * @return {*} the first item to satisfy the critera.
      * @example <caption>Using a callback</caption>
      * const first = new Collection([
      *     { name: 'Bran Stark', age: 7 },
@@ -298,8 +298,8 @@ export default class Collection
     /**
      * Gets the last element to satisfy a callback.
      *
-     * @param  {Function} [callback=null] the predicate to be checked on all elements.
-     * @return {var} The last element in the collection that satisfies the predicate.
+     * @param  {function} [callback=null] the predicate to be checked on all elements.
+     * @return {*} The last element in the collection that satisfies the predicate.
      * @example <caption>Using a callback</caption>
      * const last = new Collection([
      *     { name: 'Bran Stark', age: 7 },
@@ -331,7 +331,7 @@ export default class Collection
 
     /**
      * Maps each element using a mapping function and collects the mapped items.
-     * @param  {Function} callback the mapping function.
+     * @param  {function} callback the mapping function.
      * @return {Collection} collection containing the mapped items.
      * @example
      * const collection = new Collection([
@@ -348,7 +348,7 @@ export default class Collection
     /**
      * Extracts a property from the objects in the collection.
      *
-     * @param  {String} property the name of the property to be extracted.
+     * @param  {string} property the name of the property to be extracted.
      * @return {Collection} A collection with the extracted items.
      * @example
      * const collection = new Collection([
@@ -365,7 +365,7 @@ export default class Collection
     /**
      * Adds an element to the collection.
      *
-     * @param  {var} item the item to be added.
+     * @param  {*} item the item to be added.
      * @return {Collection} The collection object.
      * @example
      * const collection = new Collection().push('First');
@@ -378,9 +378,9 @@ export default class Collection
     /**
      * Reduces the collection to a single value using a reducing function.
      *
-     * @param  {Function} callback the reducing function.
-     * @param  {var} initial  initial value.
-     * @return {var} The reduced results.
+     * @param  {function} callback the reducing function.
+     * @param  {*} initial  initial value.
+     * @return {*} The reduced results.
      * @example
      * const value = new Collection([1, 2, 3]).reduce(
      *     (previous, current) => previous + current,
@@ -395,7 +395,7 @@ export default class Collection
     /**
      * Removes the elements that do not satisfy the predicate.
      *
-     * @param  {Function} callback the predicate used on each item.
+     * @param  {function} callback the predicate used on each item.
      * @return {Collection} A collection without the rejected elements.
      * @example
      * const collection = new Collection([
@@ -431,7 +431,7 @@ export default class Collection
     /**
      * Skips a specified number of elements.
      *
-     * @param  {Number} count the number of items to be skipped.
+     * @param  {number} count the number of items to be skipped.
      * @return {Collection} A collection without the skipped items.
      * @example
      * const collection = new Collection(['John', 'Arya', 'Bran', 'Sansa']).skip(2);
@@ -444,8 +444,8 @@ export default class Collection
     /**
      * Slices the collection starting from a specific index and ending at a specified index.
      *
-     * @param  {Number} start The zero-based starting index.
-     * @param  {Number} [end=length] The zero-based ending index.
+     * @param  {number} start The zero-based starting index.
+     * @param  {number} [end=length] The zero-based ending index.
      * @return {Collection} A collection with the sliced items.
      * @example <caption>start and end are specified</caption>
      * const collection = new Collection([0, 1, 2, 3, 4, 5, 6]).slice(2, 4);
@@ -464,7 +464,7 @@ export default class Collection
      * note that it doesn't change the orignal collection and it creates a
      * shallow copy.
      *
-     * @param  {Function} [compare=null] the compare function.
+     * @param  {function} [compare=null] the compare function.
      * @return {Collection} A new collection with the sorted items.
      *
      * @example
@@ -483,7 +483,7 @@ export default class Collection
      * It creates a shallow copy and retains the order of the orignal collection.
      *
      * @param  {string} property the key or the property to be compared.
-     * @param  {[type]} [order='asc'] The sorting order.
+     * @param  {string} [order='asc'] The sorting order.
      * use 'asc' for ascending or 'desc' for descending, case insensitive.
      * @return {Collection} A new Collection with the sorted items.
      *
@@ -493,11 +493,8 @@ export default class Collection
      *     { name: 'Arya Stark', age: 9 },
      *     { name: 'Bran Stark', age: 7 },
      * ]).sortBy('age');
-     * console.log(collection.all()); // [
-     * 								//	 	{ name: 'Bran Stark', age: 7 },
-     *                              //      { name: 'Arya Stark', age: 9 },
-     *                              //      { name: 'Jon Snow', age: 14 }
-     *                              //   ]
+     *
+     * console.log(collection.pluck('name').all()); // ['Brand Stark', 'Arya Stark', 'Jon Snow']
      */
     sortBy(property, order = 'asc') {
         const isAscending = order.toLowerCase() === 'asc';
@@ -516,9 +513,9 @@ export default class Collection
     }
 
     /**
-     * Stringifies the collection using JSON.stringify API.
+     * {stringifies the collection using JSON.stringify API.
      *
-     * @return {String} The stringified value.
+     * @return {string} The stringified value.
      * @example
      * const collection = new Collection([1, 2, 3]);
      * console.log(collection.stringify()); // "[1,2,3]"
@@ -530,8 +527,8 @@ export default class Collection
     /**
      * Sums the values of the array, or the properties, or the result of the callback.
      *
-     * @param  {undefined|String|Function} [property=null] the property to be summed.
-     * @return {var} The sum of values used in the summation.
+     * @param  {undefined|string|function} [property=null] the property to be summed.
+     * @return {*} The sum of values used in the summation.
      * @example <caption>Summing elements</caption>
      * const collection = new Collection([1, 2, 3]);
      * console.log(collection.sum()); // 6
@@ -573,7 +570,7 @@ export default class Collection
     /**
      * Gets a new collection with the number of specified items from the begining or the end.
      *
-     * @param  {Number} count the number of items to take. Takes from end if negative.
+     * @param  {number} count the number of items to take. Takes from end if negative.
      * @return {Collection} A collection with the taken items.
      * @example <caption>From the beginning</caption>
      * const collection = new Collection([1, 2, 3, 4, 5]).take(3);
@@ -615,8 +612,8 @@ export default class Collection
     /**
      * Filters the collection using a callback or equality comparison to a property in each item.
      *
-     * @param  {Function|String} callback The callback to be used to filter the collection.
-     * @param  {var} [value=null] The value to be compared.
+     * @param  {function|string} callback The callback to be used to filter the collection.
+     * @param  {*} [value=null] The value to be compared.
      * @return {Collection} A collection with the filtered items.
      * @example <caption>Using a property name</caption>
      * const collection = new Collection([

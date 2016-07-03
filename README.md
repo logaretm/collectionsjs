@@ -87,6 +87,8 @@ Here is a brief summary, read the [docs](https://logaretm.github.io/collectionjs
 * [reverse()](https://logaretm.github.io/collectionjs/class/src/collection.js~Collection.html#instance-method-reverse)
 * [skip(count)](https://logaretm.github.io/collectionjs/class/src/collection.js~Collection.html#instance-method-skip)
 * [slice(start, end)](https://logaretm.github.io/collectionjs/class/src/collection.js~Collection.html#instance-method-slice)
+* [sort()](https://logaretm.github.io/collectionjs/class/src/collection.js~Collection.html#instance-method-sort)
+* [sortBy(property, order)](https://logaretm.github.io/collectionjs/class/src/collection.js~Collection.html#instance-method-sortBy)
 * [stringify()](https://logaretm.github.io/collectionjs/class/src/collection.js~Collection.html#instance-method-stringify)
 * [sum(callback)](https://logaretm.github.io/collectionjs/class/src/collection.js~Collection.html#instance-method-sum)
 * [take(count)](https://logaretm.github.io/collectionjs/class/src/collection.js~Collection.html#instance-method-take)
