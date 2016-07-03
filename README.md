@@ -96,7 +96,7 @@ Here is a brief summary, read the [docs](https://logaretm.github.io/collectionjs
 
 ### Testing
 
-I use `ava` for testing which is an amazing test runner. With `nyc` for coverage.
+I use [ava](https://github.com/avajs/ava) for testing which is an amazing test runner. With [nyc](https://github.com/istanbuljs/nyc) for coverage.
 
 `npm run test`
 
@@ -120,6 +120,5 @@ Don't forget to follow the code style and always add a test file for any additio
 ### So...Performance?
 
 I don't think its very performant at the moment not very slow either, I can always use some help with optimizing things.
-
 
 ### MIT
