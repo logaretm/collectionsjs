@@ -90,6 +90,7 @@ Here is a brief summary, read the [docs](https://logaretm.github.io/collectionjs
 * [stringify()](https://logaretm.github.io/collectionjs/class/src/collection.js~Collection.html#instance-method-stringify)
 * [sum(callback)](https://logaretm.github.io/collectionjs/class/src/collection.js~Collection.html#instance-method-sum)
 * [take(count)](https://logaretm.github.io/collectionjs/class/src/collection.js~Collection.html#instance-method-take)
+* [values(count)](https://logaretm.github.io/collectionjs/class/src/collection.js~Collection.html#instance-method-values)
 * [where(callback)](https://logaretm.github.io/collectionjs/class/src/collection.js~Collection.html#instance-method-where)
 * [zip(Array)](https://logaretm.github.io/collectionjs/class/src/collection.js~Collection.html#instance-method-zip)
 
