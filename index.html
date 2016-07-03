@@ -44,21 +44,18 @@
 array.map(i =&gt; i + 1).filter(i =&gt; i &gt; 2);</code>
 </code></pre>
 <p>which can be thought of as a pipeline of operations. however there are some functions that do not exist or considered as an edge case which can be fairly simple to implement, but annoying to reuse.</p>
-<p>CollectionJS is an object that acts as a wrapper around the Array object, exposing the same Array API and some extra methods and utilities, and simplifying their use. and it always returns a Collection (except for some examples) meaning you will be able to keep chaining until you get the collection you want to work with.</p>
+<p>CollectionJS is an object that acts as a wrapper around the Array object, exposing  API methods and utilities, and simplifying their use. and it always returns a Collection (except for some examples) meaning you will be able to keep chaining until you get the collection you want to work with.</p>
 <h3 id="why-inspiration-">Why (Inspiration)?</h3>
 <p>I&apos;m not an expert JavaScript developer, but I run into enough situations where I needed some complex operations, great libraries like lodash are amazing and offer a whole lot to do with arrays, but most methods return an array. so doing multiple operations wasn&apos;t as great.</p>
-<p>Working with The PHP framework Laravel, I came across the collection object. I didn&apos;t realize how powerful the combination of immutable objects are until I read the &apos;Refactoring to collections book&apos; which is a great read for any developer.</p>
+<p>Working with The PHP framework Laravel, I came across the collection object. I didn&apos;t realize how powerful the combination of immutable objects are until I read the <a href="http://adamwathan.me/refactoring-to-collections/">Refactoring to collections</a> which is a great read for any developer.</p>
 <p>And I had a free week at the time.</p>
 <h3 id="install">Install</h3>
 <p>npm</p>
 <pre><code class="lang-bash"><code class="source-code prettyprint">npm install collectionjs --save</code>
 </code></pre>
-<p>bower</p>
-<pre><code class="lang-bash"><code class="source-code prettyprint">bower install collectionjs --save</code>
-</code></pre>
 <h3 id="usage">Usage</h3>
 <p>Download it manually and add the script tag at the bottom of your body, it doesn&apos;t matter in which order because there are no dependencies.</p>
-<pre><code class="lang-html"><code class="source-code prettyprint">&lt;script src=&quot;/path/to/collection.min.js&quot;&gt;&lt;/script&gt;</code>
+<pre><code class="lang-html"><code class="source-code prettyprint">&lt;script src=&quot;dist/collection.min.js&quot;&gt;&lt;/script&gt;</code>
 </code></pre>
 <p>However if you have a more complex setup, Then in your code you can do:</p>
 <pre><code class="lang-JavaScript"><code class="source-code prettyprint">// ES6
@@ -73,6 +70,7 @@ import Collection from &apos;collectionjs&apos;;</code>
 <li>Most of the methods just defer to the existing array functions like filter and map.</li>
 <li>Many methods accept a different argument types for the same parameter, which will dictate its behavior like <code>where()</code> and <code>first()</code>.</li>
 <li>Few methods are just an alias.</li>
+<li><code>sort()</code> and <code>sortBy()</code> sorting doesn&apos;t change the original collection order.</li>
 </ul>
 <h3 id="api">API</h3>
 <p>There are just over 25+ unique methods for most of your needs I will be adding more useful ones in time.</p>
@@ -99,6 +97,8 @@ import Collection from &apos;collectionjs&apos;;</code>
 <li><a href="https://logaretm.github.io/collectionjs/class/src/collection.js~Collection.html#instance-method-reverse">reverse()</a></li>
 <li><a href="https://logaretm.github.io/collectionjs/class/src/collection.js~Collection.html#instance-method-skip">skip(count)</a></li>
 <li><a href="https://logaretm.github.io/collectionjs/class/src/collection.js~Collection.html#instance-method-slice">slice(start, end)</a></li>
+<li><a href="https://logaretm.github.io/collectionjs/class/src/collection.js~Collection.html#instance-method-sort">sort()</a></li>
+<li><a href="https://logaretm.github.io/collectionjs/class/src/collection.js~Collection.html#instance-method-sortBy">sortBy(property, order)</a></li>
 <li><a href="https://logaretm.github.io/collectionjs/class/src/collection.js~Collection.html#instance-method-stringify">stringify()</a></li>
 <li><a href="https://logaretm.github.io/collectionjs/class/src/collection.js~Collection.html#instance-method-sum">sum(callback)</a></li>
 <li><a href="https://logaretm.github.io/collectionjs/class/src/collection.js~Collection.html#instance-method-take">take(count)</a></li>
