@@ -22,7 +22,7 @@
     "longname": "src/collection.js~Collection",
     "access": null,
     "export": true,
-    "importPath": "collectionjs/src/collection.js",
+    "importPath": "collectionsjs/src/collection.js",
     "importStyle": "Collection",
     "description": "The Collection object.",
     "examples": [

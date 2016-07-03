@@ -38,7 +38,7 @@ However if you have a more complex setup, Then in your code you can do:
 
 ```JavaScript
 // ES6
-import Collection from 'collectionjs';
+import Collection from 'collectionsjs';
 ```
 
 or
