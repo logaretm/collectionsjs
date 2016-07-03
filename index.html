@@ -62,7 +62,7 @@ array.map(i =&gt; i + 1).filter(i =&gt; i &gt; 2);</code>
 import Collection from &apos;collectionsjs&apos;;</code>
 </code></pre>
 <p>or</p>
-<pre><code class="lang-JavaScript"><code class="source-code prettyprint">var Collection = require(&apos;collectionjs&apos;);</code>
+<pre><code class="lang-JavaScript"><code class="source-code prettyprint">var Collection = require(&apos;collectionsjs&apos;);</code>
 </code></pre>
 <h3 id="behaviors">Behaviors</h3>
 <p>I have chosen to allow different types to be used for the same parameter, some may see this as some violation of some pattern out there or something, while I like to respect all best practices I think the trade of having less methods to memorize and the versatility of one method is better than writing over 2x the same amount of functions for slightly different behaviors.</p>
@@ -74,37 +74,37 @@ import Collection from &apos;collectionsjs&apos;;</code>
 </ul>
 <h3 id="api">API</h3>
 <p>There are just over 25+ unique methods for most of your needs I will be adding more useful ones in time.</p>
-<p>Here is a brief summary, read the <a href="https://logaretm.github.io/collectionjs/">docs</a> for different behaviors and usage:</p>
+<p>Here is a brief summary, read the <a href="https://logaretm.github.io/collectionsjs/">docs</a> for different behaviors and usage:</p>
 <ul>
-<li><a href="https://logaretm.github.io/collectionjs/class/src/collection.js~Collection.html#instance-method-add">add(item)</a></li>
-<li><a href="https://logaretm.github.io/collectionjs/class/src/collection.js~Collection.html#instance-method-all">all()</a></li>
-<li><a href="https://logaretm.github.io/collectionjs/class/src/collection.js~Collection.html#instance-method-average">average(callback)</a></li>
-<li><a href="https://logaretm.github.io/collectionjs/class/src/collection.js~Collection.html#instance-method-chunk">chunk(size)</a></li>
-<li><a href="https://logaretm.github.io/collectionjs/class/src/collection.js~Collection.html#instance-method-concat">concat(Array)</a></li>
-<li><a href="https://logaretm.github.io/collectionjs/class/src/collection.js~Collection.html#instance-method-count">count()</a></li>
-<li><a href="https://logaretm.github.io/collectionjs/class/src/collection.js~Collection.html#instance-method-each">each(callback)</a></li>
-<li><a href="https://logaretm.github.io/collectionjs/class/src/collection.js~Collection.html#instance-method-filter">filter(callback)</a></li>
-<li><a href="https://logaretm.github.io/collectionjs/class/src/collection.js~Collection.html#instance-method-find">find(index)</a></li>
-<li><a href="https://logaretm.github.io/collectionjs/class/src/collection.js~Collection.html#instance-method-first">first(callback)</a></li>
-<li><a href="https://logaretm.github.io/collectionjs/class/src/collection.js~Collection.html#instance-method-flatten">flatten(deep)</a></li>
-<li><a href="https://logaretm.github.io/collectionjs/class/src/collection.js~Collection.html#instance-method-keys">keys()</a></li>
-<li><a href="https://logaretm.github.io/collectionjs/class/src/collection.js~Collection.html#instance-method-last">last(callback)</a></li>
-<li><a href="https://logaretm.github.io/collectionjs/class/src/collection.js~Collection.html#instance-method-map">map(callback)</a></li>
-<li><a href="https://logaretm.github.io/collectionjs/class/src/collection.js~Collection.html#instance-method-pluck">pluck(callback)</a></li>
-<li><a href="https://logaretm.github.io/collectionjs/class/src/collection.js~Collection.html#instance-method-push">push(item)</a></li>
-<li><a href="https://logaretm.github.io/collectionjs/class/src/collection.js~Collection.html#instance-method-reduce">reduce(callback, initial)</a></li>
-<li><a href="https://logaretm.github.io/collectionjs/class/src/collection.js~Collection.html#instance-method-reject">reject(callback)</a></li>
-<li><a href="https://logaretm.github.io/collectionjs/class/src/collection.js~Collection.html#instance-method-reverse">reverse()</a></li>
-<li><a href="https://logaretm.github.io/collectionjs/class/src/collection.js~Collection.html#instance-method-skip">skip(count)</a></li>
-<li><a href="https://logaretm.github.io/collectionjs/class/src/collection.js~Collection.html#instance-method-slice">slice(start, end)</a></li>
-<li><a href="https://logaretm.github.io/collectionjs/class/src/collection.js~Collection.html#instance-method-sort">sort()</a></li>
-<li><a href="https://logaretm.github.io/collectionjs/class/src/collection.js~Collection.html#instance-method-sortBy">sortBy(property, order)</a></li>
-<li><a href="https://logaretm.github.io/collectionjs/class/src/collection.js~Collection.html#instance-method-stringify">stringify()</a></li>
-<li><a href="https://logaretm.github.io/collectionjs/class/src/collection.js~Collection.html#instance-method-sum">sum(callback)</a></li>
-<li><a href="https://logaretm.github.io/collectionjs/class/src/collection.js~Collection.html#instance-method-take">take(count)</a></li>
-<li><a href="https://logaretm.github.io/collectionjs/class/src/collection.js~Collection.html#instance-method-values">values(count)</a></li>
-<li><a href="https://logaretm.github.io/collectionjs/class/src/collection.js~Collection.html#instance-method-where">where(callback)</a></li>
-<li><a href="https://logaretm.github.io/collectionjs/class/src/collection.js~Collection.html#instance-method-zip">zip(Array)</a></li>
+<li><a href="https://logaretm.github.io/collectionsjs/class/src/collection.js~Collection.html#instance-method-add">add(item)</a></li>
+<li><a href="https://logaretm.github.io/collectionsjs/class/src/collection.js~Collection.html#instance-method-all">all()</a></li>
+<li><a href="https://logaretm.github.io/collectionsjs/class/src/collection.js~Collection.html#instance-method-average">average(callback)</a></li>
+<li><a href="https://logaretm.github.io/collectionsjs/class/src/collection.js~Collection.html#instance-method-chunk">chunk(size)</a></li>
+<li><a href="https://logaretm.github.io/collectionsjs/class/src/collection.js~Collection.html#instance-method-concat">concat(Array)</a></li>
+<li><a href="https://logaretm.github.io/collectionsjs/class/src/collection.js~Collection.html#instance-method-count">count()</a></li>
+<li><a href="https://logaretm.github.io/collectionsjs/class/src/collection.js~Collection.html#instance-method-each">each(callback)</a></li>
+<li><a href="https://logaretm.github.io/collectionsjs/class/src/collection.js~Collection.html#instance-method-filter">filter(callback)</a></li>
+<li><a href="https://logaretm.github.io/collectionsjs/class/src/collection.js~Collection.html#instance-method-find">find(index)</a></li>
+<li><a href="https://logaretm.github.io/collectionsjs/class/src/collection.js~Collection.html#instance-method-first">first(callback)</a></li>
+<li><a href="https://logaretm.github.io/collectionsjs/class/src/collection.js~Collection.html#instance-method-flatten">flatten(deep)</a></li>
+<li><a href="https://logaretm.github.io/collectionsjs/class/src/collection.js~Collection.html#instance-method-keys">keys()</a></li>
+<li><a href="https://logaretm.github.io/collectionsjs/class/src/collection.js~Collection.html#instance-method-last">last(callback)</a></li>
+<li><a href="https://logaretm.github.io/collectionsjs/class/src/collection.js~Collection.html#instance-method-map">map(callback)</a></li>
+<li><a href="https://logaretm.github.io/collectionsjs/class/src/collection.js~Collection.html#instance-method-pluck">pluck(callback)</a></li>
+<li><a href="https://logaretm.github.io/collectionsjs/class/src/collection.js~Collection.html#instance-method-push">push(item)</a></li>
+<li><a href="https://logaretm.github.io/collectionsjs/class/src/collection.js~Collection.html#instance-method-reduce">reduce(callback, initial)</a></li>
+<li><a href="https://logaretm.github.io/collectionsjs/class/src/collection.js~Collection.html#instance-method-reject">reject(callback)</a></li>
+<li><a href="https://logaretm.github.io/collectionsjs/class/src/collection.js~Collection.html#instance-method-reverse">reverse()</a></li>
+<li><a href="https://logaretm.github.io/collectionsjs/class/src/collection.js~Collection.html#instance-method-skip">skip(count)</a></li>
+<li><a href="https://logaretm.github.io/collectionsjs/class/src/collection.js~Collection.html#instance-method-slice">slice(start, end)</a></li>
+<li><a href="https://logaretm.github.io/collectionsjs/class/src/collection.js~Collection.html#instance-method-sort">sort()</a></li>
+<li><a href="https://logaretm.github.io/collectionsjs/class/src/collection.js~Collection.html#instance-method-sortBy">sortBy(property, order)</a></li>
+<li><a href="https://logaretm.github.io/collectionsjs/class/src/collection.js~Collection.html#instance-method-stringify">stringify()</a></li>
+<li><a href="https://logaretm.github.io/collectionsjs/class/src/collection.js~Collection.html#instance-method-sum">sum(callback)</a></li>
+<li><a href="https://logaretm.github.io/collectionsjs/class/src/collection.js~Collection.html#instance-method-take">take(count)</a></li>
+<li><a href="https://logaretm.github.io/collectionsjs/class/src/collection.js~Collection.html#instance-method-values">values(count)</a></li>
+<li><a href="https://logaretm.github.io/collectionsjs/class/src/collection.js~Collection.html#instance-method-where">where(callback)</a></li>
+<li><a href="https://logaretm.github.io/collectionsjs/class/src/collection.js~Collection.html#instance-method-zip">zip(Array)</a></li>
 </ul>
 <h3 id="testing">Testing</h3>
 <p>I use <a href="https://github.com/avajs/ava">ava</a> for testing which is an amazing test runner. With <a href="https://github.com/istanbuljs/nyc">nyc</a> for coverage.</p>
