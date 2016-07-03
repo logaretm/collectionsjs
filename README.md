@@ -10,12 +10,12 @@ array.map(i => i + 1).filter(i => i > 2);
 ```
 which can be thought of as a pipeline of operations. however there are some functions that do not exist or considered as an edge case which can be fairly simple to implement, but annoying to reuse.
 
-CollectionJS is an object that acts as a wrapper around the Array object, exposing the same Array API and some extra methods and utilities, and simplifying their use. and it always returns a Collection (except for some examples) meaning you will be able to keep chaining until you get the collection you want to work with.
+CollectionJS is an object that acts as a wrapper around the Array object, exposing  API methods and utilities, and simplifying their use. and it always returns a Collection (except for some examples) meaning you will be able to keep chaining until you get the collection you want to work with.
 
 ### Why (Inspiration)?
 I'm not an expert JavaScript developer, but I run into enough situations where I needed some complex operations, great libraries like lodash are amazing and offer a whole lot to do with arrays, but most methods return an array. so doing multiple operations wasn't as great.
 
-Working with The PHP framework Laravel, I came across the collection object. I didn't realize how powerful the combination of immutable objects are until I read the 'Refactoring to collections book' which is a great read for any developer.
+Working with The PHP framework Laravel, I came across the collection object. I didn't realize how powerful the combination of immutable objects are until I read the [Refactoring to collections](http://adamwathan.me/refactoring-to-collections/) which is a great read for any developer.
 
 And I had a free week at the time.
 
@@ -27,17 +27,11 @@ npm
 npm install collectionjs --save
 ```
 
-bower
-
-```bash
-bower install collectionjs --save
-```
-
 ### Usage
 
 Download it manually and add the script tag at the bottom of your body, it doesn't matter in which order because there are no dependencies.
 ```html
-<script src="/path/to/collection.min.js"></script>
+<script src="dist/collection.min.js"></script>
 ```
 
 However if you have a more complex setup, Then in your code you can do:
@@ -59,7 +53,7 @@ I have chosen to allow different types to be used for the same parameter, some m
 * Most of the methods just defer to the existing array functions like filter and map.
 * Many methods accept a different argument types for the same parameter, which will dictate its behavior like `where()` and `first()`.
 * Few methods are just an alias.
-
+* `sort()` and `sortBy()` sorting doesn't change the original collection order.
 
 ### API
 There are just over 25+ unique methods for most of your needs I will be adding more useful ones in time.
