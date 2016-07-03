@@ -44,7 +44,7 @@ import Collection from 'collectionsjs';
 or
 
 ```JavaScript
-var Collection = require('collectionjs');
+var Collection = require('collectionsjs');
 ```
 
 ### Behaviors
@@ -58,37 +58,37 @@ I have chosen to allow different types to be used for the same parameter, some m
 ### API
 There are just over 25+ unique methods for most of your needs I will be adding more useful ones in time.
 
-Here is a brief summary, read the [docs](https://logaretm.github.io/collectionjs/) for different behaviors and usage:
+Here is a brief summary, read the [docs](https://logaretm.github.io/collectionsjs/) for different behaviors and usage:
 
-* [add(item)](https://logaretm.github.io/collectionjs/class/src/collection.js~Collection.html#instance-method-add)
-* [all()](https://logaretm.github.io/collectionjs/class/src/collection.js~Collection.html#instance-method-all)
-* [average(callback)](https://logaretm.github.io/collectionjs/class/src/collection.js~Collection.html#instance-method-average)
-* [chunk(size)](https://logaretm.github.io/collectionjs/class/src/collection.js~Collection.html#instance-method-chunk)
-* [concat(Array)](https://logaretm.github.io/collectionjs/class/src/collection.js~Collection.html#instance-method-concat)
-* [count()](https://logaretm.github.io/collectionjs/class/src/collection.js~Collection.html#instance-method-count)
-* [each(callback)](https://logaretm.github.io/collectionjs/class/src/collection.js~Collection.html#instance-method-each)
-* [filter(callback)](https://logaretm.github.io/collectionjs/class/src/collection.js~Collection.html#instance-method-filter)
-* [find(index)](https://logaretm.github.io/collectionjs/class/src/collection.js~Collection.html#instance-method-find)
-* [first(callback)](https://logaretm.github.io/collectionjs/class/src/collection.js~Collection.html#instance-method-first)
-* [flatten(deep)](https://logaretm.github.io/collectionjs/class/src/collection.js~Collection.html#instance-method-flatten)
-* [keys()](https://logaretm.github.io/collectionjs/class/src/collection.js~Collection.html#instance-method-keys)
-* [last(callback)](https://logaretm.github.io/collectionjs/class/src/collection.js~Collection.html#instance-method-last)
-* [map(callback)](https://logaretm.github.io/collectionjs/class/src/collection.js~Collection.html#instance-method-map)
-* [pluck(callback)](https://logaretm.github.io/collectionjs/class/src/collection.js~Collection.html#instance-method-pluck)
-* [push(item)](https://logaretm.github.io/collectionjs/class/src/collection.js~Collection.html#instance-method-push)
-* [reduce(callback, initial)](https://logaretm.github.io/collectionjs/class/src/collection.js~Collection.html#instance-method-reduce)
-* [reject(callback)](https://logaretm.github.io/collectionjs/class/src/collection.js~Collection.html#instance-method-reject)
-* [reverse()](https://logaretm.github.io/collectionjs/class/src/collection.js~Collection.html#instance-method-reverse)
-* [skip(count)](https://logaretm.github.io/collectionjs/class/src/collection.js~Collection.html#instance-method-skip)
-* [slice(start, end)](https://logaretm.github.io/collectionjs/class/src/collection.js~Collection.html#instance-method-slice)
-* [sort()](https://logaretm.github.io/collectionjs/class/src/collection.js~Collection.html#instance-method-sort)
-* [sortBy(property, order)](https://logaretm.github.io/collectionjs/class/src/collection.js~Collection.html#instance-method-sortBy)
-* [stringify()](https://logaretm.github.io/collectionjs/class/src/collection.js~Collection.html#instance-method-stringify)
-* [sum(callback)](https://logaretm.github.io/collectionjs/class/src/collection.js~Collection.html#instance-method-sum)
-* [take(count)](https://logaretm.github.io/collectionjs/class/src/collection.js~Collection.html#instance-method-take)
-* [values(count)](https://logaretm.github.io/collectionjs/class/src/collection.js~Collection.html#instance-method-values)
-* [where(callback)](https://logaretm.github.io/collectionjs/class/src/collection.js~Collection.html#instance-method-where)
-* [zip(Array)](https://logaretm.github.io/collectionjs/class/src/collection.js~Collection.html#instance-method-zip)
+* [add(item)](https://logaretm.github.io/collectionsjs/class/src/collection.js~Collection.html#instance-method-add)
+* [all()](https://logaretm.github.io/collectionsjs/class/src/collection.js~Collection.html#instance-method-all)
+* [average(callback)](https://logaretm.github.io/collectionsjs/class/src/collection.js~Collection.html#instance-method-average)
+* [chunk(size)](https://logaretm.github.io/collectionsjs/class/src/collection.js~Collection.html#instance-method-chunk)
+* [concat(Array)](https://logaretm.github.io/collectionsjs/class/src/collection.js~Collection.html#instance-method-concat)
+* [count()](https://logaretm.github.io/collectionsjs/class/src/collection.js~Collection.html#instance-method-count)
+* [each(callback)](https://logaretm.github.io/collectionsjs/class/src/collection.js~Collection.html#instance-method-each)
+* [filter(callback)](https://logaretm.github.io/collectionsjs/class/src/collection.js~Collection.html#instance-method-filter)
+* [find(index)](https://logaretm.github.io/collectionsjs/class/src/collection.js~Collection.html#instance-method-find)
+* [first(callback)](https://logaretm.github.io/collectionsjs/class/src/collection.js~Collection.html#instance-method-first)
+* [flatten(deep)](https://logaretm.github.io/collectionsjs/class/src/collection.js~Collection.html#instance-method-flatten)
+* [keys()](https://logaretm.github.io/collectionsjs/class/src/collection.js~Collection.html#instance-method-keys)
+* [last(callback)](https://logaretm.github.io/collectionsjs/class/src/collection.js~Collection.html#instance-method-last)
+* [map(callback)](https://logaretm.github.io/collectionsjs/class/src/collection.js~Collection.html#instance-method-map)
+* [pluck(callback)](https://logaretm.github.io/collectionsjs/class/src/collection.js~Collection.html#instance-method-pluck)
+* [push(item)](https://logaretm.github.io/collectionsjs/class/src/collection.js~Collection.html#instance-method-push)
+* [reduce(callback, initial)](https://logaretm.github.io/collectionsjs/class/src/collection.js~Collection.html#instance-method-reduce)
+* [reject(callback)](https://logaretm.github.io/collectionsjs/class/src/collection.js~Collection.html#instance-method-reject)
+* [reverse()](https://logaretm.github.io/collectionsjs/class/src/collection.js~Collection.html#instance-method-reverse)
+* [skip(count)](https://logaretm.github.io/collectionsjs/class/src/collection.js~Collection.html#instance-method-skip)
+* [slice(start, end)](https://logaretm.github.io/collectionsjs/class/src/collection.js~Collection.html#instance-method-slice)
+* [sort()](https://logaretm.github.io/collectionsjs/class/src/collection.js~Collection.html#instance-method-sort)
+* [sortBy(property, order)](https://logaretm.github.io/collectionsjs/class/src/collection.js~Collection.html#instance-method-sortBy)
+* [stringify()](https://logaretm.github.io/collectionsjs/class/src/collection.js~Collection.html#instance-method-stringify)
+* [sum(callback)](https://logaretm.github.io/collectionsjs/class/src/collection.js~Collection.html#instance-method-sum)
+* [take(count)](https://logaretm.github.io/collectionsjs/class/src/collection.js~Collection.html#instance-method-take)
+* [values(count)](https://logaretm.github.io/collectionsjs/class/src/collection.js~Collection.html#instance-method-values)
+* [where(callback)](https://logaretm.github.io/collectionsjs/class/src/collection.js~Collection.html#instance-method-where)
+* [zip(Array)](https://logaretm.github.io/collectionsjs/class/src/collection.js~Collection.html#instance-method-zip)
 
 ### Testing
 
