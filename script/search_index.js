@@ -1,8 +1,8 @@
 window.esdocSearchIndex = [
   [
-    "collectionjs/src/collection.js~collection",
+    "collectionsjs/src/collection.js~collection",
     "class/src/collection.js~Collection.html",
-    "<span>Collection</span> <span class=\"search-result-import-path\">collectionjs/src/collection.js</span>",
+    "<span>Collection</span> <span class=\"search-result-import-path\">collectionsjs/src/collection.js</span>",
     "class"
   ],
   [
