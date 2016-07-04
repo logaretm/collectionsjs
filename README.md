@@ -27,6 +27,12 @@ npm
 npm install collectionsjs --save
 ```
 
+bower
+
+```bash
+bower install collectionjs --save
+```
+
 ### Usage
 
 Download it manually and add the script tag at the bottom of your body, it doesn't matter in which order because there are no dependencies.
