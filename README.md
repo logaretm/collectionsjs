@@ -1,6 +1,7 @@
 # CollectionsJS
 
 [![Build Status](https://travis-ci.org/logaretm/collectionsjs.svg?branch=master)](https://travis-ci.org/logaretm/collectionsjs)
+[![codecov](https://codecov.io/gh/logaretm/collectionsjs/branch/master/graph/badge.svg)](https://codecov.io/gh/logaretm/collectionsjs)
 
 A lightweight object for array pipelining operations.
 
