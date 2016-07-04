@@ -17,7 +17,11 @@
     "**/.*",
     "node_modules",
     "bower_components",
+    ".nyc_output",
     "test",
-    "tests"
+    "tests",
+    "src",
+    "docs",
+    "webpack.config.js"
   ]
 }

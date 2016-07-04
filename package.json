@@ -10,7 +10,7 @@
     "test": "nyc ava --colors",
     "test:watch": "ava --watch",
     "lint": "eslint ./src ./test",
-    "doc": "esdoc -c esdoc.json"
+    "doc": "esdoc -c .esdoc.json"
   },
   "ava": {
     "require": [
