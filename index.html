@@ -38,36 +38,38 @@
 </nav>
 
 <div class="content" data-ice="content"><div data-ice="index" class="github-markdown"><h1 id="collectionsjs">CollectionsJS</h1>
+<p><a href="https://travis-ci.org/logaretm/collectionsjs"><img src="https://travis-ci.org/logaretm/collectionsjs.svg?branch=master" alt="Build Status"></a>
+<a href="https://codecov.io/gh/logaretm/collectionsjs"><img src="https://codecov.io/gh/logaretm/collectionsjs/branch/master/graph/badge.svg" alt="codecov"></a></p>
 <p>A lightweight object for array pipelining operations.</p>
 <p>Arrays are awesome in JavaScript and now are easier to use and manipulate using the ES5 functions like map and filter, which enables you to chain some operations like:</p>
-<pre><code class="lang-JavaScript"><code class="source-code prettyprint">var array = [1, 2, 3];
+<pre><code class="lang-javascript"><code class="source-code prettyprint">var array = [1, 2, 3];
 array.map(i =&gt; i + 1).filter(i =&gt; i &gt; 2);</code>
 </code></pre>
 <p>which can be thought of as a pipeline of operations. however there are some functions that do not exist or considered as an edge case which can be fairly simple to implement, but annoying to reuse.</p>
-<p>CollectionJS is an object that acts as a wrapper around the Array object, exposing  API methods and utilities, and simplifying their use. and it always returns a Collection (except for some examples) meaning you will be able to keep chaining until you get the collection you want to work with.</p>
-<h3 id="why-inspiration-">Why (Inspiration)?</h3>
+<p>CollectionJS is an object that acts as a wrapper around the Array object, exposing API methods and utilities, and simplifying their use. and it always returns a Collection (except for some examples) meaning you will be able to keep chaining until you get the collection you want to work with.</p>
+<h2 id="why-inspiration-">Why (Inspiration)?</h2>
 <p>I&apos;m not an expert JavaScript developer, but I run into enough situations where I needed some complex operations, great libraries like lodash are amazing and offer a whole lot to do with arrays, but most methods return an array. so doing multiple operations wasn&apos;t as great.</p>
 <p>Working with The PHP framework Laravel, I came across the collection object. I didn&apos;t realize how powerful the combination of immutable objects are until I read the <a href="http://adamwathan.me/refactoring-to-collections/">Refactoring to collections</a> which is a great read for any developer.</p>
 <p>And I had a free week at the time.</p>
-<h3 id="install">Install</h3>
+<h2 id="install">Install</h2>
 <p>npm</p>
 <pre><code class="lang-bash"><code class="source-code prettyprint">npm install collectionsjs --save</code>
 </code></pre>
 <p>bower</p>
 <pre><code class="lang-bash"><code class="source-code prettyprint">bower install collectionjs --save</code>
 </code></pre>
-<h3 id="usage">Usage</h3>
+<h2 id="usage">Usage</h2>
 <p>Download it manually and add the script tag at the bottom of your body, it doesn&apos;t matter in which order because there are no dependencies.</p>
 <pre><code class="lang-html"><code class="source-code prettyprint">&lt;script src=&quot;dist/collection.min.js&quot;&gt;&lt;/script&gt;</code>
 </code></pre>
 <p>However if you have a more complex setup, Then in your code you can do:</p>
-<pre><code class="lang-JavaScript"><code class="source-code prettyprint">// ES6
+<pre><code class="lang-javascript"><code class="source-code prettyprint">// ES6
 import Collection from &apos;collectionsjs&apos;;</code>
 </code></pre>
 <p>or</p>
-<pre><code class="lang-JavaScript"><code class="source-code prettyprint">var Collection = require(&apos;collectionsjs&apos;);</code>
+<pre><code class="lang-javascript"><code class="source-code prettyprint">var Collection = require(&apos;collectionsjs&apos;);</code>
 </code></pre>
-<h3 id="behaviors">Behaviors</h3>
+<h2 id="behaviors">Behaviors</h2>
 <p>I have chosen to allow different types to be used for the same parameter, some may see this as some violation of some pattern out there or something, while I like to respect all best practices I think the trade of having less methods to memorize and the versatility of one method is better than writing over 2x the same amount of functions for slightly different behaviors.</p>
 <ul>
 <li>Most of the methods just defer to the existing array functions like filter and map.</li>
@@ -75,7 +77,7 @@ import Collection from &apos;collectionsjs&apos;;</code>
 <li>Few methods are just an alias.</li>
 <li><code>sort()</code> and <code>sortBy()</code> sorting doesn&apos;t change the original collection order.</li>
 </ul>
-<h3 id="api">API</h3>
+<h2 id="api">API</h2>
 <p>There are just over 25+ unique methods for most of your needs I will be adding more useful ones in time.</p>
 <p>Here is a brief summary, read the <a href="https://logaretm.github.io/collectionsjs/">docs</a> for different behaviors and usage:</p>
 <ul>
@@ -109,24 +111,23 @@ import Collection from &apos;collectionsjs&apos;;</code>
 <li><a href="https://logaretm.github.io/collectionsjs/class/src/collection.js~Collection.html#instance-method-where">where(callback)</a></li>
 <li><a href="https://logaretm.github.io/collectionsjs/class/src/collection.js~Collection.html#instance-method-zip">zip(Array)</a></li>
 </ul>
-<h3 id="testing">Testing</h3>
+<h2 id="testing">Testing</h2>
 <p>I use <a href="https://github.com/avajs/ava">ava</a> for testing which is an amazing test runner. With <a href="https://github.com/istanbuljs/nyc">nyc</a> for coverage.</p>
 <p><code>npm run test</code></p>
 <p>and you can lint with</p>
 <p><code>npm run lint</code></p>
-<h3 id="contribution">Contribution</h3>
-<p>Go a head and you will be fully credited.
-Don&apos;t forget to follow the code style and always add a test file for any additions.</p>
-<h3 id="build">Build</h3>
+<h2 id="contribution">Contribution</h2>
+<p>Go a head and you will be fully credited. Don&apos;t forget to follow the code style and always add a test file for any additions.</p>
+<h2 id="build">Build</h2>
 <ul>
 <li>Clone the repo.</li>
 <li><code>npm install</code></li>
 <li>Write code better than mine.</li>
 <li><code>npm run build</code> which will build both minified and unminified versions.</li>
 </ul>
-<h3 id="so-performance-">So...Performance?</h3>
+<h2 id="so-performance-">So...Performance?</h2>
 <p>I don&apos;t think its very performant at the moment not very slow either, I can always use some help with optimizing things.</p>
-<h3 id="mit">MIT</h3>
+<h2 id="mit">MIT</h2>
 </div>
 </div>
 
