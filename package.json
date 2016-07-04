@@ -1,6 +1,6 @@
 {
   "name": "collectionsjs",
-  "version": "0.2.0",
+  "version": "0.1.1",
   "repository": "https://github.com/logaretm/collectionjs",
   "description": "Immutable collection class for working with JavaScript arrays similiar to Laravel's collections",
   "main": "dist/collection.js",
@@ -10,7 +10,7 @@
     "test": "nyc ava --colors",
     "test:watch": "ava --watch",
     "lint": "eslint ./src ./test",
-    "doc": "esdoc -c esdoc.json"
+    "doc": "esdoc -c .esdoc.json"
   },
   "ava": {
     "require": [
@@ -19,7 +19,8 @@
   },
   "keywords": [
     "collections",
-    "arrays"
+    "arrays",
+    "laravel"
   ],
   "author": "Abdelrahman Awad",
   "license": "MIT",
