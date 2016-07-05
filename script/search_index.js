@@ -420,6 +420,12 @@ window.esdocSearchIndex = [
     "member"
   ],
   [
+    "src/collection.js~collection#join",
+    "class/src/collection.js~Collection.html#instance-method-join",
+    "src/collection.js~Collection#join",
+    "method"
+  ],
+  [
     "src/collection.js~collection#keys",
     "class/src/collection.js~Collection.html#instance-method-keys",
     "src/collection.js~Collection#keys",
