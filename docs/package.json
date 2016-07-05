@@ -1,8 +1,8 @@
 {
   "name": "collectionsjs",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "repository": "https://github.com/logaretm/collectionjs",
-  "description": "Immutable collection class for working with JavaScript arrays similiar to Laravel's collections",
+  "description": "A Collection class for working with JavaScript arrays similiar to Laravel's collections",
   "main": "dist/collection.js",
   "scripts": {
     "dev": "webpack --progress --colors --watch",

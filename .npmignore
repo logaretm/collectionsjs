@@ -5,3 +5,5 @@ test/
 docs/
 coverage/
 coverage.lcov
+.*
+weback.config.js

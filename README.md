@@ -85,6 +85,7 @@ Here is a brief summary, read the [docs](https://logaretm.github.io/collectionsj
 - [find(index)](https://logaretm.github.io/collectionsjs/class/src/collection.js~Collection.html#instance-method-find)
 - [first(callback)](https://logaretm.github.io/collectionsjs/class/src/collection.js~Collection.html#instance-method-first)
 - [flatten(deep)](https://logaretm.github.io/collectionsjs/class/src/collection.js~Collection.html#instance-method-flatten)
+- [join(seperator)](https://logaretm.github.io/collectionsjs/class/src/collection.js~Collection.html#instance-method-join)
 - [keys()](https://logaretm.github.io/collectionsjs/class/src/collection.js~Collection.html#instance-method-keys)
 - [last(callback)](https://logaretm.github.io/collectionsjs/class/src/collection.js~Collection.html#instance-method-last)
 - [map(callback)](https://logaretm.github.io/collectionsjs/class/src/collection.js~Collection.html#instance-method-map)
@@ -127,6 +128,6 @@ Go a head and you will be fully credited. Don't forget to follow the code style 
 
 ## So...Performance?
 
-I don't think its very performant at the moment not very slow either, I can always use some help with optimizing things.
+I can always use some help with optimizing things. however most of the methods are based on the underlying Array API.
 
 ## MIT

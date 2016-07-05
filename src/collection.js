@@ -268,6 +268,21 @@ export default class Collection
     }
 
     /**
+     * Joins the collection elements into a string.
+     *
+     * @param  {string} [seperator=','] The seperator between each element and the next.
+     * @return {string} The joined string.
+     *
+     * @example
+     * const collection = new Collection(['Wind', 'Rain', 'Fire']);
+     * console.log(collection.join()); // 'Wind,Rain,Fire'
+     * console.log(collection.join(', ')); 'Wind, Rain, Fire'
+     */
+    join(seperator = ',') {
+        return this.items.join(seperator);
+    }
+
+    /**
      * Gets the collection elements keys in a new collection.
      *
      * @return {Collection} The keys collection.
