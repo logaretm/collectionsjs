@@ -608,6 +608,28 @@ export default class Collection
     }
 
     /**
+     * Registers a new method on the collection prototype for future use.
+     * The closure gets the collection object passed as the first parameter then
+     * other parameters gets passed after.
+     *
+     * @todo Throw exception if method already defined.
+     * @param  {string} name The name of the macro function.
+     * @param  {function} callback A closure containing the behavior of the macro.
+     * @return {*} returns your callback result.
+     */
+    static macro(name, callback) {
+        if (Collection.prototype[name] !== undefined) {
+            throw new Error('Collection.macro(): This macro name is already defined.');
+        }
+
+        Collection.prototype[name] = function somMacro(...args) {
+            const collection = this;
+
+            return callback(collection, ...args);
+        };
+    }
+
+    /**
      * Gets the values without preserving the keys.
      *
      * @return {Collection} A Collection containing the values.
