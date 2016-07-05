@@ -544,5 +544,11 @@ window.esdocSearchIndex = [
     "class/src/collection.js~Collection.html#static-method-collect",
     "src/collection.js~Collection.collect",
     "method"
+  ],
+  [
+    "src/collection.js~collection.macro",
+    "class/src/collection.js~Collection.html#static-method-macro",
+    "src/collection.js~Collection.macro",
+    "method"
   ]
 ]
