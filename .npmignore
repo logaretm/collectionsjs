@@ -6,4 +6,4 @@ docs/
 coverage/
 coverage.lcov
 .*
-weback.config.js
+webpack.config.js
