@@ -1,6 +1,6 @@
 {
   "name": "collectionsjs",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "repository": "https://github.com/logaretm/collectionjs",
   "description": "A Collection class for working with JavaScript arrays similiar to Laravel's collections",
   "main": "dist/collection.js",

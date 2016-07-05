@@ -616,13 +616,18 @@ export default class Collection
      * @param  {string} name The name of the macro function.
      * @param  {function} callback A closure containing the behavior of the macro.
      * @return {*} returns your callback result.
+     *
+     * @example
+     * Collection.macro('addToMembers', (collection, n) => collection.map(item => item + n));
+     * const col2 = new Collection([1, 2, 3, 4]).addToMembers(3);
+     * console.log(col2.all()); // [4, 5, 6, 7]
      */
     static macro(name, callback) {
         if (Collection.prototype[name] !== undefined) {
             throw new Error('Collection.macro(): This macro name is already defined.');
         }
 
-        Collection.prototype[name] = function somMacro(...args) {
+        Collection.prototype[name] = function collectionMacroWrapper(...args) {
             const collection = this;
 
             return callback(collection, ...args);

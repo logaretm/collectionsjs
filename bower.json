@@ -1,11 +1,11 @@
 {
   "name": "collectionjs",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "homepage": "https://github.com/logaretm/collectionjs",
   "authors": [
     "'Abdelrahman Awad' <'logaretm1@outlook.com'>"
   ],
-  "description": "immutable collection class for working with arrays similiar to Laravel's collections",
+  "description": "A collection class for working with arrays similiar to Laravel's collections",
   "main": "dist/collection.js",
   "keywords": [
     "collections",

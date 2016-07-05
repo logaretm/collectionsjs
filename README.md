@@ -74,7 +74,12 @@ There are just over 25+ unique methods for most of your needs I will be adding m
 
 Here is a brief summary, read the [docs](https://logaretm.github.io/collectionsjs/) for different behaviors and usage:
 
-- [add(item)](https://logaretm.github.io/collectionsjs/class/src/collection.js~Collection.html#instance-method-add)
+#### Static Methods
+- [collect(collectable)](https://logaretm.github.io/collectionsjs/class/src/collection.js~Collection.html#static-method-collect)
+- [macro(name, callback)](https://logaretm.github.io/collectionsjs/class/src/collection.js~Collection.html#static-method-macro)
+
+#### Instance Methods
+ [add(item)](https://logaretm.github.io/collectionsjs/class/src/collection.js~Collection.html#instance-method-add)
 - [all()](https://logaretm.github.io/collectionsjs/class/src/collection.js~Collection.html#instance-method-all)
 - [average(callback)](https://logaretm.github.io/collectionsjs/class/src/collection.js~Collection.html#instance-method-average)
 - [chunk(size)](https://logaretm.github.io/collectionsjs/class/src/collection.js~Collection.html#instance-method-chunk)
