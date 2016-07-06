@@ -79,7 +79,7 @@ Here is a brief summary, read the [docs](https://logaretm.github.io/collectionsj
 - [macro(name, callback)](https://logaretm.github.io/collectionsjs/class/src/collection.js~Collection.html#static-method-macro)
 
 #### Instance Methods
- [add(item)](https://logaretm.github.io/collectionsjs/class/src/collection.js~Collection.html#instance-method-add)
+ - [add(item)](https://logaretm.github.io/collectionsjs/class/src/collection.js~Collection.html#instance-method-add)
 - [all()](https://logaretm.github.io/collectionsjs/class/src/collection.js~Collection.html#instance-method-all)
 - [average(callback)](https://logaretm.github.io/collectionsjs/class/src/collection.js~Collection.html#instance-method-average)
 - [chunk(size)](https://logaretm.github.io/collectionsjs/class/src/collection.js~Collection.html#instance-method-chunk)
@@ -126,10 +126,18 @@ Go a head and you will be fully credited. Don't forget to follow the code style 
 
 ## Build
 
-- Clone the repo.
-- `npm install`
+- Clone the repo:
+`git clone git@github.com:logaretm/collectionsjs.git`
+
+- Install the dev dependencies:
+`npm install`
+
 - Write code better than mine.
-- `npm run build` which will build both minified and unminified versions.
+
+- Build the library:
+`npm run build`
+
+ which will build both minified and unminified versions.
 
 ## So...Performance?
 
