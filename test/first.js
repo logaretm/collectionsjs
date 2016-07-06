@@ -25,3 +25,14 @@ test('should return first element that satisifies a predicate/callback', t => {
 
     t.deepEqual({ name: 'Arya Stark', age: 9 }, first);
 });
+
+/** @test {Collection#first} */
+test('should return null if nothing is found', t => {
+    const first = new Collection([
+        { name: 'Bran Stark', age: 7 },
+        { name: 'Arya Stark', age: 9 },
+        { name: 'Jon Snow', age: 14 }
+    ]).first(item => item.age > 15);
+
+    t.is(first, null);
+});
