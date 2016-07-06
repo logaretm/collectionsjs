@@ -206,32 +206,6 @@
       
     </td>
   </tr>
-<tr data-ice="target">
-    <td>
-      <span class="access" data-ice="access">public</span>
-      
-      
-      
-      <span class="override" data-ice="override"></span>
-    </td>
-    <td>
-      <div>
-        <p>
-           <span data-ice="name"><span><a href="class/src/collection.js~Collection.html#instance-member-length">length</a></span></span><span data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span></span>
-        </p>
-      </div>
-      <div>
-        
-        
-        <div data-ice="description"><p>The length of the array.</p>
-</div>
-      </div>
-    </td>
-    <td>
-      
-      
-    </td>
-  </tr>
 </tbody>
 </table>
 </div>
@@ -458,13 +432,13 @@
     <td>
       <div>
         <p>
-           <span data-ice="name"><span><a href="class/src/collection.js~Collection.html#instance-method-find">find</a></span></span><span data-ice="signature">(index: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>): <span>*</span></span>
+           <span data-ice="name"><span><a href="class/src/collection.js~Collection.html#instance-method-find">find</a></span></span><span data-ice="signature">(item: <span>*</span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span></span>
         </p>
       </div>
       <div>
         
         
-        <div data-ice="description"><p>Gets an element at a specified index.</p>
+        <div data-ice="description"><p>Returns the index of an element.</p>
 </div>
       </div>
     </td>
@@ -517,6 +491,32 @@
         
         
         <div data-ice="description"><p>Flattens the collection elements.</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+           <span data-ice="name"><span><a href="class/src/collection.js~Collection.html#instance-method-get">get</a></span></span><span data-ice="signature">(index: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>): <span>*</span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Gets an element at a specified index.</p>
 </div>
       </div>
     </td>
@@ -725,6 +725,32 @@
         
         
         <div data-ice="description"><p>Removes the elements that do not satisfy the predicate.</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+           <span data-ice="name"><span><a href="class/src/collection.js~Collection.html#instance-method-remove">remove</a></span></span><span data-ice="signature">(item: <span>*</span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Removes an item from the collection.</p>
 </div>
       </div>
     </td>
@@ -1039,7 +1065,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber123">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber116">source</a></span></span>
     </span>
   </h3>
 
@@ -1117,7 +1143,7 @@ console.log(collection.all()); // [&apos;a&apos;, &apos;b&apos;, &apos;c&apos;, 
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber625">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber653">source</a></span></span>
     </span>
   </h3>
 
@@ -1310,47 +1336,6 @@ console.log(col2.all()); // [4, 5, 6, 7]</code></pre>
   
   
 </div>
-<div class="detail" data-ice="detail">
-  <h3 data-ice="anchor" id="instance-member-length">
-    <span class="access" data-ice="access">public</span>
-    
-    
-    
-    
-    <span data-ice="name">length</span><span data-ice="signature">: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span></span>
-    <span class="right-info">
-      
-      
-      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber26">source</a></span></span>
-    </span>
-  </h3>
-
-  
-  
-  
-  <div data-ice="description"><p>The length of the array.</p>
-</div>
-
-  
-
-  <div data-ice="properties">
-</div>
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-  
-</div>
 </div>
 <div data-ice="methodDetails"><h2 data-ice="title">Public Methods</h2>
 
@@ -1365,7 +1350,7 @@ console.log(col2.all()); // [4, 5, 6, 7]</code></pre>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber39">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber33">source</a></span></span>
     </span>
   </h3>
 
@@ -1443,7 +1428,7 @@ console.log(collection.first()); //outputs &apos;Arya&apos;</code></pre>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber54">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber47">source</a></span></span>
     </span>
   </h3>
 
@@ -1503,7 +1488,7 @@ console.log(collection.all()); // [1, 2, 3]</code></pre>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber86">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber79">source</a></span></span>
     </span>
   </h3>
 
@@ -1604,7 +1589,7 @@ console.log(collection.average(i =&gt; i.age)); // 10</code></pre>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber99">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber92">source</a></span></span>
     </span>
   </h3>
 
@@ -1681,7 +1666,7 @@ console.log(collection.all()); // [[1, 2], [3, 4], [5]]</code></pre>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber143">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber136">source</a></span></span>
     </span>
   </h3>
 
@@ -1760,7 +1745,7 @@ console.log(newCollection.all()); // [1, 2, 3, 4, 5, 6]</code></pre>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber159">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber152">source</a></span></span>
     </span>
   </h3>
 
@@ -1820,7 +1805,7 @@ console.log(collection.count()); // 3</code></pre>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber173">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber166">source</a></span></span>
     </span>
   </h3>
 
@@ -1897,7 +1882,7 @@ collection.each(t =&gt; console.log(t)); // this is collectionjs</code></pre>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber192">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber185">source</a></span></span>
     </span>
   </h3>
 
@@ -1974,18 +1959,18 @@ console.log(collection.all()); // [{ name: &apos;Jon Snow&apos;, age: 14 }]</cod
     
     
     
-    <span data-ice="name">find</span><span data-ice="signature">(index: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>): <span>*</span></span>
+    <span data-ice="name">find</span><span data-ice="signature">(item: <span>*</span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber205">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber199">source</a></span></span>
     </span>
   </h3>
 
   
   
   
-  <div data-ice="description"><p>Gets an element at a specified index.</p>
+  <div data-ice="description"><p>Returns the index of an element.</p>
 </div>
 
   
@@ -1999,10 +1984,10 @@ console.log(collection.all()); // [{ name: &apos;Jon Snow&apos;, age: 14 }]</cod
     <tbody>
     
     <tr data-ice="property" data-depth="0">
-      <td data-ice="name" data-depth="0">index</td>
-      <td data-ice="type"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span></td>
+      <td data-ice="name" data-depth="0">item</td>
+      <td data-ice="type"><span>*</span></td>
       <td data-ice="appendix"></td>
-      <td data-ice="description"><p>the index of the item.</p>
+      <td data-ice="description"><p>The item to be searched.</p>
 </td>
     </tr>
 </tbody>
@@ -2014,8 +1999,8 @@ console.log(collection.all()); // [{ name: &apos;Jon Snow&apos;, age: 14 }]</cod
     <h4>Return:</h4>
     <table>
       <tr>
-        <td class="return-type" data-ice="returnType"><span>*</span></td>
-        <td class="return-desc" data-ice="returnDescription"><p>the item at that index.</p>
+        <td class="return-type" data-ice="returnType"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span></td>
+        <td class="return-desc" data-ice="returnDescription"><p>The index of the item. -1 means it wasn&apos;t found.</p>
 </td>
       </tr>
     </table>
@@ -2034,8 +2019,9 @@ console.log(collection.all()); // [{ name: &apos;Jon Snow&apos;, age: 14 }]</cod
     
   <div class="example-doc" data-ice="exampleDoc">
       
-      <pre class="prettyprint source-code"><code data-ice="exampleCode">const collection = new Collection([1, 2, 3]);
-console.log(collection.find(2)); // 3</code></pre>
+      <pre class="prettyprint source-code"><code data-ice="exampleCode">const collection = new Collection([&apos;jon&apos;, &apos;arya&apos;, &apos;bran&apos;]);
+console.log(collection.find(&apos;bran&apos;)); // 2
+console.log(collection.find(&apos;ed&apos;)); // -1</code></pre>
     </div>
 </div>
 
@@ -2055,7 +2041,7 @@ console.log(collection.find(2)); // 3</code></pre>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber231">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber225">source</a></span></span>
     </span>
   </h3>
 
@@ -2148,7 +2134,7 @@ console.log(first); // { name: &apos;Bran Stark&apos;, age: 7 }</code></pre>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber260">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber254">source</a></span></span>
     </span>
   </h3>
 
@@ -2221,6 +2207,83 @@ console.log(collection.all()); // [1, 2, 3, 4, 5]</code></pre>
   
 </div>
 <div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="instance-method-get">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    <span data-ice="name">get</span><span data-ice="signature">(index: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span>): <span>*</span></span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber273">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  <div data-ice="description"><p>Gets an element at a specified index.</p>
+</div>
+
+  
+
+  <div data-ice="properties"><div data-ice="properties">
+  <h4 data-ice="title">Params:</h4>
+  <table class="params">
+    <thead>
+    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+    
+    <tr data-ice="property" data-depth="0">
+      <td data-ice="name" data-depth="0">index</td>
+      <td data-ice="type"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>the index of the item.</p>
+</td>
+    </tr>
+</tbody>
+  </table>
+</div>
+</div>
+
+  <div class="return-params" data-ice="returnParams">
+    <h4>Return:</h4>
+    <table>
+      <tr>
+        <td class="return-type" data-ice="returnType"><span>*</span></td>
+        <td class="return-desc" data-ice="returnDescription"><p>the item at that index.</p>
+</td>
+      </tr>
+    </table>
+    <div data-ice="returnProperties">
+</div>
+  </div>
+
+  
+
+  
+
+  
+
+  <div data-ice="example">
+    <h4>Example:</h4>
+    
+  <div class="example-doc" data-ice="exampleDoc">
+      
+      <pre class="prettyprint source-code"><code data-ice="exampleCode">const collection = new Collection([1, 2, 3]);
+console.log(collection.get(2)); // 3</code></pre>
+    </div>
+</div>
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
   <h3 data-ice="anchor" id="instance-method-join">
     <span class="access" data-ice="access">public</span>
     
@@ -2231,7 +2294,7 @@ console.log(collection.all()); // [1, 2, 3, 4, 5]</code></pre>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber281">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber288">source</a></span></span>
     </span>
   </h3>
 
@@ -2310,7 +2373,7 @@ console.log(collection.join(&apos;, &apos;)); &apos;Wind, Rain, Fire&apos;</code
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber301">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber308">source</a></span></span>
     </span>
   </h3>
 
@@ -2379,7 +2442,7 @@ console.log(keys); // [&apos;0&apos;, &apos;1&apos;, &apos;2&apos;]</code></pre>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber335">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber342">source</a></span></span>
     </span>
   </h3>
 
@@ -2472,7 +2535,7 @@ console.log(last); // { name: &apos;Jon Snow&apos;, age: 14 }</code></pre>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber359">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber366">source</a></span></span>
     </span>
   </h3>
 
@@ -2553,7 +2616,7 @@ console.log(collection.all()); [&apos;Bran Stark&apos;, &apos;Arya Stark&apos;, 
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber376">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber383">source</a></span></span>
     </span>
   </h3>
 
@@ -2634,7 +2697,7 @@ console.log(collection.all()); [&apos;Bran Stark&apos;, &apos;Arya Stark&apos;, 
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber389">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber396">source</a></span></span>
     </span>
   </h3>
 
@@ -2711,7 +2774,7 @@ console.log(collection.first()); // &quot;First&quot;</code></pre>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber406">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber413">source</a></span></span>
     </span>
   </h3>
 
@@ -2798,7 +2861,7 @@ console.log(collection.first()); // &quot;First&quot;</code></pre>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber423">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber430">source</a></span></span>
     </span>
   </h3>
 
@@ -2869,6 +2932,84 @@ console.log(collection.all()); // [{ name: &apos;Jon Snow&apos;, age: 14 }]</cod
   
 </div>
 <div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="instance-method-remove">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    <span data-ice="name">remove</span><span data-ice="signature">(item: <span>*</span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span></span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber451">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  <div data-ice="description"><p>Removes an item from the collection.</p>
+</div>
+
+  
+
+  <div data-ice="properties"><div data-ice="properties">
+  <h4 data-ice="title">Params:</h4>
+  <table class="params">
+    <thead>
+    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+    
+    <tr data-ice="property" data-depth="0">
+      <td data-ice="name" data-depth="0">item</td>
+      <td data-ice="type"><span>*</span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>the item to be searched and removed, first occurance will be removed.</p>
+</td>
+    </tr>
+</tbody>
+  </table>
+</div>
+</div>
+
+  <div class="return-params" data-ice="returnParams">
+    <h4>Return:</h4>
+    <table>
+      <tr>
+        <td class="return-type" data-ice="returnType"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span></td>
+        <td class="return-desc" data-ice="returnDescription"><p>True if the element was removed, false otherwise.</p>
+</td>
+      </tr>
+    </table>
+    <div data-ice="returnProperties">
+</div>
+  </div>
+
+  
+
+  
+
+  
+
+  <div data-ice="example">
+    <h4>Example:</h4>
+    
+  <div class="example-doc" data-ice="exampleDoc">
+      
+      <pre class="prettyprint source-code"><code data-ice="exampleCode">const collection = new Collection([&apos;john&apos;, &apos;arya&apos;, &apos;bran&apos;]);
+collection.remove(&apos;john&apos;);
+console.log(collection.all()); // [&apos;arya&apos;, &apos;bran&apos;]</code></pre>
+    </div>
+</div>
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
   <h3 data-ice="anchor" id="instance-method-reverse">
     <span class="access" data-ice="access">public</span>
     
@@ -2879,7 +3020,7 @@ console.log(collection.all()); // [{ name: &apos;Jon Snow&apos;, age: 14 }]</cod
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber442">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber470">source</a></span></span>
     </span>
   </h3>
 
@@ -2939,7 +3080,7 @@ console.log(collection.all()); // [&apos;three&apos;, &apos;two&apos;, &apos;one
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber455">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber483">source</a></span></span>
     </span>
   </h3>
 
@@ -3016,7 +3157,7 @@ console.log(collection.all()); // [&apos;Bran&apos;, &apos;Sansa&apos;]</code></
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber473">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber501">source</a></span></span>
     </span>
   </h3>
 
@@ -3106,7 +3247,7 @@ console.log(collection.all()); // [2, 3, 4, 5, 6]</code></pre>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber492">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber520">source</a></span></span>
     </span>
   </h3>
 
@@ -3189,7 +3330,7 @@ console.log(sorted.all()); // [1, 2, 3, 4, 5]</code></pre>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber514">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber542">source</a></span></span>
     </span>
   </h3>
 
@@ -3281,7 +3422,7 @@ console.log(collection.pluck(&apos;name&apos;).all()); // [&apos;Brand Stark&apo
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber538">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber566">source</a></span></span>
     </span>
   </h3>
 
@@ -3341,7 +3482,7 @@ console.log(collection.stringify()); // &quot;[1,2,3]&quot;</code></pre>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber567">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber595">source</a></span></span>
     </span>
   </h3>
 
@@ -3437,7 +3578,7 @@ console.log(collection.sum(i =&gt; i.age + 1)); // 33</code></pre>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber598">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber626">source</a></span></span>
     </span>
   </h3>
 
@@ -3519,7 +3660,7 @@ console.log(collection.all()); // [5, 4 ,3]</code></pre>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber650">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber678">source</a></span></span>
     </span>
   </h3>
 
@@ -3584,7 +3725,7 @@ console.log(collection.all()); / /[2, 3, 5]</code></pre>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber676">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber704">source</a></span></span>
     </span>
   </h3>
 
@@ -3682,7 +3823,7 @@ console.log(collection.all()); // [{ name: &apos;Jon Snow&apos;, age: 14 }]</cod
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber694">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber722">source</a></span></span>
     </span>
   </h3>
 

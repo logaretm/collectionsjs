@@ -441,8 +441,12 @@ export default class Collection
     /**
      * Removes an item from the collection.
      *
-     * @param  {*} Item the item to be searched and removed, first occurance will be removed.
-     * @return {boolean} Returns true if the element was removed, false otherwise.
+     * @param  {*} item the item to be searched and removed, first occurance will be removed.
+     * @return {boolean} True if the element was removed, false otherwise.
+     * @example
+     * const collection = new Collection(['john', 'arya', 'bran']);
+     * collection.remove('john');
+     * console.log(collection.all()); // ['arya', 'bran']
      */
     remove(item) {
         const index = this.find(item);
