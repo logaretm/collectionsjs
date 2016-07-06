@@ -18,12 +18,6 @@ export default class Collection
          * @type {Array|Object}
          */
         this.items = items;
-
-        /**
-         * The length of the array.
-         * @type {number}
-         */
-        this.length = items.length;
     }
 
     /**
@@ -38,7 +32,6 @@ export default class Collection
      */
     add(item) {
         this.items.push(item);
-        this.length = this.items.length;
 
         return this;
     }
@@ -103,7 +96,7 @@ export default class Collection
 
         const items = [];
 
-        for (let i = 0; i < this.length; i += size) {
+        for (let i = 0; i < this.count(); i += size) {
             items.push(this.items.slice(i, i + size));
         }
 
@@ -157,7 +150,7 @@ export default class Collection
      * console.log(collection.count()); // 3
      */
     count() {
-        return this.length;
+        return this.items.length;
     }
 
 
@@ -194,16 +187,17 @@ export default class Collection
     }
 
     /**
-     * Gets an element at a specified index.
+     * Returns the index of an element.
      *
-     * @param  {number} index the index of the item.
-     * @return {*} the item at that index.
+     * @param  {*} item The item to be searched.
+     * @return {number} The index of the item. -1 means it wasn't found.
      * @example
-     * const collection = new Collection([1, 2, 3]);
-     * console.log(collection.find(2)); // 3
+     * const collection = new Collection(['jon', 'arya', 'bran']);
+     * console.log(collection.find('bran')); // 2
+     * console.log(collection.find('ed')); // -1
      */
-    find(index) {
-        return this.items[index];
+    find(item) {
+        return this.items.indexOf(item);
     }
 
     /**
@@ -265,6 +259,19 @@ export default class Collection
         }
 
         return flattened;
+    }
+
+    /**
+     * Gets an element at a specified index.
+     *
+     * @param  {number} index the index of the item.
+     * @return {*} the item at that index.
+     * @example
+     * const collection = new Collection([1, 2, 3]);
+     * console.log(collection.get(2)); // 3
+     */
+    get(index) {
+        return this.items[index];
     }
 
     /**
@@ -432,6 +439,23 @@ export default class Collection
     }
 
     /**
+     * Removes an item from the collection.
+     *
+     * @param  {*} Item the item to be searched and removed, first occurance will be removed.
+     * @return {boolean} Returns true if the element was removed, false otherwise.
+     */
+    remove(item) {
+        const index = this.find(item);
+        if (~index) {
+            this.items.splice(index, 1);
+
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
      * Reverses the collection order.
      *
      * @return {Collection} A new collection with the reversed order.
@@ -470,7 +494,7 @@ export default class Collection
      * const collection = new Collection([0, 1, 2, 3, 4, 5, 6]).slice(2);
      * console.log(collection.all()); // [2, 3, 4, 5, 6]
      */
-    slice(start, end = this.length) {
+    slice(start, end = this.items.length) {
         return new Collection(this.items.slice(start, end));
     }
 
@@ -693,7 +717,7 @@ export default class Collection
      */
     zip(array) {
         if (array instanceof Collection) {
-            return this.map((item, index) => [item, array.find(index)]);
+            return this.map((item, index) => [item, array.get(index)]);
         }
 
         return this.map((item, index) => [item, array[index]]);
