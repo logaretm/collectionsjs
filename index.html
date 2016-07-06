@@ -19,7 +19,7 @@
   <a href="identifiers.html">Reference</a>
   <a href="source.html">Source</a>
   
-  <a data-ice="repoURL" href="https://github.com/logaretm/collectionjs" class="repo-url-github">Repository</a>
+  <a data-ice="repoURL" href="https://github.com/logaretm/collectionsjs" class="repo-url-github">Repository</a>
   <div class="search-box">
   <span>
     <img src="./image/search.png">
@@ -86,8 +86,8 @@ import Collection from &apos;collectionsjs&apos;;</code>
 <li><a href="https://logaretm.github.io/collectionsjs/class/src/collection.js~Collection.html#static-method-macro">macro(name, callback)</a></li>
 </ul>
 <h4 id="instance-methods">Instance Methods</h4>
-<p> <a href="https://logaretm.github.io/collectionsjs/class/src/collection.js~Collection.html#instance-method-add">add(item)</a></p>
 <ul>
+<li><a href="https://logaretm.github.io/collectionsjs/class/src/collection.js~Collection.html#instance-method-add">add(item)</a><ul>
 <li><a href="https://logaretm.github.io/collectionsjs/class/src/collection.js~Collection.html#instance-method-all">all()</a></li>
 <li><a href="https://logaretm.github.io/collectionsjs/class/src/collection.js~Collection.html#instance-method-average">average(callback)</a></li>
 <li><a href="https://logaretm.github.io/collectionsjs/class/src/collection.js~Collection.html#instance-method-chunk">chunk(size)</a></li>
@@ -118,6 +118,8 @@ import Collection from &apos;collectionsjs&apos;;</code>
 <li><a href="https://logaretm.github.io/collectionsjs/class/src/collection.js~Collection.html#instance-method-where">where(callback)</a></li>
 <li><a href="https://logaretm.github.io/collectionsjs/class/src/collection.js~Collection.html#instance-method-zip">zip(Array)</a></li>
 </ul>
+</li>
+</ul>
 <h2 id="testing">Testing</h2>
 <p>I use <a href="https://github.com/avajs/ava">ava</a> for testing which is an amazing test runner. With <a href="https://github.com/istanbuljs/nyc">nyc</a> for coverage.</p>
 <p><code>npm run test</code></p>
@@ -127,10 +129,18 @@ import Collection from &apos;collectionsjs&apos;;</code>
 <p>Go a head and you will be fully credited. Don&apos;t forget to follow the code style and always add a test file for any additions.</p>
 <h2 id="build">Build</h2>
 <ul>
-<li>Clone the repo.</li>
-<li><code>npm install</code></li>
-<li>Write code better than mine.</li>
-<li><code>npm run build</code> which will build both minified and unminified versions.</li>
+<li><p>Clone the repo:
+<code>git clone git@github.com:logaretm/collectionsjs.git</code></p>
+</li>
+<li><p>Install the dev dependencies:
+<code>npm install</code></p>
+</li>
+<li><p>Write code better than mine.</p>
+</li>
+<li><p>Build the library:
+<code>npm run build</code></p>
+<p>which will build both minified and unminified versions.</p>
+</li>
 </ul>
 <h2 id="so-performance-">So...Performance?</h2>
 <p>I can always use some help with optimizing things. however most of the methods are based on the underlying Array API.</p>
