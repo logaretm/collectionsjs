@@ -1,6 +1,7 @@
 import test from 'ava';
 import Collection from './../src/collection';
 
+/** @test {Collection#remove} */
 test('it should remove an element from the collection', t => {
     const john = { name: 'John Snow', age: 14 };
     const arya = { name: 'Arya Stark', age: 9 };
@@ -12,6 +13,7 @@ test('it should remove an element from the collection', t => {
     t.deepEqual(collection.all(), [arya, bran]);
 });
 
+/** @test {Collection#remove} */
 test('it should return false if no element was removed', t => {
     const john = { name: 'John Snow', age: 14 };
     const arya = { name: 'Arya Stark', age: 9 };
