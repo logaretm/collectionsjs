@@ -84,6 +84,7 @@ Here is a brief summary, read the [docs](https://logaretm.github.io/collectionsj
 - [average(callback)](https://logaretm.github.io/collectionsjs/class/src/collection.js~Collection.html#instance-method-average)
 - [chunk(size)](https://logaretm.github.io/collectionsjs/class/src/collection.js~Collection.html#instance-method-chunk)
 - [concat(Array)](https://logaretm.github.io/collectionsjs/class/src/collection.js~Collection.html#instance-method-concat)
+- [contains(callback)](https://logaretm.github.io/collectionsjs/class/src/collection.js~Collection.html#instance-method-contains)
 - [count()](https://logaretm.github.io/collectionsjs/class/src/collection.js~Collection.html#instance-method-count)
 - [each(callback)](https://logaretm.github.io/collectionsjs/class/src/collection.js~Collection.html#instance-method-each)
 - [filter(callback)](https://logaretm.github.io/collectionsjs/class/src/collection.js~Collection.html#instance-method-filter)

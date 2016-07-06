@@ -142,6 +142,24 @@ export default class Collection
     }
 
     /**
+     * Checks if there is at least one occurance of an element using a closure.
+     * @param  {function} closure The closure the be used on each element.
+     * @return {boolean} true if at least one occurance exist, false otherwise.
+     * @example
+     * const collection = new Collection([
+     *     { name: 'John Snow', age: 14 },
+     *     { name: 'Bran Stark', age: 7 },
+     *     { name: 'Arya Stark', age: 9 }
+     * ]);
+     *
+     * collection.contains(stark => stark.name === 'John Snow'); // true
+     * collection.contains(stark => stark.name === 'Eddard Stark'); // false
+     */
+    contains(closure) {
+        return !! this.first(closure);
+    }
+
+    /**
      * Gets the number of items in the collection.
      *
      * @return {number} Number of items in the collection.
@@ -233,6 +251,8 @@ export default class Collection
                     return this.items[i];
                 }
             }
+
+            return null;
         }
 
         return this.items[0];

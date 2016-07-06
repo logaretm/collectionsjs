@@ -378,6 +378,12 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "src/collection.js~collection#contains",
+    "class/src/collection.js~Collection.html#instance-method-contains",
+    "src/collection.js~Collection#contains",
+    "method"
+  ],
+  [
     "src/collection.js~collection#count",
     "class/src/collection.js~Collection.html#instance-method-count",
     "src/collection.js~Collection#count",
