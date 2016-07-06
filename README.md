@@ -79,7 +79,7 @@ Here is a brief summary, read the [docs](https://logaretm.github.io/collectionsj
 - [macro(name, callback)](https://logaretm.github.io/collectionsjs/class/src/collection.js~Collection.html#static-method-macro)
 
 #### Instance Methods
- - [add(item)](https://logaretm.github.io/collectionsjs/class/src/collection.js~Collection.html#instance-method-add)
+- [add(item)](https://logaretm.github.io/collectionsjs/class/src/collection.js~Collection.html#instance-method-add)
 - [all()](https://logaretm.github.io/collectionsjs/class/src/collection.js~Collection.html#instance-method-all)
 - [average(callback)](https://logaretm.github.io/collectionsjs/class/src/collection.js~Collection.html#instance-method-average)
 - [chunk(size)](https://logaretm.github.io/collectionsjs/class/src/collection.js~Collection.html#instance-method-chunk)
