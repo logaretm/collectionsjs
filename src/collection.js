@@ -274,11 +274,11 @@ export default class Collection
     flatten(deep = false) {
         const flattened = new Collection([].concat(...this.items));
 
-        if (deep && flattened.all().some(Array.isArray)) {
-            return flattened.flatten(true);
+        if (! deep || ! flattened.contains(Array.isArray)) {
+            return flattened;
         }
 
-        return flattened;
+        return flattened.flatten(true);
     }
 
     /**
