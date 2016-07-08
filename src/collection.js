@@ -295,6 +295,21 @@ export default class Collection
     }
 
     /**
+     * Checks if a collection has a specific item.
+     *
+     * @param  {*}  item The item to be searched.
+     * @return {boolean} true if exists, false otherwise.
+     * @example
+     * const collection = new Collection([1, 2, 3, 4]);
+     *
+     * console.log(collection.has(2)); // true
+     * console.log(collection.has(5)); // false
+     */
+    has(item) {
+        return !! ~this.find(item);
+    }
+
+    /**
      * Joins the collection elements into a string.
      *
      * @param  {string} [seperator=','] The seperator between each element and the next.
@@ -680,6 +695,42 @@ export default class Collection
 
             return callback(collection, ...args);
         };
+    }
+
+    /**
+     * Remove duplicate values from the collection.
+     *
+     * @param {function} [callback=null] The predicate that returns a value
+     * which will be checked for uniqueness.
+     * @return {Collection} A collection containing ue values.
+     * @example <caption>No Callback</caption>
+     * const unique = new Collection([2, 1, 2, 3, 3, 4, 5, 1, 2]).unique();
+     * console.log(unique); // [2, 1, 3, 4, 5]
+     * @example <caption>With Callback</caption>
+     *
+     */
+    unique(callback = null) {
+        if (callback) {
+            const mappedCollection = new Collection();
+
+            return this.reduce((collection, item) => {
+                const mappedItem = callback(item);
+                if (! mappedCollection.has(mappedItem)) {
+                    collection.add(item);
+                    mappedCollection.add(mappedItem);
+                }
+
+                return collection;
+            }, new Collection);
+        }
+
+        return this.reduce((collection, item) => {
+            if (! collection.has(item)) {
+                collection.add(item);
+            }
+
+            return collection;
+        }, new Collection);
     }
 
     /**
