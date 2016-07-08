@@ -426,6 +426,12 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "src/collection.js~collection#has",
+    "class/src/collection.js~Collection.html#instance-method-has",
+    "src/collection.js~Collection#has",
+    "method"
+  ],
+  [
     "src/collection.js~collection#items",
     "class/src/collection.js~Collection.html#instance-member-items",
     "src/collection.js~Collection#items",
@@ -531,6 +537,12 @@ window.esdocSearchIndex = [
     "src/collection.js~collection#take",
     "class/src/collection.js~Collection.html#instance-method-take",
     "src/collection.js~Collection#take",
+    "method"
+  ],
+  [
+    "src/collection.js~collection#unique",
+    "class/src/collection.js~Collection.html#instance-method-unique",
+    "src/collection.js~Collection#unique",
     "method"
   ],
   [

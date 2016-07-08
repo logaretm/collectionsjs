@@ -314,11 +314,11 @@ export default class Collection
     flatten(deep = false) {
         const flattened = new Collection([].concat(...this.items));
 
-        if (deep &amp;&amp; flattened.all().some(Array.isArray)) {
-            return flattened.flatten(true);
+        if (! deep || ! flattened.contains(Array.isArray)) {
+            return flattened;
         }
 
-        return flattened;
+        return flattened.flatten(true);
     }
 
     /**
@@ -332,6 +332,21 @@ export default class Collection
      */
     get(index) {
         return this.items[index];
+    }
+
+    /**
+     * Checks if a collection has a specific item.
+     *
+     * @param  {*}  item The item to be searched.
+     * @return {boolean} true if exists, false otherwise.
+     * @example
+     * const collection = new Collection([1, 2, 3, 4]);
+     *
+     * console.log(collection.has(2)); // true
+     * console.log(collection.has(5)); // false
+     */
+    has(item) {
+        return !! ~this.find(item);
     }
 
     /**
@@ -720,6 +735,60 @@ export default class Collection
 
             return callback(collection, ...args);
         };
+    }
+
+    /**
+     * Remove duplicate values from the collection.
+     *
+     * @param {function|string} [callback=null] The predicate that returns a value
+     * which will be checked for uniqueness, or a string that has the name of the property.
+     * @return {Collection} A collection containing ue values.
+     * @example &lt;caption&gt;No Arguments&lt;/caption&gt;
+     * const unique = new Collection([2, 1, 2, 3, 3, 4, 5, 1, 2]).unique();
+     * console.log(unique); // [2, 1, 3, 4, 5]
+     * @example &lt;caption&gt;Property Name&lt;/caption&gt;
+     * const students = new Collection([
+     * 		{ name: &apos;Rick&apos;, grade: &apos;A&apos;},
+     * 		{ name: &apos;Mick&apos;, grade: &apos;B&apos;},
+     * 		{ name: &apos;Richard&apos;, grade: &apos;A&apos;},
+     * ]);
+     * // Students with unique grades.
+     * students.unique(&apos;grade&apos;); // [{ name: &apos;Rick&apos;, grade: &apos;A&apos;}, { name: &apos;Mick&apos;, grade: &apos;B&apos;}]
+     * @example &lt;caption&gt;With Callback&lt;/caption&gt;
+     * const students = new Collection([
+     * 		{ name: &apos;Rick&apos;, grade: &apos;A&apos;},
+     * 		{ name: &apos;Mick&apos;, grade: &apos;B&apos;},
+     * 		{ name: &apos;Richard&apos;, grade: &apos;A&apos;},
+     * ]);
+     * // Students with unique grades.
+     * students.unique(s =&gt; s.grade); // [{ name: &apos;Rick&apos;, grade: &apos;A&apos;}, { name: &apos;Mick&apos;, grade: &apos;B&apos;}]
+     */
+    unique(callback = null) {
+        if (typeof callback === &apos;string&apos;) {
+            return this.unique(item =&gt; item[callback]);
+        }
+
+        if (callback) {
+            const mappedCollection = new Collection();
+
+            return this.reduce((collection, item) =&gt; {
+                const mappedItem = callback(item);
+                if (! mappedCollection.has(mappedItem)) {
+                    collection.add(item);
+                    mappedCollection.add(mappedItem);
+                }
+
+                return collection;
+            }, new Collection);
+        }
+
+        return this.reduce((collection, item) =&gt; {
+            if (! collection.has(item)) {
+                collection.add(item);
+            }
+
+            return collection;
+        }, new Collection);
     }
 
     /**
