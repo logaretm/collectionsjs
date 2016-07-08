@@ -700,16 +700,34 @@ export default class Collection
     /**
      * Remove duplicate values from the collection.
      *
-     * @param {function} [callback=null] The predicate that returns a value
-     * which will be checked for uniqueness.
+     * @param {function|string} [callback=null] The predicate that returns a value
+     * which will be checked for uniqueness, or a string that has the name of the property.
      * @return {Collection} A collection containing ue values.
-     * @example <caption>No Callback</caption>
+     * @example <caption>No Arguments</caption>
      * const unique = new Collection([2, 1, 2, 3, 3, 4, 5, 1, 2]).unique();
      * console.log(unique); // [2, 1, 3, 4, 5]
+     * @example <caption>Property Name</caption>
+     * const students = new Collection([
+     * 		{ name: 'Rick', grade: 'A'},
+     * 		{ name: 'Mick', grade: 'B'},
+     * 		{ name: 'Richard', grade: 'A'},
+     * ]);
+     * // Students with unique grades.
+     * students.unique('grade'); // [{ name: 'Rick', grade: 'A'}, { name: 'Mick', grade: 'B'}]
      * @example <caption>With Callback</caption>
-     *
+     * const students = new Collection([
+     * 		{ name: 'Rick', grade: 'A'},
+     * 		{ name: 'Mick', grade: 'B'},
+     * 		{ name: 'Richard', grade: 'A'},
+     * ]);
+     * // Students with unique grades.
+     * students.unique(s => s.grade); // [{ name: 'Rick', grade: 'A'}, { name: 'Mick', grade: 'B'}]
      */
     unique(callback = null) {
+        if (typeof callback === 'string') {
+            return this.unique(item => item[callback]);
+        }
+
         if (callback) {
             const mappedCollection = new Collection();
 

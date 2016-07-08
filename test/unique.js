@@ -9,6 +9,17 @@ test('it should remove duplicate items', t => {
 });
 
 /** @test {Collection#unique} */
+test('it should remove duplicate items based on property value', t => {
+    const unique = new Collection([
+        { name: 'Jeff', quote: 'Hi, my name is Jeff' },
+        { name: 'Fake Jeff', quote: 'Hi, my name is Jeff' },
+        { name: 'Not Jeff', quote: 'Hi, my name is Jeff' }
+    ]).unique('quote');
+
+    t.deepEqual(unique.pluck('name').all(), ['Jeff']);
+});
+
+/** @test {Collection#unique} */
 test('it should remove duplicate items based on a predicate', t => {
     const unique = new Collection([
         { name: 'Jeff', quote: 'Hi, my name is Jeff' },
