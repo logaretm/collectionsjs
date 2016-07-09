@@ -14,11 +14,11 @@ array.map(i => i + 1).filter(i => i > 2);
 
 which can be thought of as a pipeline of operations. however there are some functions that do not exist or considered as an edge case which can be fairly simple to implement, but annoying to reuse.
 
-CollectionJS is an object that acts as a wrapper around the Array object, exposing API methods and utilities, and simplifying their use. and it always returns a Collection (except for some examples) meaning you will be able to keep chaining until you get the collection you want to work with.
+CollectionJS is an extensible object that acts as a wrapper around the Array object, exposing API methods and utilities, and simplifying their use. and it always returns a Collection (except for some examples) meaning you will be able to keep chaining until you get the collection you want to work with.
 
 ## Why (Inspiration)?
 
-I'm not an expert JavaScript developer, but I run into enough situations where I needed some complex operations, great libraries like lodash are amazing and offer a whole lot to do with arrays, but most methods return an array. so doing multiple operations wasn't as great.
+I'm not an expert JavaScript developer, but I run into enough situations where I needed some complex operations, great libraries like lodash or underscore are amazing and offer a whole lot to do with arrays, but most methods return an array. so doing multiple operations wasn't as great. although they provide a way for chaining.
 
 Working with The PHP framework Laravel, I came across the collection object. I didn't realize how powerful the combination of immutable objects are until I read the [Refactoring to collections](http://adamwathan.me/refactoring-to-collections/) which is a great read for any developer.
 
