@@ -104,22 +104,17 @@ export default class Collection
     }
 
     /**
-     * Static constructor. Will transform a string to array of strings.
+     * Static constructor.
      * cool if you don't like using the 'new' keyword.
      *
-     * @param  {Array|string} collectable the array or the string to wrapped in a collection.
+     * @param  {Array} collectable the array or the string to wrapped in a collection.
      * @return {Collection} A collection that wraps the collectable items.
      * @example
-     * const collection = Collection.collect('abcd');
-     * console.log(collection.all()); // ['a', 'b', 'c', 'd']
+     * const collection = Collection.collect([1, 2, 3]);
+     * console.log(collection.all()); // [1, 2, 3]
      */
     static collect(collectable) {
-        let items = collectable;
-        if (typeof collectable === 'string') {
-            items = collectable.split('');
-        }
-
-        return new Collection(items);
+        return new Collection(collectable);
     }
 
     /**
@@ -675,7 +670,6 @@ export default class Collection
      * The closure gets the collection object passed as the first parameter then
      * other parameters gets passed after.
      *
-     * @todo Throw exception if method already defined.
      * @param  {string} name The name of the macro function.
      * @param  {function} callback A closure containing the behavior of the macro.
      * @return {*} returns your callback result.

@@ -99,7 +99,7 @@
     <td>
       <div>
         <p>
-           <span data-ice="name"><span><a href="class/src/collection.js~Collection.html#static-method-collect">collect</a></span></span><span data-ice="signature">(collectable: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></span> | <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>): <span><a href="class/src/collection.js~Collection.html">Collection</a></span></span>
+           <span data-ice="name"><span><a href="class/src/collection.js~Collection.html#static-method-collect">collect</a></span></span><span data-ice="signature">(collectable: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></span>): <span><a href="class/src/collection.js~Collection.html">Collection</a></span></span>
         </p>
       </div>
       <div>
@@ -1139,7 +1139,7 @@
     
     
     
-    <span data-ice="name">collect</span><span data-ice="signature">(collectable: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></span> | <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>): <span><a href="class/src/collection.js~Collection.html">Collection</a></span></span>
+    <span data-ice="name">collect</span><span data-ice="signature">(collectable: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></span>): <span><a href="class/src/collection.js~Collection.html">Collection</a></span></span>
     <span class="right-info">
       
       
@@ -1150,7 +1150,7 @@
   
   
   
-  <div data-ice="description"><p>Static constructor. Will transform a string to array of strings.
+  <div data-ice="description"><p>Static constructor.
 cool if you don&apos;t like using the &apos;new&apos; keyword.</p>
 </div>
 
@@ -1166,7 +1166,7 @@ cool if you don&apos;t like using the &apos;new&apos; keyword.</p>
     
     <tr data-ice="property" data-depth="0">
       <td data-ice="name" data-depth="0">collectable</td>
-      <td data-ice="type"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></span> | <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></td>
+      <td data-ice="type"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></span></td>
       <td data-ice="appendix"></td>
       <td data-ice="description"><p>the array or the string to wrapped in a collection.</p>
 </td>
@@ -1200,8 +1200,8 @@ cool if you don&apos;t like using the &apos;new&apos; keyword.</p>
     
   <div class="example-doc" data-ice="exampleDoc">
       
-      <pre class="prettyprint source-code"><code data-ice="exampleCode">const collection = Collection.collect(&apos;abcd&apos;);
-console.log(collection.all()); // [&apos;a&apos;, &apos;b&apos;, &apos;c&apos;, &apos;d&apos;]</code></pre>
+      <pre class="prettyprint source-code"><code data-ice="exampleCode">const collection = Collection.collect([1, 2, 3]);
+console.log(collection.all()); // [1, 2, 3]</code></pre>
     </div>
 </div>
 
@@ -1221,7 +1221,7 @@ console.log(collection.all()); // [&apos;a&apos;, &apos;b&apos;, &apos;c&apos;, 
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber688">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber682">source</a></span></span>
     </span>
   </h3>
 
@@ -1295,7 +1295,7 @@ console.log(col2.all()); // [4, 5, 6, 7]</code></pre>
   
 
   
-  <div data-ice="todo"><h4>TODO:</h4><ul><li><span>Throw exception if method already defined.</span></li></ul></div>
+  
 </div>
 </div>
 <div data-ice="constructorDetails"><h2 data-ice="title">Public Constructors</h2>
@@ -1744,7 +1744,7 @@ console.log(collection.all()); // [[1, 2], [3, 4], [5]]</code></pre>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber136">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber131">source</a></span></span>
     </span>
   </h3>
 
@@ -1823,7 +1823,7 @@ console.log(newCollection.all()); // [1, 2, 3, 4, 5, 6]</code></pre>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber158">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber153">source</a></span></span>
     </span>
   </h3>
 
@@ -1906,7 +1906,7 @@ collection.contains(stark =&gt; stark.name === &apos;Eddard Stark&apos;); // fal
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber170">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber165">source</a></span></span>
     </span>
   </h3>
 
@@ -1966,7 +1966,7 @@ console.log(collection.count()); // 3</code></pre>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber184">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber179">source</a></span></span>
     </span>
   </h3>
 
@@ -2043,7 +2043,7 @@ collection.each(t =&gt; console.log(t)); // this is collectionjs</code></pre>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber203">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber198">source</a></span></span>
     </span>
   </h3>
 
@@ -2124,7 +2124,7 @@ console.log(collection.all()); // [{ name: &apos;Jon Snow&apos;, age: 14 }]</cod
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber217">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber212">source</a></span></span>
     </span>
   </h3>
 
@@ -2202,7 +2202,7 @@ console.log(collection.find(&apos;ed&apos;)); // -1</code></pre>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber243">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber238">source</a></span></span>
     </span>
   </h3>
 
@@ -2295,7 +2295,7 @@ console.log(first); // { name: &apos;Bran Stark&apos;, age: 7 }</code></pre>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber274">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber269">source</a></span></span>
     </span>
   </h3>
 
@@ -2378,7 +2378,7 @@ console.log(collection.all()); // [1, 2, 3, 4, 5]</code></pre>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber293">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber288">source</a></span></span>
     </span>
   </h3>
 
@@ -2455,7 +2455,7 @@ console.log(collection.get(2)); // 3</code></pre>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber308">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber303">source</a></span></span>
     </span>
   </h3>
 
@@ -2534,7 +2534,7 @@ console.log(collection.has(5)); // false</code></pre>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber323">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber318">source</a></span></span>
     </span>
   </h3>
 
@@ -2613,7 +2613,7 @@ console.log(collection.join(&apos;, &apos;)); &apos;Wind, Rain, Fire&apos;</code
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber343">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber338">source</a></span></span>
     </span>
   </h3>
 
@@ -2682,7 +2682,7 @@ console.log(keys); // [&apos;0&apos;, &apos;1&apos;, &apos;2&apos;]</code></pre>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber377">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber372">source</a></span></span>
     </span>
   </h3>
 
@@ -2775,7 +2775,7 @@ console.log(last); // { name: &apos;Jon Snow&apos;, age: 14 }</code></pre>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber401">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber396">source</a></span></span>
     </span>
   </h3>
 
@@ -2856,7 +2856,7 @@ console.log(collection.all()); [&apos;Bran Stark&apos;, &apos;Arya Stark&apos;, 
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber418">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber413">source</a></span></span>
     </span>
   </h3>
 
@@ -2937,7 +2937,7 @@ console.log(collection.all()); [&apos;Bran Stark&apos;, &apos;Arya Stark&apos;, 
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber431">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber426">source</a></span></span>
     </span>
   </h3>
 
@@ -3014,7 +3014,7 @@ console.log(collection.first()); // &quot;First&quot;</code></pre>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber448">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber443">source</a></span></span>
     </span>
   </h3>
 
@@ -3101,7 +3101,7 @@ console.log(collection.first()); // &quot;First&quot;</code></pre>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber465">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber460">source</a></span></span>
     </span>
   </h3>
 
@@ -3182,7 +3182,7 @@ console.log(collection.all()); // [{ name: &apos;Jon Snow&apos;, age: 14 }]</cod
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber486">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber481">source</a></span></span>
     </span>
   </h3>
 
@@ -3260,7 +3260,7 @@ console.log(collection.all()); // [&apos;arya&apos;, &apos;bran&apos;]</code></p
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber505">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber500">source</a></span></span>
     </span>
   </h3>
 
@@ -3320,7 +3320,7 @@ console.log(collection.all()); // [&apos;three&apos;, &apos;two&apos;, &apos;one
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber518">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber513">source</a></span></span>
     </span>
   </h3>
 
@@ -3397,7 +3397,7 @@ console.log(collection.all()); // [&apos;Bran&apos;, &apos;Sansa&apos;]</code></
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber536">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber531">source</a></span></span>
     </span>
   </h3>
 
@@ -3487,7 +3487,7 @@ console.log(collection.all()); // [2, 3, 4, 5, 6]</code></pre>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber555">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber550">source</a></span></span>
     </span>
   </h3>
 
@@ -3570,7 +3570,7 @@ console.log(sorted.all()); // [1, 2, 3, 4, 5]</code></pre>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber577">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber572">source</a></span></span>
     </span>
   </h3>
 
@@ -3662,7 +3662,7 @@ console.log(collection.pluck(&apos;name&apos;).all()); // [&apos;Brand Stark&apo
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber601">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber596">source</a></span></span>
     </span>
   </h3>
 
@@ -3722,7 +3722,7 @@ console.log(collection.stringify()); // &quot;[1,2,3]&quot;</code></pre>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber630">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber625">source</a></span></span>
     </span>
   </h3>
 
@@ -3818,7 +3818,7 @@ console.log(collection.sum(i =&gt; i.age + 1)); // 33</code></pre>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber661">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber656">source</a></span></span>
     </span>
   </h3>
 
@@ -3900,7 +3900,7 @@ console.log(collection.all()); // [5, 4 ,3]</code></pre>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber726">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber720">source</a></span></span>
     </span>
   </h3>
 
@@ -3999,7 +3999,7 @@ students.unique(s =&gt; s.grade); // [{ name: &apos;Rick&apos;, grade: &apos;A&a
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber767">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber761">source</a></span></span>
     </span>
   </h3>
 
@@ -4064,7 +4064,7 @@ console.log(collection.all()); / /[2, 3, 5]</code></pre>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber793">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber787">source</a></span></span>
     </span>
   </h3>
 
@@ -4162,7 +4162,7 @@ console.log(collection.all()); // [{ name: &apos;Jon Snow&apos;, age: 14 }]</cod
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber811">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/collection.js.html#lineNumber805">source</a></span></span>
     </span>
   </h3>
 
