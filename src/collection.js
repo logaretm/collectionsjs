@@ -336,15 +336,7 @@ export default class Collection
      * console.log(keys); // ['0', '1', '2']
      */
     keys() {
-        let keys = [];
-
-        if (typeof this.items === 'object') {
-            keys = Object.keys(this.items);
-        } else {
-            keys = [...this.items.keys()];
-        }
-
-        return new Collection(keys);
+        return new Collection(Object.keys(this.items));
     }
 
     /**
