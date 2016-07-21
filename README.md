@@ -1,5 +1,6 @@
 # CollectionsJS
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/bfc991bfa8a64cc0b3ad23f7248bb5d5)](https://www.codacy.com/app/logaretm1/collectionsjs?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=logaretm/collectionsjs&amp;utm_campaign=Badge_Grade)
 [![Build Status](https://travis-ci.org/logaretm/collectionsjs.svg?branch=master)](https://travis-ci.org/logaretm/collectionsjs)
 [![codecov](https://codecov.io/gh/logaretm/collectionsjs/branch/master/graph/badge.svg)](https://codecov.io/gh/logaretm/collectionsjs)
 
