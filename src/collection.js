@@ -529,7 +529,7 @@ export default class Collection
      * note that it doesn't change the orignal collection and it creates a
      * shallow copy.
      *
-     * @param  {function} [compare=null] the compare function.
+     * @param  {function} [compare=undefined] the compare function.
      * @return {Collection} A new collection with the sorted items.
      *
      * @example
@@ -539,7 +539,7 @@ export default class Collection
      * console.log(collection.all()); // [5, 3, 4, 1, 2]
      * console.log(sorted.all()); // [1, 2, 3, 4, 5]
      */
-    sort(compare = null) {
+    sort(compare = undefined) {
         return new Collection(this.items.slice().sort(compare));
     }
 

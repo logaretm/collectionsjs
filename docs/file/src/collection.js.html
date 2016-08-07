@@ -376,15 +376,7 @@ export default class Collection
      * console.log(keys); // [&apos;0&apos;, &apos;1&apos;, &apos;2&apos;]
      */
     keys() {
-        let keys = [];
-
-        if (typeof this.items === &apos;object&apos;) {
-            keys = Object.keys(this.items);
-        } else {
-            keys = [...this.items.keys()];
-        }
-
-        return new Collection(keys);
+        return new Collection(Object.keys(this.items));
     }
 
     /**
@@ -577,7 +569,7 @@ export default class Collection
      * note that it doesn&apos;t change the orignal collection and it creates a
      * shallow copy.
      *
-     * @param  {function} [compare=null] the compare function.
+     * @param  {function} [compare=undefined] the compare function.
      * @return {Collection} A new collection with the sorted items.
      *
      * @example
@@ -587,7 +579,7 @@ export default class Collection
      * console.log(collection.all()); // [5, 3, 4, 1, 2]
      * console.log(sorted.all()); // [1, 2, 3, 4, 5]
      */
-    sort(compare = null) {
+    sort(compare = undefined) {
         return new Collection(this.items.slice().sort(compare));
     }
 
